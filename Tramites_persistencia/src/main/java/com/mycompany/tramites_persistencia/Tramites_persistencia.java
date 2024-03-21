@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author Chris
+ * @author Chris, bell y kathya
  */
 public class Tramites_persistencia {
 

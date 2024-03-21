@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Entidades;
 
 import java.io.Serializable;
@@ -51,8 +47,17 @@ public class Licencia extends Tramite implements Serializable {
     public Licencia() {
     }
 
-    public Licencia(Calendar fechaExpedicion, Calendar fechaMax, TipoLicencia tipoLicencia, DuracionLicencia vigencia, Calendar fechaEmision, float monto, Costo costo, Persona persona) {
-        super(fechaEmision, monto, costo, persona);
+    public Licencia(Long id, Calendar fechaExpedicion, Calendar fechaMax, TipoLicencia tipoLicencia, DuracionLicencia vigencia) {
+        super();
+        this.id = id;
+        this.fechaExpedicion = fechaExpedicion;
+        this.fechaMax = fechaMax;
+        this.tipoLicencia = tipoLicencia;
+        this.vigencia = vigencia;
+    }
+
+    public Licencia(Calendar fechaExpedicion, Calendar fechaMax, TipoLicencia tipoLicencia, DuracionLicencia vigencia) {
+        super();
         this.fechaExpedicion = fechaExpedicion;
         this.fechaMax = fechaMax;
         this.tipoLicencia = tipoLicencia;

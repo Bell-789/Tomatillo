@@ -1,14 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,10 +15,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import recursos.TipoAutomovil;
 
 /**
  *
- * @author Chris, bell y kathya
+ * @author Chris, bell y kat
  */
 @Entity
 @Table(name = "automoviles")
@@ -46,29 +46,19 @@ public class Automovil implements Serializable {
     private String linea;
 
     @Column(name = "tipo", nullable = false)
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private TipoAutomovil tipo;
 
     @ManyToOne
     @JoinColumn(name = "idPersona")
     private Persona persona;
 
-    @OneToMany(mappedBy = "automovil")
+    @OneToMany(mappedBy = "automovil", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "id_placas")
     private List<Placa> placas;
 
     public Automovil() {
         this.placas = new ArrayList<>();
-    }
-
-    public Automovil(String numeroSerie, String marca, String color, String modelo, String linea, String tipo, Persona persona) {
-        this.numeroSerie = numeroSerie;
-        this.marca = marca;
-        this.color = color;
-        this.modelo = modelo;
-        this.linea = linea;
-        this.tipo = tipo;
-        this.persona = persona;
-        this.placas = new ArrayList<>();
-
     }
 
     public Long getId() {
@@ -119,12 +109,28 @@ public class Automovil implements Serializable {
         this.linea = linea;
     }
 
-    public String getTipo() {
+    public TipoAutomovil getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoAutomovil tipo) {
         this.tipo = tipo;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public List<Placa> getPlacas() {
+        return placas;
+    }
+
+    public void setPlacas(List<Placa> placas) {
+        this.placas = placas;
     }
 
     @Override

@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -29,8 +26,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tramites")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "Tipo_tramite", discriminatorType
-        = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "Tipo_tramite", discriminatorType = DiscriminatorType.STRING)
 public class Tramite implements Serializable {
 
     @Id
@@ -45,7 +41,8 @@ public class Tramite implements Serializable {
     @Column(name = "monto", nullable = false)
     private float monto;
 
-    @OneToOne(mappedBy = "tramite")
+    @OneToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "id_costo")
     private Costo costo;
 
     @ManyToOne
@@ -53,6 +50,14 @@ public class Tramite implements Serializable {
     private Persona persona;
 
     public Tramite() {
+    }
+
+    public Tramite(Long id, Calendar fechaEmision, float monto, Costo costo, Persona persona) {
+        this.id = id;
+        this.fechaEmision = fechaEmision;
+        this.monto = monto;
+        this.costo = costo;
+        this.persona = persona;
     }
 
     public Tramite(Calendar fechaEmision, float monto, Costo costo, Persona persona) {

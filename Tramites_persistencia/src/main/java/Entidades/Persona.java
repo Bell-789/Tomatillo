@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Entidades;
 
 import java.io.Serializable;
@@ -14,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,11 +29,17 @@ public class Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "RFC", nullable = false)
-    private Integer rfc;
+    @Column(name = "RFC", nullable = false, length = 13, unique = true)
+    private String rfc;
 
-    @Column(name = "nombreCompleto", nullable = false, length = 100)
-    private String nombreCompleto;
+    @Column(name = "nombres", nullable = false, length = 100)
+    private String nombre;
+
+    @Column(name = "apellido_paterno", nullable = false, length = 100)
+    private String apellidoPaterno;
+
+    @Column(name = "apellido_materno", nullable = false, length = 100)
+    private String apellidoMaterno;
 
     @Column(name = "telefono", nullable = false, length = 15)
     private String telefono;
@@ -46,21 +49,39 @@ public class Persona implements Serializable {
     private Calendar fechaNacimiento;
 
     @OneToMany(mappedBy = "persona", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "id_automoviles")
     private List<Automovil> automoviles;
 
     @OneToMany(mappedBy = "persona", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "id_tramites")
     private List<Tramite> tramites;
 
     public Persona() {
+        this.tramites = new ArrayList<>();
         this.automoviles = new ArrayList<>();
     }
 
-    public Persona(Integer rfc, String nombreCompleto, String telefono, Calendar fechaNacimiento) {
+    public Persona(Long id, String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento, List<Automovil> automoviles, List<Tramite> tramites) {
+        this.id = id;
         this.rfc = rfc;
-        this.nombreCompleto = nombreCompleto;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
-        this.automoviles = new ArrayList<>();
+        this.automoviles = automoviles;
+        this.tramites = tramites;
+    }
+
+    public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento, List<Automovil> automoviles, List<Tramite> tramites) {
+        this.rfc = rfc;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
+        this.automoviles = automoviles;
+        this.tramites = tramites;
     }
 
     public Long getId() {
@@ -69,22 +90,6 @@ public class Persona implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getRfc() {
-        return rfc;
-    }
-
-    public void setRfc(Integer rfc) {
-        this.rfc = rfc;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
     }
 
     public String getTelefono() {
@@ -99,6 +104,46 @@ public class Persona implements Serializable {
         return fechaNacimiento;
     }
 
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
+
+    public List<Tramite> getTramites() {
+        return tramites;
+    }
+
+    public void setTramites(List<Tramite> tramites) {
+        this.tramites = tramites;
+    }
+
     public void setFechaNacimiento(Calendar fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
@@ -111,9 +156,12 @@ public class Persona implements Serializable {
         this.automoviles = automoviles;
     }
 
-    @Override
-    public String toString() {
-        return "Persona{" + "id=" + id + ", rfc=" + rfc + ", nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", automoviles=" + automoviles + ", tramites=" + tramites + '}';
+    public List<Tramite> getTramite() {
+        return tramites;
+    }
+
+    public void setTramite(List<Tramite> tramites) {
+        this.tramites = tramites;
     }
 
 }

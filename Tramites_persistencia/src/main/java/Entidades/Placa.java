@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Entidades;
 
 import java.io.Serializable;
@@ -23,8 +19,8 @@ import javax.persistence.TemporalType;
  * @author Chris, bell y kathya
  */
 @Entity
-@DiscriminatorValue("licencia")
-public class Placa implements Serializable {
+@DiscriminatorValue("placa")
+public class Placa extends Tramite implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +40,16 @@ public class Placa implements Serializable {
     public Placa() {
     }
 
+    public Placa(Long id, String numPlaca, Calendar fechaRecepcion, Automovil automovil) {
+        super();
+        this.id = id;
+        this.numPlaca = numPlaca;
+        this.fechaRecepcion = fechaRecepcion;
+        this.automovil = automovil;
+    }
+
     public Placa(String numPlaca, Calendar fechaRecepcion, Automovil automovil) {
+        super();
         this.numPlaca = numPlaca;
         this.fechaRecepcion = fechaRecepcion;
         this.automovil = automovil;

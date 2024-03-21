@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Entidades;
 
 import java.io.Serializable;
@@ -37,17 +33,18 @@ public class Costo implements Serializable {
     @Temporal(TemporalType.DATE)
     private Calendar fechaPago;
 
-    @OneToOne
-    @JoinColumn(name = "idTramite")
-    private Tramite tramite;
-
     public Costo() {
     }
 
-    public Costo(double cantidad, Calendar fechaPago, Tramite tramite) {
+    public Costo(Long id, double cantidad, Calendar fechaPago) {
+        this.id = id;
         this.cantidad = cantidad;
         this.fechaPago = fechaPago;
-        this.tramite = tramite;
+    }
+
+    public Costo(double cantidad, Calendar fechaPago) {
+        this.cantidad = cantidad;
+        this.fechaPago = fechaPago;
     }
 
     public Long getId() {
@@ -74,17 +71,9 @@ public class Costo implements Serializable {
         this.fechaPago = fechaPago;
     }
 
-    public Tramite getTramite() {
-        return tramite;
-    }
-
-    public void setTramite(Tramite tramite) {
-        this.tramite = tramite;
-    }
-
     @Override
     public String toString() {
-        return "Costo{" + "id=" + id + ", cantidad=" + cantidad + ", fechaPago=" + fechaPago + ", tramite=" + tramite + '}';
+        return "Costo{" + "id=" + id + ", cantidad=" + cantidad + ", fechaPago=" + fechaPago + '}';
     }
 
 }

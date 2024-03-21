@@ -23,7 +23,8 @@ import javax.persistence.TemporalType;
  * @author Chris, bell y kathya
  */
 @Entity
-@DiscriminatorValue("licencia")
+@Table (name="placas")
+@DiscriminatorValue("placas")
 public class Placa implements Serializable {
 
     @Id

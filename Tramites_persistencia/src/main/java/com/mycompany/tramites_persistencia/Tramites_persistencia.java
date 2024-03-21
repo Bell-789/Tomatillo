@@ -1,8 +1,11 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-
 package com.mycompany.tramites_persistencia;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -11,6 +14,9 @@ package com.mycompany.tramites_persistencia;
 public class Tramites_persistencia {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+
     }
 }

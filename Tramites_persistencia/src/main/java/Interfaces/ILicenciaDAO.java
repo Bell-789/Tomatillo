@@ -6,7 +6,7 @@ package Interfaces;
 
 /**
  *
- * @author Chris
+ * @author Chris, bell y kat
  */
 public interface ILicenciaDAO {
     

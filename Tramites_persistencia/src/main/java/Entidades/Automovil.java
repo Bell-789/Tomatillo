@@ -142,68 +142,144 @@ public class Automovil implements Serializable {
 
     /**
      * Metodo para asignar el numero de serie al automovil.
-     * @param numeroSerie 
+     *
+     * @param numeroSerie el numero de serie a asignar.
      */
     public void setNumeroSerie(String numeroSerie) {
         this.numeroSerie = numeroSerie;
     }
 
+    /**
+     * Metodo para obtener la marca del automovil.
+     *
+     * @return regresa la marca del automovil.
+     */
     public String getMarca() {
         return marca;
     }
 
+    /**
+     * Metodo para asignar la marca al automovil.
+     *
+     * @param marca la marca a asignar.
+     */
     public void setMarca(String marca) {
         this.marca = marca;
     }
 
+    /**
+     * Metodo para obtener el color del automovil.
+     *
+     * @return regresa el color del automovil.
+     */
     public String getColor() {
         return color;
     }
 
+    /**
+     * Metodo para asignar el color al automovil.
+     *
+     * @param color el color a asignar.
+     */
     public void setColor(String color) {
         this.color = color;
     }
 
+    /**
+     * Metodo para obtner el modelo del automovil.
+     *
+     * @return regresa el modelo del automovil.
+     */
     public String getModelo() {
         return modelo;
     }
 
+    /**
+     * Metodo para asignar el modelo al automovil.
+     *
+     * @param modelo el modelo a asignar.
+     */
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
+    /**
+     * Metodo para obtner la linea del automovil.
+     *
+     * @return regresa la linea del automovil.
+     */
     public String getLinea() {
         return linea;
     }
 
+    /**
+     * Metodo para asignar la linea al automovil.
+     *
+     * @param linea la linea a asignar.
+     */
     public void setLinea(String linea) {
         this.linea = linea;
     }
 
+    /**
+     * Metodo para obtner el tipo del automovil.
+     *
+     * @return regresa el tipo del automovil.
+     */
     public TipoAutomovil getTipo() {
         return tipo;
     }
 
+    /**
+     * Metodo para asignar el tipo de automovil.
+     *
+     * @param tipo el tipo a asignar.
+     */
     public void setTipo(TipoAutomovil tipo) {
         this.tipo = tipo;
     }
 
+    /**
+     * Metodo para obtener la persona del automovil.
+     *
+     * @return regresa la persona del automovil.
+     */
     public Persona getPersona() {
         return persona;
     }
 
+    /**
+     * Metodo para asignar la persona al automovil.
+     *
+     * @param persona la persona a asignar.
+     */
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
 
+    /**
+     * Metodo para obtener la lista de las placas del automovil.
+     *
+     * @return regresa las placas del automovil.
+     */
     public List<Placa> getPlacas() {
         return placas;
     }
 
+    /**
+     * Metodo para asignar la lista de las placas al automovil.
+     *
+     * @param placas la lista de placas a asignar.
+     */
     public void setPlacas(List<Placa> placas) {
         this.placas = placas;
     }
 
+    /**
+     * Metodo para obtener los datos completos del automovil.
+     *
+     * @return regresa los datos del automovil.
+     */
     @Override
     public String toString() {
         return "Automovil{" + "id=" + id + ", numeroSerie=" + numeroSerie + ", marca=" + marca + ", color=" + color + ", modelo=" + modelo + ", linea=" + linea + ", tipo=" + tipo + ", persona=" + persona + ", placas=" + placas + '}';

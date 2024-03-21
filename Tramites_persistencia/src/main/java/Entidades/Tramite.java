@@ -7,10 +7,16 @@ package Entidades;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,14 +24,17 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Chris
+ * @author Chris, bell y kathya
  */
 @Entity
 @Table(name = "tramites")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "Tipo_tramite", discriminatorType
+        = DiscriminatorType.STRING)
 public class Tramite implements Serializable {
 
     @Id
-    @Column (name="idTramite")
+    @Column(name = "idTramite")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -39,13 +48,18 @@ public class Tramite implements Serializable {
     @OneToOne(mappedBy = "tramite")
     private Costo costo;
 
+    @ManyToOne
+    @JoinColumn(name = "idPersona")
+    private Persona persona;
+
     public Tramite() {
     }
 
-    public Tramite(Calendar fechaEmision, float monto, Costo costo) {
+    public Tramite(Calendar fechaEmision, float monto, Costo costo, Persona persona) {
         this.fechaEmision = fechaEmision;
         this.monto = monto;
         this.costo = costo;
+        this.persona = persona;
     }
 
     public Long getId() {
@@ -78,6 +92,19 @@ public class Tramite implements Serializable {
 
     public void setCosto(Costo costo) {
         this.costo = costo;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    @Override
+    public String toString() {
+        return "Tramite{" + "id=" + id + ", fechaEmision=" + fechaEmision + ", monto=" + monto + ", costo=" + costo + ", persona=" + persona + '}';
     }
 
 }

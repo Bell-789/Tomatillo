@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Chris
+ * @author Chris, bell y kathya
  */
 @Entity
 @Table(name = "costos")
@@ -38,7 +38,7 @@ public class Costo implements Serializable {
     private Calendar fechaPago;
 
     @OneToOne
-    @JoinColumn(name = "id_tramite")
+    @JoinColumn(name = "idTramite")
     private Tramite tramite;
 
     public Costo() {
@@ -80,6 +80,11 @@ public class Costo implements Serializable {
 
     public void setTramite(Tramite tramite) {
         this.tramite = tramite;
+    }
+
+    @Override
+    public String toString() {
+        return "Costo{" + "id=" + id + ", cantidad=" + cantidad + ", fechaPago=" + fechaPago + ", tramite=" + tramite + '}';
     }
 
 }

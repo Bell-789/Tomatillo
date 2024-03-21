@@ -21,14 +21,14 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Chris
+ * @author Chris, bell y kathya
  */
 @Entity
 @Table(name = "personas")
 public class Persona implements Serializable {
 
     @Id
-    @Column (name="idPersona")
+    @Column(name = "idPersona")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -47,7 +47,7 @@ public class Persona implements Serializable {
 
     @OneToMany(mappedBy = "persona", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Automovil> automoviles;
-    
+
     @OneToMany(mappedBy = "persona", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Tramite> tramites;
 
@@ -113,7 +113,7 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", rfc=" + rfc + ", nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", automoviles=" + automoviles + '}';
+        return "Persona{" + "id=" + id + ", rfc=" + rfc + ", nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", automoviles=" + automoviles + ", tramites=" + tramites + '}';
     }
 
 }

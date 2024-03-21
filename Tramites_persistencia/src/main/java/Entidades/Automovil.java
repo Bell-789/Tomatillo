@@ -5,6 +5,8 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +14,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author Chris
+ * @author Chris, bell y kathya
  */
 @Entity
 @Table(name = "automoviles")
@@ -24,7 +27,7 @@ public class Automovil implements Serializable {
 
     @Id
     @Column(name = "idAutomovil")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "numeroSerie", nullable = false)
@@ -46,10 +49,14 @@ public class Automovil implements Serializable {
     private String tipo;
 
     @ManyToOne
-    @JoinColumn(name = "id_persona")
+    @JoinColumn(name = "idPersona")
     private Persona persona;
 
+    @OneToMany(mappedBy = "automovil")
+    private List<Placa> placas;
+
     public Automovil() {
+        this.placas = new ArrayList<>();
     }
 
     public Automovil(String numeroSerie, String marca, String color, String modelo, String linea, String tipo, Persona persona) {
@@ -60,6 +67,8 @@ public class Automovil implements Serializable {
         this.linea = linea;
         this.tipo = tipo;
         this.persona = persona;
+        this.placas = new ArrayList<>();
+
     }
 
     public Long getId() {
@@ -116,6 +125,11 @@ public class Automovil implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Automovil{" + "id=" + id + ", numeroSerie=" + numeroSerie + ", marca=" + marca + ", color=" + color + ", modelo=" + modelo + ", linea=" + linea + ", tipo=" + tipo + ", persona=" + persona + ", placas=" + placas + '}';
     }
 
 }

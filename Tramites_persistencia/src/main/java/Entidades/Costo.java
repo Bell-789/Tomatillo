@@ -21,6 +21,9 @@ import javax.persistence.TemporalType;
 @Table(name = "costos")
 public class Costo implements Serializable {
 
+    /**
+     * Identificador de los costos.
+     */
     @Id
     @Column(name = "idCosto")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +50,11 @@ public class Costo implements Serializable {
         this.fechaPago = fechaPago;
     }
 
+    /**
+     * Metodo para obtener el id del costo.
+     *
+     * @return regresa el id del costo.
+     */
     public Long getId() {
         return id;
     }

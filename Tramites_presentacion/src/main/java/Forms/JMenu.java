@@ -4,6 +4,11 @@
  */
 package Forms;
 
+import DAO.PersonaDAO;
+import Excepciones.PersistenciaException;
+import javax.swing.JOptionPane;
+import recursos.GeneraPersonas;
+
 /**
  *
  * @author Katt
@@ -34,6 +39,7 @@ public class JMenu extends javax.swing.JFrame {
         botonLicencia = new javax.swing.JButton();
         botonConsultas = new javax.swing.JButton();
         botonPlacas = new javax.swing.JButton();
+        botonInsertarPersonas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +114,13 @@ public class JMenu extends javax.swing.JFrame {
             }
         });
 
+        botonInsertarPersonas.setText("Insertar personas");
+        botonInsertarPersonas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInsertarPersonasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
         fondoLayout.setHorizontalGroup(
@@ -115,16 +128,21 @@ public class JMenu extends javax.swing.JFrame {
             .addGroup(fondoLayout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(azul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(fondoLayout.createSequentialGroup()
-                        .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonPlacas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonLicencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))))
-                .addGap(57, 57, 57))
+                        .addComponent(botonInsertarPersonas)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(azul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(fondoLayout.createSequentialGroup()
+                                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(botonPlacas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(botonLicencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(botonReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(botonConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))))
+                        .addGap(57, 57, 57))))
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +157,9 @@ public class JMenu extends javax.swing.JFrame {
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonPlacas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(botonInsertarPersonas)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,6 +191,37 @@ public class JMenu extends javax.swing.JFrame {
     private void botonConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonConsultasActionPerformed
+
+    private void botonInsertarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarPersonasActionPerformed
+        insertPersonas();
+    }//GEN-LAST:event_botonInsertarPersonasActionPerformed
+
+    private void insertPersonas() {
+        if (insertados) {
+            mostrarMensajeFallo2OPersonas();
+            return;
+        } else {
+            insertados = true;
+        }
+        PersonaDAO pers = new PersonaDAO();
+        GeneraPersonas person = new GeneraPersonas();
+        try {
+            pers.insertar20Personas(person.obtenerPersonas());
+            mostrarMensajeExito20Personas();
+        } catch (PersistenciaException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+
+    private static boolean insertados = false;
+
+    private void mostrarMensajeExito20Personas() {
+        JOptionPane.showMessageDialog(this, "Personas insertadas");
+    }
+
+    private void mostrarMensajeFallo2OPersonas() {
+        JOptionPane.showMessageDialog(this, "Ya se han insertado las personas");
+    }
 
     /**
      * @param args the command line arguments
@@ -210,6 +261,7 @@ public class JMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel azul;
     private javax.swing.JButton botonConsultas;
+    private javax.swing.JButton botonInsertarPersonas;
     private javax.swing.JButton botonLicencia;
     private javax.swing.JButton botonPlacas;
     private javax.swing.JButton botonReporte;

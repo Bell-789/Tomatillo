@@ -17,10 +17,13 @@ import javax.persistence.Persistence;
 
 /**
  * * Clase encargada de brindar los metodos de persona.
- * 
+ *
  * @author Chris, bell y kat
  */
 public class PersonaDAO implements IPersonaDAO {
+
+    public PersonaDAO() {
+    }
 
     /**
      * Inserta la persona dada en el parametro en la base de datos

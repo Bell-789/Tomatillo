@@ -46,20 +46,28 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="azul" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="botonPlacas" max="32767" attributes="0"/>
-                              <Component id="botonLicencia" max="32767" attributes="0"/>
+                          <Component id="botonInsertarPersonas" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="azul" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="botonPlacas" max="32767" attributes="0"/>
+                                      <Component id="botonLicencia" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace pref="47" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="botonReporte" max="32767" attributes="0"/>
+                                      <Component id="botonConsultas" pref="231" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="47" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="botonReporte" max="32767" attributes="0"/>
-                              <Component id="botonConsultas" pref="231" max="32767" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -78,7 +86,9 @@
                       <Component id="botonConsultas" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
                       <Component id="botonPlacas" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="75" max="32767" attributes="0"/>
+                  <EmptySpace pref="42" max="32767" attributes="0"/>
+                  <Component id="botonInsertarPersonas" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -199,6 +209,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonPlacasActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="botonInsertarPersonas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Insertar personas"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonInsertarPersonasActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

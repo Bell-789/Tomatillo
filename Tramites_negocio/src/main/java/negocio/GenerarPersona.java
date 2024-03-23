@@ -1,22 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package recursos;
+package negocio;
 
 import Entidades.Persona;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
- * @author Chris, bell y kathya
+ * @author Katt
  */
-public class GeneraPersonas {
-
+public class GenerarPersona {
+    
     /**
      * Constructor para generar las personas.
      */
@@ -114,5 +109,5 @@ public class GeneraPersonas {
         }
         return personas;
     }
-
+    
 }

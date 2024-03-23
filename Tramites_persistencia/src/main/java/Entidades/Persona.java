@@ -29,7 +29,7 @@ public class Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "RFC", nullable = false, length = 13, unique = true)
+    @Column(name = "RFC", nullable = false, length = 20, unique = true)
     private String rfc;
 
     @Column(name = "nombres", nullable = false, length = 100)

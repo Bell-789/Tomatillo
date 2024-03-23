@@ -4,7 +4,6 @@ import Entidades.Persona;
 import excepciones.PersistenciaException;
 import Interfaces.IPersonaDAO;
 import java.util.Calendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityExistsException;
@@ -30,83 +29,83 @@ public class PersonaDAO implements IPersonaDAO {
 
             Calendar f = Calendar.getInstance();
             f.set(2004, Calendar.JANUARY, 1);
-            Persona p1 = new Persona("MELM0401014F5", "Melanie", "Cortez", "Huerta", "6441351615", f);
+            Persona p1 = new Persona("LOMJ900101ABC", "Melanie", "Cortez", "Huerta", "6441351615", f);
 
             Calendar f2 = Calendar.getInstance();
             f2.set(1999, Calendar.FEBRUARY, 10);
-            Persona p2 = new Persona("LOMJ900101ABC12301", "Saul", "Ortega", "Hernandez", "6442561915", f2);
+            Persona p2 = new Persona("KIFD670512DEF", "Saul", "Ortega", "Hernandez", "6442561915", f2);
 
             Calendar f3 = Calendar.getInstance();
             f3.set(2000, Calendar.MARCH, 1);
-            Persona p3 = new Persona("KIFD670512DEF45602", "Hugo", "Garcia", "Hernandez", "6441756582", f3);
+            Persona p3 = new Persona("RENP800224GHI", "Hugo", "Garcia", "Hernandez", "6441756582", f3);
 
             Calendar f4 = Calendar.getInstance();
             f4.set(2009, Calendar.APRIL, 18);
-            Persona p4 = new Persona("RENP800224GHI78903", "Martin", "Lopez", "Martinez", "64416583165", f4);
+            Persona p4 = new Persona("QAZW730308JKL", "Martin", "Lopez", "Martinez", "64416583165", f4);
 
             Calendar f5 = Calendar.getInstance();
             f5.set(1998, Calendar.MAY, 24);
-            Persona p5 = new Persona("QAZW730308JKL01204", "Leo", "Perez", "Gonzalez", "6441561683", f5);
+            Persona p5 = new Persona("PLKH880701MNO", "Leo", "Perez", "Gonzalez", "6441561683", f5);
 
             Calendar f6 = Calendar.getInstance();
             f6.set(1990, Calendar.JUNE, 28);
-            Persona p6 = new Persona("PLKH880701MNO34505", "Adrian", "Alvarez", "Rodrigez", "6442351978", f6);
+            Persona p6 = new Persona("NYHB690415PQR", "Adrian", "Alvarez", "Rodrigez", "6442351978", f6);
 
             Calendar f7 = Calendar.getInstance();
             f7.set(1979, Calendar.JULY, 5);
-            Persona p7 = new Persona("NYHB690415PQR67806", "Mario", "Cruz", "Ramirez", "", f7);
+            Persona p7 = new Persona("XCDR550527STU", "Mario", "Cruz", "Ramirez", "5551234567", f7);
 
             Calendar f8 = Calendar.getInstance();
             f8.set(1990, Calendar.AUGUST, 3);
-            Persona p8 = new Persona("XCDR550527STU90107", "Enzo", "Gomez", "Flores", "", f8);
+            Persona p8 = new Persona("ZXYV820903VWX", "Enzo", "Gomez", "Flores", "9876543210", f8);
 
             Calendar f9 = Calendar.getInstance();
             f9.set(2002, Calendar.OCTOBER, 31);
-            Persona p9 = new Persona("ZXYV820903VWX23408", "Javier", "Vasquez", "Jimenez", "", f9);
+            Persona p9 = new Persona("BNMQ761117YZA", "Javier", "Vasquez", "Jimenez", "2345678901", f9);
 
             Calendar f10 = Calendar.getInstance();
             f10.set(2001, Calendar.SEPTEMBER, 14);
-            Persona p10 = new Persona("BNMQ761117YZA56709", "Marcos", "Torres", "Morales", "", f10);
+            Persona p10 = new Persona("FDSA640220BCD", "Marcos", "Torres", "Morales", "7778889990", f10);
 
             Calendar f11 = Calendar.getInstance();
             f11.set(1977, Calendar.NOVEMBER, 2);
-            Persona p11 = new Persona("FDSA640220BCD89010", "Graciela", "Reyes", "Diaz", "", f11);
+            Persona p11 = new Persona("UTRE750912EFG", "Graciela", "Reyes", "Diaz", "3216549870", f11);
 
             Calendar f12 = Calendar.getInstance();
             f12.set(1996, Calendar.DECEMBER, 16);
-            Persona p12 = new Persona("UTRE750912EFG12311", "Manuel", "Perez", "Dominguez", "64642351617", f12);
+            Persona p12 = new Persona("WQPO910602HIJ", "Manuel", "Perez", "Dominguez", "64642351617", f12);
 
             Calendar f13 = Calendar.getInstance();
             f13.set(2005, Calendar.JULY, 28);
-            Persona p13 = new Persona("WQPO910602HIJ45612", "Emma", "Gutierrez", "Mendoza", "", f13);
+            Persona p13 = new Persona("VCXZ870303KLM", "Emma", "Gutierrez", "Mendoza", "9990001112", f13);
 
             Calendar f14 = Calendar.getInstance();
             f14.set(1993, Calendar.APRIL, 24);
-            Persona p14 = new Persona("VCXZ870303KLM78913", "Margarita", "Soto", "Sanchez", "", f14);
+            Persona p14 = new Persona("JHGF800101NOP", "Margarita", "Soto", "Sanchez", "4445556663", f14);
 
             Calendar f15 = Calendar.getInstance();
             f15.set(1988, Calendar.SEPTEMBER, 15);
-            Persona p15 = new Persona("JHGF800101NOP01214", "Olivia", "Ruiz", "Aguilar", "", f15);
+            Persona p15 = new Persona("LKJH920705QRS", "Olivia", "Ruiz", "Aguilar", "8889990004", f15);
 
             Calendar f16 = Calendar.getInstance();
             f16.set(1997, Calendar.DECEMBER, 15);
-            Persona p16 = new Persona("LKJH920705QRS34515", "Paco", "Mendez", "Hernandez", "6442151613", f16);
+            Persona p16 = new Persona("POIU600418TUV", "Paco", "Mendez", "Hernandez", "6442151613", f16);
 
             Calendar f17 = Calendar.getInstance();
             f17.set(1970, Calendar.OCTOBER, 30);
-            Persona p17 = new Persona("POIU600418TUV67816", "Abigail", "Castillo", "Martinez", "", f17);
+            Persona p17 = new Persona("MNBV730807WXY", "Abigail", "Castillo", "Martinez", "6667778885", f17);
 
             Calendar f18 = Calendar.getInstance();
             f18.set(1977, Calendar.JULY, 27);
-            Persona p18 = new Persona("MNBV730807WXY90117", "Karen", "Ortiz", "Portillo", "", f18);
+            Persona p18 = new Persona("ASDF541212ZAB", "Karen", "Ortiz", "Portillo", "4567890123", f18);
 
             Calendar f19 = Calendar.getInstance();
             f19.set(1966, Calendar.FEBRUARY, 14);
-            Persona p19 = new Persona("ASDF541212ZAB23418", "Maddison", "Rivera", "Chavez", "", f19);
+            Persona p19 = new Persona("ERDF800815BCD", "Maddison", "Rivera", "Chavez", "8901234567", f19);
 
             Calendar f20 = Calendar.getInstance();
             f20.set(2004, Calendar.JANUARY, 6);
-            Persona p20 = new Persona("ERDF800815BCD56719", "Michelle", "Ramos", "Guszman", "", f20);
+            Persona p20 = new Persona("ZXCV770626EFG", "Michelle", "Ramos", "Guszman", "3334445553", f20);
 
             em.persist(p1);
             em.persist(p2);

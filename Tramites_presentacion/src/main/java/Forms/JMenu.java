@@ -1,8 +1,8 @@
 package Forms;
 
-//import excepciones.PersistenciaException;
+import excepciones.PersistenciaException;
 import javax.swing.JOptionPane;
-//import negocio.GeneraPersona;
+import negocio.GenerarPersona;
 
 /**
  *
@@ -189,10 +189,25 @@ public class JMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_botonConsultasActionPerformed
 
     private void botonInsertarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarPersonasActionPerformed
-        
+        insertPersonas();
     }//GEN-LAST:event_botonInsertarPersonasActionPerformed
 
-    
+    private void insertPersonas() {
+        if (insertados) {
+            mostrarMensajeFallo2OPersonas();
+            return;
+        } else {
+            insertados = true;
+        }
+        GenerarPersona p = new GenerarPersona();
+        try {
+            p.insertarBoton();
+            mostrarMensajeExito20Personas();
+        } catch (PersistenciaException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+
     private static boolean insertados = false;
 
     private void mostrarMensajeExito20Personas() {

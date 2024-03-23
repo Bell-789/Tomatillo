@@ -6,7 +6,7 @@ import negocio.GenerarPersona;
 
 /**
  *
- * @author Katt
+ * @author Chris, bell y katt
  */
 public class JMenu extends javax.swing.JFrame {
 

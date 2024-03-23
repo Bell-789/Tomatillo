@@ -2,7 +2,7 @@ package Forms;
 
 /**
  *
- * @author Katt
+ * @author Chris, bell y katt
  */
 public class JLicenciaForm extends javax.swing.JFrame {
 

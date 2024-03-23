@@ -21,6 +21,14 @@ public class PersonaDAO implements IPersonaDAO {
     public PersonaDAO() {
     }
 
+    /**
+     * 
+     * Metodo que hace 20 inserciones de personas
+     * 
+     * @throws PersistenciaException Arroja una excepcion
+     */
+    
+    
     public void insertar20Personas() throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();

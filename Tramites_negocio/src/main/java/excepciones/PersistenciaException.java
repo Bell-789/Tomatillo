@@ -2,7 +2,7 @@ package excepciones;
 
 /**
  *
- * @author Chris, bell y kat
+ * @author Chris, bell y katt
  */
 public class PersistenciaException extends Exception {
 

@@ -38,7 +38,7 @@ public class Persona implements Serializable {
     @Column(name = "apellido_paterno", nullable = false, length = 100)
     private String apellidoPaterno;
 
-    @Column(name = "apellido_materno", nullable = false, length = 100)
+    @Column(name = "apellido_materno", nullable = true, length = 100)
     private String apellidoMaterno;
 
     @Column(name = "telefono", nullable = false, length = 15)
@@ -82,6 +82,15 @@ public class Persona implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
         this.automoviles = automoviles;
         this.tramites = tramites;
+    }
+
+    public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento) {
+        this.rfc = rfc;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public Long getId() {

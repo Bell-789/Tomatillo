@@ -39,7 +39,7 @@ public class Tramite implements Serializable {
     private Calendar fechaEmision;
 
     @Column(name = "monto", nullable = false)
-    private float monto;
+    private Float monto;
 
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "id_costo")

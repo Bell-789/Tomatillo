@@ -38,7 +38,7 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
-    public void ActualizarTramite(Tramite tramite) throws PersistenciaException {
+    public void actualizarTramite(Tramite tramite) throws PersistenciaException {
     }
 
     public List<Tramite> consultaTipo() throws PersistenciaException {

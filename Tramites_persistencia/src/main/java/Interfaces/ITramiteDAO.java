@@ -12,7 +12,7 @@ public interface ITramiteDAO {
 
     public void insertarTramite(Tramite tramite) throws PersistenciaException;
 
-    public void ActualizarTramite(Tramite tramite) throws PersistenciaException;
+    public void actualizarTramite(Tramite tramite) throws PersistenciaException;
 
     public List<Tramite> consultaTipo() throws PersistenciaException;
 

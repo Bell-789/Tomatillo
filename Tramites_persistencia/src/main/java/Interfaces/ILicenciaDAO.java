@@ -11,6 +11,6 @@ public interface ILicenciaDAO {
 
     public void insertarLicencia(Licencia licencia) throws PersistenciaException;
 
-    public void ActualizarLicencia(Licencia licencia) throws PersistenciaException;
+    public void actualizarLicencia(Licencia licencia) throws PersistenciaException;
 
 }

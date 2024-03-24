@@ -37,6 +37,4 @@ public class CostoDTO {
         this.fechaPago = fechaPago;
     }
 
-    
-    
 }

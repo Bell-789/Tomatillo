@@ -39,7 +39,7 @@ public class Tramite implements Serializable {
     private Calendar fechaEmision;
 
     @Column(name = "monto", nullable = false)
-    private Float monto;
+    private Integer monto;
 
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "id_costo")
@@ -52,7 +52,7 @@ public class Tramite implements Serializable {
     public Tramite() {
     }
 
-    public Tramite(Long id, Calendar fechaEmision, float monto, Costo costo, Persona persona) {
+    public Tramite(Long id, Calendar fechaEmision, Integer monto, Costo costo, Persona persona) {
         this.id = id;
         this.fechaEmision = fechaEmision;
         this.monto = monto;
@@ -60,7 +60,7 @@ public class Tramite implements Serializable {
         this.persona = persona;
     }
 
-    public Tramite(Calendar fechaEmision, float monto, Costo costo, Persona persona) {
+    public Tramite(Calendar fechaEmision, Integer monto, Costo costo, Persona persona) {
         this.fechaEmision = fechaEmision;
         this.monto = monto;
         this.costo = costo;
@@ -83,11 +83,11 @@ public class Tramite implements Serializable {
         this.fechaEmision = fechaEmision;
     }
 
-    public float getMonto() {
+    public Integer getMonto() {
         return monto;
     }
 
-    public void setMonto(float monto) {
+    public void setMonto(Integer monto) {
         this.monto = monto;
     }
 

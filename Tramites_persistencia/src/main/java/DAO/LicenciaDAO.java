@@ -38,7 +38,7 @@ public class LicenciaDAO implements ILicenciaDAO {
         }
     }
 
-    public void ActualizarLicencia(Licencia licencia) throws PersistenciaException {
+    public void actualizarLicencia(Licencia licencia) throws PersistenciaException {
     }
 
 }

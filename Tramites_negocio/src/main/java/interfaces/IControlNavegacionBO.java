@@ -17,5 +17,15 @@ public interface IControlNavegacionBO {
      *
      */
     public void navegarLicenciaForm();
+    
+    /**
+     * Maneja una ventana cuando se hace con exito
+     */
+    public void navegarValidaExito();
+    
+    /**
+     * Maneja una ventana cuando ocurre un error
+     */
+    public void navegarValidaError();
 
 }

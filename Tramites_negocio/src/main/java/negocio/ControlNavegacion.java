@@ -1,7 +1,10 @@
 package negocio;
 
+import Forms.JLicenciaForm;
+import Forms.JMenu;
+import Forms.ValidacionExitosa;
+import Forms.ValidacionFracaso;
 import interfaces.IControlNavegacionBO;
-import javax.swing.*;
 
 /**
  *
@@ -22,9 +25,21 @@ public class ControlNavegacion implements IControlNavegacionBO {
      * Permite la navegacion hacia el formulario de Licencia
      */
     public void navegarLicenciaForm() {
-//        JLicenciaForm jLicenciaForm = new JLicenciaForm();
-//
-//        jLicenciaForm.setVisible(true);
+        JLicenciaForm jLicenciaForm = new JLicenciaForm();
+
+        jLicenciaForm.setVisible(true);
+    }
+
+    public void navegarValidaExito() {
+        ValidacionExitosa validacionExitosa = new ValidacionExitosa();
+
+        validacionExitosa.setVisible(true);
+    }
+
+    public void navegarValidaError() {
+        ValidacionFracaso validacionFracaso = new ValidacionFracaso();
+
+        validacionFracaso.setVisible(true);
     }
 
 }

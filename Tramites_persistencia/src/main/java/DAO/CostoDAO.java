@@ -1,9 +1,8 @@
 package DAO;
 
-import Entidades.Tramite;
-import Interfaces.ITramiteDAO;
+import Entidades.Costo;
+import Interfaces.ICostoDAO;
 import excepciones.PersistenciaException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityExistsException;
@@ -15,34 +14,30 @@ import javax.persistence.Persistence;
  *
  * @author Katt, Bell y Cri
  */
-public class TramiteDAO implements ITramiteDAO {
+public class CostoDAO implements ICostoDAO {
 
-    public void insertarTramite(Tramite tramite) throws PersistenciaException {
+    public void insertarCosto(Costo costo) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
 
-            em.persist(tramite);
+            em.persist(costo);
 
             em.getTransaction().commit();
 
-            em.refresh(tramite);
+            em.refresh(costo);
         } catch (EntityExistsException e) {
             Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, e);
-            throw new PersistenciaException("El tramite ya ha sido insertado");
+            throw new PersistenciaException("La licencia ya ha sido insertada");
         } finally {
             em.close();
             emf.close();
         }
     }
 
-    public void actualizarTramite(Tramite tramite) throws PersistenciaException {
-    }
-
-    public List<Tramite> consultaTipo() throws PersistenciaException {
-        return null;
+    public void actualizarCosto(Costo costo) throws PersistenciaException {
     }
 
 }

@@ -4,8 +4,14 @@ import Entidades.Licencia;
 import Entidades.Persona;
 import Interfaces.ILicenciaDAO;
 import excepciones.PersistenciaException;
+<<<<<<< HEAD
 import java.util.Arrays;
 import java.util.Calendar;
+=======
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityExistsException;
+>>>>>>> 4846d1b9c62f0fde358498e3b15adf3f14508a91
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -21,6 +27,7 @@ public class LicenciaDAO implements ILicenciaDAO {
     public Licencia insertarLicencia(Licencia licencia) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
+<<<<<<< HEAD
         
         Calendar fechaMax = (Calendar) licencia.getFechaExpedicion().clone();
 
@@ -52,9 +59,27 @@ public class LicenciaDAO implements ILicenciaDAO {
 
         return licencia;
         
+=======
+
+        try {
+            em.getTransaction().begin();
+
+            em.persist(licencia);
+
+            em.getTransaction().commit();
+
+            em.refresh(licencia);
+        } catch (EntityExistsException e) {
+            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, null, e);
+            throw new PersistenciaException("La licencia ya ha sido insertada");
+        } finally {
+            em.close();
+            emf.close();
+        }
+>>>>>>> 4846d1b9c62f0fde358498e3b15adf3f14508a91
     }
 
-    public void ActualizarLicencia(Licencia licencia) throws PersistenciaException {
+    public void actualizarLicencia(Licencia licencia) throws PersistenciaException {
     }
 
 }

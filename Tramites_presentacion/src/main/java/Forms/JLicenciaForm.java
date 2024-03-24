@@ -6,6 +6,7 @@ import Interfaces.ILicenciaDAO;
 import Interfaces.IPersonaDAO;
 import excepciones.PersistenciaException;
 import java.util.Calendar;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import recursos.DuracionLicencia;
 import recursos.TipoLicencia;
@@ -22,6 +23,8 @@ public class JLicenciaForm extends javax.swing.JFrame {
     public JLicenciaForm() {
         initComponents();
     }
+
+    private DefaultComboBoxModel listaPersonas;
 
     private Persona per;
 
@@ -103,6 +106,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
         });
 
         listaPersona.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
+        listaPersona.setModel(listaPersonas);
         listaPersona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listaPersonaActionPerformed(evt);
@@ -254,8 +258,8 @@ public class JLicenciaForm extends javax.swing.JFrame {
         lic.setFechaEmision(Calendar.getInstance());
         lic.setFechaExpedicion(Calendar.getInstance());
         lic.setPersona(per);
-//        lic.setTipoLicencia();
-//        lic.setVigencia();
+        lic.setTipoLicencia((TipoLicencia) listaTipo.getSelectedItem());
+        lic.setVigencia((DuracionLicencia) listaVigencia.getSelectedItem());
 
         if (per == null) {
             return;

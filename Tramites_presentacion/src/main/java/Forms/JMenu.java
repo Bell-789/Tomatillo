@@ -177,7 +177,10 @@ public class JMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_botonReporteActionPerformed
 
     private void botonLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLicenciaActionPerformed
-        // TODO add your handling code here:
+        JLicenciaForm jLicenciaForm = new JLicenciaForm();
+
+        jLicenciaForm.setVisible(true);
+        dispose();
     }//GEN-LAST:event_botonLicenciaActionPerformed
 
     private void botonPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPlacasActionPerformed

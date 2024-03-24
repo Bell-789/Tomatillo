@@ -103,7 +103,6 @@ public class JLicenciaForm extends javax.swing.JFrame {
         });
 
         listaPersona.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        listaPersona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         listaPersona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listaPersonaActionPerformed(evt);
@@ -255,8 +254,8 @@ public class JLicenciaForm extends javax.swing.JFrame {
         lic.setFechaEmision(Calendar.getInstance());
         lic.setFechaExpedicion(Calendar.getInstance());
         lic.setPersona(per);
-        lic.setTipoLicencia(listaTipo.get);
-        lic.setVigencia(listaVigencia.);
+//        lic.setTipoLicencia();
+//        lic.setVigencia();
 
         if (per == null) {
             return;
@@ -276,7 +275,8 @@ public class JLicenciaForm extends javax.swing.JFrame {
 
     private float getMonto() {
         Object tipoSeleccionado = listaTipo.getSelectedItem();
-        if (tipoSeleccionado != null && tipoSeleccionado.equals(discapacitado)) {
+        TipoLicencia tipoLicencia = null;
+        if (tipoSeleccionado != null && tipoSeleccionado.equals(tipoLicencia.discapacitado)) {
             tipo = TipoLicencia.discapacitado;
 
             tipo = TipoLicencia.discapacitado;
@@ -313,40 +313,6 @@ public class JLicenciaForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listaTipoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JLicenciaForm().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel azul;

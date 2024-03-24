@@ -25,11 +25,6 @@ public class LicenciaDTO {
         this.duracion = duracion;
     }
 
-    public LicenciaDTO(Calendar fechaMaxima, TipoLicencia tipo, DuracionLicencia duracion) {
-        this.fechaMaxima = fechaMaxima;
-        this.tipo = tipo;
-        this.duracion = duracion;
-    }
 
     public Calendar getFechaExpedicion() {
         return fechaExpedicion;

@@ -12,14 +12,12 @@ import interfaces.IGenerarPersonasBO;
 public class GenerarPersona implements IGenerarPersonasBO {
 
     /**
-     *Abstrae el metodo de Insertar 20 personas
-     * 
+     * Abstrae el metodo de Insertar 20 personas
+     *
      * @throws PersistenciaException Arroja una excepcion
-     */ 
-    
-    
+     */
     public void insertarBoton() throws PersistenciaException {
-        PersonaDAO iPersonaDAO = new PersonaDAO();
+        IPersonaDAO iPersonaDAO = new PersonaDAO();
 
         iPersonaDAO.insertar20Personas();
     }

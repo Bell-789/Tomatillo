@@ -21,7 +21,7 @@ import recursos.TipoLicencia;
  * @author Chris, bell y kathya
  */
 @Entity
-@Table (name="licencias")
+@Table(name = "licencias")
 @DiscriminatorValue("licencias")
 public class Licencia extends Tramite implements Serializable {
 

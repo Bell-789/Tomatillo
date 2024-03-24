@@ -4,6 +4,7 @@ import Entidades.Persona;
 import excepciones.PersistenciaException;
 import Interfaces.IPersonaDAO;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityExistsException;
@@ -18,17 +19,18 @@ import javax.persistence.Persistence;
  */
 public class PersonaDAO implements IPersonaDAO {
 
+    /**
+     * Construvtor por ausencia
+     */
     public PersonaDAO() {
     }
 
     /**
-     * 
+     *
      * Metodo que hace 20 inserciones de personas
-     * 
+     *
      * @throws PersistenciaException Arroja una excepcion
      */
-    
-    
     public void insertar20Personas() throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -167,5 +169,57 @@ public class PersonaDAO implements IPersonaDAO {
             emf.close();
         }
 
+    }
+
+    public void actualizarAutomoviles() throws PersistenciaException {
+    }
+
+    public void actualizarTramites() throws PersistenciaException {
+    }
+
+    /**
+     * Regresa la lista de personas dentro de la base de datos para su uso
+     * dentro de la licencia
+     *
+     * @return Lista de Personas dentro de la Base de datos
+     * @throws PersistenciaException Arroja una excepcion de tipo
+     * PersistenciaException
+     */
+    public List<String> consultarPersonas() throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+        List<Persona> personas = em.createQuery("SELECT p FROM Persona p", Persona.class).getResultList();
+
+        List<String> list = null;
+
+        for (Persona p1 : personas) {
+            list.add(p1.getNombre());
+        }
+
+        em.getTransaction().commit();
+
+        em.close();
+        em.close();
+        return list;
+    }
+
+    public void actualizarAutomoviles(Persona persona) throws PersistenciaException {
+    }
+
+    public void actualizarTramites(Persona persona) throws PersistenciaException {
+    }
+
+    public List<Persona> consultarNombres() throws PersistenciaException {
+        return null;
+    }
+
+    public List<Persona> consultarFechaNacimiento() throws PersistenciaException {
+        return null;
+    }
+
+    public List<Persona> consultarRFC() throws PersistenciaException {
+        return null;
     }
 }

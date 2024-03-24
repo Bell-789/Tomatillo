@@ -30,12 +30,12 @@ public class JLicenciaForm extends javax.swing.JFrame {
         listaPersona = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        listaVigencia = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        botonAceptar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        listaTipo = new javax.swing.JComboBox<>();
 
         jLabel4.setText("jLabel4");
 
@@ -89,8 +89,13 @@ public class JLicenciaForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel2.setText("Seleccionar Vigencia:");
 
-        jComboBox1.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listaVigencia.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
+        listaVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        listaVigencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaVigenciaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Lucida Sans", 0, 24)); // NOI18N
         jLabel3.setText("MONTO A PAGAR:");
@@ -98,15 +103,15 @@ public class JLicenciaForm extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Lucida Sans", 0, 24)); // NOI18N
         jLabel5.setText("$$");
 
-        jButton1.setBackground(new java.awt.Color(175, 244, 198));
-        jButton1.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
-        jButton1.setText("Aceptar");
+        botonAceptar.setBackground(new java.awt.Color(175, 244, 198));
+        botonAceptar.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
+        botonAceptar.setText("Aceptar");
 
         jLabel6.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel6.setText("Selecccionar Tipo:");
 
-        jComboBox2.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listaTipo.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
+        listaTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Discapacitado" }));
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
@@ -121,7 +126,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
                         .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(225, 225, 225))))
             .addGroup(fondoLayout.createSequentialGroup()
                 .addGap(119, 119, 119)
@@ -139,11 +144,11 @@ public class JLicenciaForm extends javax.swing.JFrame {
                     .addGroup(fondoLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(listaVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(fondoLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(listaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 18, Short.MAX_VALUE))
         );
         fondoLayout.setVerticalGroup(
@@ -166,17 +171,17 @@ public class JLicenciaForm extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(listaVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(listaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
                 .addGap(26, 26, 26)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
 
@@ -202,48 +207,17 @@ public class JLicenciaForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listaPersonaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JLicenciaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JLicenciaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JLicenciaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JLicenciaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void listaVigenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaVigenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaVigenciaActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JLicenciaForm().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel azul;
+    private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonRegresar;
     private javax.swing.JPanel fondo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -251,6 +225,8 @@ public class JLicenciaForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JComboBox<String> listaPersona;
+    private javax.swing.JComboBox<String> listaTipo;
+    private javax.swing.JComboBox<String> listaVigencia;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

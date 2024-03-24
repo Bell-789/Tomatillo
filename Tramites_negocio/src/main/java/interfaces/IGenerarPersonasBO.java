@@ -9,13 +9,12 @@ import excepciones.PersistenciaException;
 public interface IGenerarPersonasBO {
 
     /**
-     * 
      * Abstrae el metodo de Insertar 20 personas
-     * 
-     * @throws PersistenciaException Arroja una excepcion 
-     * 
-     * 
+     *
+     * @throws PersistenciaException Arroja una excepcion
      */
     public void insertarBoton() throws PersistenciaException;
+    
+    
 
 }

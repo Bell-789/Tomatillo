@@ -9,7 +9,7 @@ import excepciones.PersistenciaException;
  */
 public interface ILicenciaDAO {
 
-    public void insertarLicencia(Licencia licencia) throws PersistenciaException;
+    public Licencia insertarLicencia(Licencia licencia) throws PersistenciaException;
 
     public void ActualizarLicencia(Licencia licencia) throws PersistenciaException;
 

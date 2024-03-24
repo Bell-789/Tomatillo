@@ -1,5 +1,15 @@
 package Forms;
 
+import Entidades.Licencia;
+import Entidades.Persona;
+import Interfaces.ILicenciaDAO;
+import Interfaces.IPersonaDAO;
+import excepciones.PersistenciaException;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
+import recursos.DuracionLicencia;
+import recursos.TipoLicencia;
+
 /**
  *
  * @author Chris, bell y katt
@@ -11,6 +21,23 @@ public class JLicenciaForm extends javax.swing.JFrame {
      */
     public JLicenciaForm() {
         initComponents();
+    }
+
+    private Persona per;
+
+    private ILicenciaDAO licDao;
+
+    private IPersonaDAO perDao;
+
+    private JMenu anterior;
+
+    private DuracionLicencia duracion;
+
+    private TipoLicencia tipo;
+
+    private void regresar() {
+        this.anterior.setVisible(true);
+        this.dispose();
     }
 
     /**
@@ -106,12 +133,22 @@ public class JLicenciaForm extends javax.swing.JFrame {
         botonAceptar.setBackground(new java.awt.Color(175, 244, 198));
         botonAceptar.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
         botonAceptar.setText("Aceptar");
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel6.setText("Selecccionar Tipo:");
 
         listaTipo.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         listaTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Discapacitado" }));
+        listaTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaTipoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
@@ -210,6 +247,71 @@ public class JLicenciaForm extends javax.swing.JFrame {
     private void listaVigenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaVigenciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_listaVigenciaActionPerformed
+
+    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        Licencia lic = new Licencia();
+
+        lic.setMonto(getMonto());
+        lic.setFechaEmision(Calendar.getInstance());
+        lic.setFechaExpedicion(Calendar.getInstance());
+        lic.setPersona(per);
+        lic.setTipoLicencia(listaTipo.get);
+        lic.setVigencia(listaVigencia.);
+
+        if (per == null) {
+            return;
+        }
+
+        Licencia licN = null;
+        try {
+            licN = licDao.insertarLicencia(lic);
+        } catch (PersistenciaException e) {
+            JOptionPane.showMessageDialog(this, "Tramite fallo");
+        }
+        if (licN != null) {
+            JOptionPane.showMessageDialog(this, "Tramite realizado con exito.\nCon folio: " + licN.getId());
+            regresar();
+        }
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private float getMonto() {
+        Object tipoSeleccionado = listaTipo.getSelectedItem();
+        if (tipoSeleccionado != null && tipoSeleccionado.equals(discapacitado)) {
+            tipo = TipoLicencia.discapacitado;
+
+            tipo = TipoLicencia.discapacitado;
+            switch (listaVigencia.getSelectedItem().toString()) {
+                case "1 anio":
+                    duracion = DuracionLicencia.UnAnio;
+                    break;
+                case "2 anios":
+                    duracion = DuracionLicencia.dosAnios;
+                    break;
+                case "3 anios":
+                    duracion = DuracionLicencia.tresAnios;
+                    break;
+            }
+            return duracion.getCostoDiscapacitado();
+        } else {
+            tipo = TipoLicencia.normal;
+            switch (listaVigencia.getSelectedItem().toString()) {
+                case "1 anio":
+                    duracion = DuracionLicencia.UnAnio;
+                    break;
+                case "2 anios":
+                    duracion = DuracionLicencia.dosAnios;
+                    break;
+                case "3 anios":
+                    duracion = DuracionLicencia.tresAnios;
+                    break;
+            }
+            return duracion.getCostoNormal();
+        }
+    }
+
+    private void listaTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaTipoActionPerformed
 
     /**
      * @param args the command line arguments

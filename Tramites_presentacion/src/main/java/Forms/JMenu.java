@@ -173,7 +173,9 @@ public class JMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporteActionPerformed
-        // TODO add your handling code here:
+        JReporteTramite po = new JReporteTramite();
+        po.setVisible(true);
+        dispose();
     }//GEN-LAST:event_botonReporteActionPerformed
 
     private void botonLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLicenciaActionPerformed
@@ -184,11 +186,15 @@ public class JMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_botonLicenciaActionPerformed
 
     private void botonPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPlacasActionPerformed
-        // TODO add your handling code here:
+        JPlacaMenu pm = new JPlacaMenu();
+        pm.setVisible(true);
+        dispose();
     }//GEN-LAST:event_botonPlacasActionPerformed
 
     private void botonConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultasActionPerformed
-        // TODO add your handling code here:
+        JConsultas co = new JConsultas();
+        co.setVisible(true);
+        dispose();
     }//GEN-LAST:event_botonConsultasActionPerformed
 
     private void botonInsertarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarPersonasActionPerformed

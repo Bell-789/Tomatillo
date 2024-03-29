@@ -85,13 +85,21 @@ public class GeneraPersonas {
             RFC.append(apellidoM[i].substring(0, 1));
             RFC.append(nombres[i].substring(0, 1));
             RFC.append(anio.format(fechaNacimiento[i].getTime()));
-            RFC.append((fechaNacimiento[i].get(Calendar.MONTH) + 1));
-            RFC.append((fechaNacimiento[i].get(Calendar.DAY_OF_MONTH)));
+            RFC.append(mes(fechaNacimiento[i].get(Calendar.MONTH)+1));
+            RFC.append(mes(fechaNacimiento[i].get(Calendar.DAY_OF_MONTH)));
             RFC.append(RandomStringUtils.randomAlphanumeric(3));
             RFCa[i] = RFC.toString().toUpperCase();
             RFC = null;
         }
         return RFCa;
+    }
+    
+     private String mes(int i) {
+        if (i < 10) {
+            return "0" + i;
+        } else {
+            return i + "";
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package Forms;
 
+import DAO.LicenciaDAO;
 import DAO.PersonaDAO;
 import Entidades.Licencia;
 import Entidades.Persona;
@@ -7,7 +8,9 @@ import Interfaces.ILicenciaDAO;
 import Interfaces.IPersonaDAO;
 import excepciones.PersistenciaException;
 import java.awt.List;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,19 +20,13 @@ import javax.swing.JOptionPane;
 import negocio.RegistraLicencia;
 import recursos.DuracionLicencia;
 import recursos.TipoLicencia;
+import recursos.Validadores;
 
 /**
  *
  * @author Chris, bell y katt
  */
 public class JLicenciaForm extends javax.swing.JFrame {
-
-    /**
-     * Creates new form JLicenciaForm
-     */
-    public JLicenciaForm() {
-        initComponents();
-    }
 
     private DefaultComboBoxModel listaPersonas;
 
@@ -38,7 +35,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
     private ILicenciaDAO licDao;
 
     private IPersonaDAO IperDao;
-    
+
     private PersonaDAO perDao;
 
     private JMenu anterior;
@@ -47,13 +44,25 @@ public class JLicenciaForm extends javax.swing.JFrame {
 
     private TipoLicencia tipo;
 
+    private Validadores validadores;
+    private PersonaDAO perDAO;
+    private LicenciaDAO licDAO;
+
+    /**
+     * Creates new form JLicenciaForm
+     */
+    public JLicenciaForm(JMenu anterior) {
+        initComponents();
+        this.licDao = new LicenciaDAO();
+        this.perDao = new PersonaDAO();
+        this.validadores = new Validadores();
+        this.anterior = anterior;
+    }
+
     private void regresar() {
         this.anterior.setVisible(true);
         this.dispose();
     }
-    
-
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,12 +81,18 @@ public class JLicenciaForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         botonAceptar = new javax.swing.JButton();
         RFCBusqueda = new javax.swing.JTextField();
-        TxTNombre = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        TxtApellidoP = new javax.swing.JTextField();
-        TxTTelefono = new javax.swing.JTextField();
+        txtNacimiento = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         BtnBuscar = new javax.swing.JToggleButton();
         botonRegresar5 = new javax.swing.JButton();
+        cbVigencia = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        chbDiscapacidad = new javax.swing.JCheckBox();
+        txtMonto = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtRFC = new javax.swing.JTextField();
 
         jLabel4.setText("jLabel4");
 
@@ -129,6 +144,30 @@ public class JLicenciaForm extends javax.swing.JFrame {
             }
         });
 
+        RFCBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RFCBusquedaActionPerformed(evt);
+            }
+        });
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+
+        txtNacimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNacimientoActionPerformed(evt);
+            }
+        });
+
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
+
         BtnBuscar.setBackground(new java.awt.Color(175, 244, 198));
         BtnBuscar.setFont(new java.awt.Font("Lucida Sans", 1, 14)); // NOI18N
         BtnBuscar.setText("BUSCAR");
@@ -138,15 +177,44 @@ public class JLicenciaForm extends javax.swing.JFrame {
             }
         });
 
-        botonRegresar5.setText(">");
         botonRegresar5.setBackground(new java.awt.Color(117, 117, 117));
-        botonRegresar5.setBorder(null);
         botonRegresar5.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
+        botonRegresar5.setText(">");
+        botonRegresar5.setBorder(null);
         botonRegresar5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegresar5ActionPerformed(evt);
             }
         });
+
+        cbVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 anio", "2 anios", "3 anios" }));
+        cbVigencia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbVigenciaItemStateChanged(evt);
+            }
+        });
+        cbVigencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbVigenciaActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Vigencia:");
+
+        chbDiscapacidad.setText("Discapacidad");
+        chbDiscapacidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbDiscapacidadActionPerformed(evt);
+            }
+        });
+
+        txtMonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMontoActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Monto:");
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
@@ -168,57 +236,75 @@ public class JLicenciaForm extends javax.swing.JFrame {
             .addGroup(fondoLayout.createSequentialGroup()
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(fondoLayout.createSequentialGroup()
-                        .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(fondoLayout.createSequentialGroup()
-                                .addGap(102, 102, 102)
-                                .addComponent(azul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(356, 356, 356))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(botonRegresar5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(275, 275, 275)))
+                        .addGap(101, 101, 101)
+                        .addComponent(azul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(botonRegresar5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(275, 275, 275)
                         .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(fondoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(84, 84, 84)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(fondoLayout.createSequentialGroup()
+                                    .addComponent(cbVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(chbDiscapacidad))
+                                .addComponent(txtNacimiento, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
+                            .addGroup(fondoLayout.createSequentialGroup()
+                                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtRFC, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(fondoLayout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxTNombre)
-                            .addComponent(TxtApellidoP)
-                            .addComponent(TxTTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))))
+                        .addGap(214, 214, 214)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fondoLayout.createSequentialGroup()
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(azul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))
                     .addGroup(fondoLayout.createSequentialGroup()
-                        .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(fondoLayout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(botonRegresar))
-                            .addComponent(botonRegresar5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(137, 137, 137)))
+                        .addGap(14, 14, 14)
+                        .addComponent(botonRegresar))
+                    .addComponent(botonRegresar5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(azul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RFCBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnBuscar))
-                .addGap(19, 19, 19)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TxTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(TxtApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addComponent(txtNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(TxTTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(chbDiscapacidad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(20, 20, 20)
                 .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,38 +322,18 @@ public class JLicenciaForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        
+
         JMenu me = new JMenu();
         me.setVisible(true);
         dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-   
+        realizarTramite();
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        
-        
-        if(RFCBusqueda.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Campo vacio, favor de llenar la barra de busqueda");
-            
-        } else {
-            
-                Persona pepo = null;
-//            try {
-//                pepo = (Persona) perDao.consultarRFC((RFCBusqueda.getText()));
-//            } catch (PersistenciaException ex) {
-//                Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-                
-                TxTNombre.setText(pepo.getNombre());
-                TxtApellidoP.setText(pepo.getApellidoPaterno());
-                TxTTelefono.setText(pepo.getTelefono());
-                
-            
-        }
-            
+        buscar();
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void botonRegresar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar5ActionPerformed
@@ -276,28 +342,201 @@ public class JLicenciaForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_botonRegresar5ActionPerformed
 
-    
+    private void buscar() {
+        String RFCb = RFCBusqueda.getText();
+        if (RFCb.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor, ingrese el RFC para continuar",
+                    "Error: Campo vacío",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+        if (!validadores.validaRfc(RFCb)) {
+            mostrarMensajeErrorFormatoRFC();
+            return;
+        }
+        this.per = perDao.consultarRFC(RFCb);
+
+        validarPersona();
+    }
+
+    private void mostrarMensajeErrorFormatoRFC() {
+        JOptionPane.showMessageDialog(
+                this,
+                "RFC inválido. Verifica que el RFC sea \n el correcto e ingréselo nuevamente",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Método para realizar el tramite de una licencia.
+     */
+    private void realizarTramite() {
+        Licencia lic = new Licencia();
+        lic.setMonto(getMonto());
+        lic.setFechaEmision(Calendar.getInstance());
+        lic.setFechaExpedicion(Calendar.getInstance());
+        lic.setPersona(per);
+        lic.setTipoLicencia(tipo);
+        lic.setVigencia(duracion);
+        if (per == null) {
+            mostrarMensajeErrorNoEncontrado();
+            return;
+        }
+        Licencia licN = null;
+        try {
+            licN = licDao.insertarLicencia(lic);
+        } catch (PersistenciaException e) {
+            JOptionPane.showMessageDialog(this, "Tramite fallo");
+        }
+        if (licN != null) {
+            JOptionPane.showMessageDialog(this, "Tramite realizado con exito.\nCon folio: " + licN.getId());
+            regresar();
+        }
+    }
+
+    /**
+     * Método para mostrar un mensaje de error de persona no encontrada.
+     */
+    private void mostrarMensajeErrorNoEncontrado() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Persona no encontrada",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Método para validar una persona encontrada.
+     */
+    public void validarPersona() {
+        if (per != null) {
+            float monto = getMonto();
+            String rfc = per.getRfc();
+            String nombre = per.getNombre() + " " + per.getApellidoPaterno() + " " + per.getApellidoMaterno();
+            String nacimiento = formatoFecha(per.getFechaNacimiento());
+            String telefono = per.getTelefono();
+
+            txtRFC.setText(rfc);
+            txtNombre.setText(nombre);
+            txtNacimiento.setText(nacimiento);
+            txtTelefono.setText(telefono);
+            txtMonto.setText(monto + "");
+
+        } else {
+            mostrarMensajeErrorNoEncontrado();
+        }
+    }
+
+    private String formatoFecha(Calendar fecha) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date nacimiento = fecha.getTime();
+
+        return formatter.format(nacimiento);
+    }
+
+    /**
+     * Método para obtener el costo de la licencia.
+     *
+     * @return Costo de la licencia.
+     */
+    public float getMonto() {
+        if (chbDiscapacidad.isSelected()) {
+            tipo = TipoLicencia.discapacitado;
+            switch (cbVigencia.getSelectedItem().toString()) {
+                case "1 anio":
+                    duracion = DuracionLicencia.UnAnio;
+                    break;
+                case "2 anios":
+                    duracion = DuracionLicencia.dosAnios;
+                    break;
+                case "3 anios":
+                    duracion = DuracionLicencia.tresAnios;
+                    break;
+            }
+            return duracion.getCostoDiscapacitado();
+        } else {
+            tipo = TipoLicencia.normal;
+            switch (cbVigencia.getSelectedItem().toString()) {
+                case "1 anio":
+                    duracion = DuracionLicencia.UnAnio;
+                    break;
+                case "2 anios":
+                    duracion = DuracionLicencia.dosAnios;
+                    break;
+                case "3 anios":
+                    duracion = DuracionLicencia.tresAnios;
+                    break;
+            }
+            return duracion.getCostoNormal();
+        }
+    }
+
+//    private void chbDiscapacidadItemStateChanged(java.awt.event.ItemEvent evt) {
+//        cambiarEstadoCosto();
+//    }
+    private void cambiarEstadoCosto() {
+        float monto = getMonto();
+        txtMonto.setText(monto + "");
+    }
+
+    private void RFCBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RFCBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RFCBusquedaActionPerformed
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoActionPerformed
+
+    private void txtNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNacimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNacimientoActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void cbVigenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbVigenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbVigenciaActionPerformed
+
+    private void chbDiscapacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbDiscapacidadActionPerformed
+        cambiarEstadoCosto();
+    }//GEN-LAST:event_chbDiscapacidadActionPerformed
+
+    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoActionPerformed
+
+    private void cbVigenciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbVigenciaItemStateChanged
+        if (evt.getStateChange() == evt.SELECTED) {
+            cambiarEstadoCosto();
+        }
+    }//GEN-LAST:event_cbVigenciaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnBuscar;
     public javax.swing.JTextField RFCBusqueda;
-    private javax.swing.JTextField TxTNombre;
-    private javax.swing.JTextField TxTTelefono;
-    private javax.swing.JTextField TxtApellidoP;
     private javax.swing.JPanel azul;
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonRegresar;
-    private javax.swing.JButton botonRegresar1;
-    private javax.swing.JButton botonRegresar2;
-    private javax.swing.JButton botonRegresar3;
-    private javax.swing.JButton botonRegresar4;
     private javax.swing.JButton botonRegresar5;
+    private javax.swing.JComboBox<String> cbVigencia;
+    private javax.swing.JCheckBox chbDiscapacidad;
     private javax.swing.JPanel fondo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField txtMonto;
+    private javax.swing.JTextField txtNacimiento;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRFC;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
-    

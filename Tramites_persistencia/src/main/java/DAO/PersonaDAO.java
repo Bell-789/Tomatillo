@@ -129,8 +129,7 @@ public class PersonaDAO implements IPersonaDAO {
         Root<Persona> root = criteria.from(Persona.class);
 
         criteria = criteria.select(root).where(
-                builder.equal(root.get("rfc"), RFC)
-        );
+                builder.like(root.get("rfc"), RFC));
 
         TypedQuery<Persona> query = em.createQuery(criteria);
 

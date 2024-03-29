@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,10 +26,6 @@ import recursos.TipoLicencia;
 @Table(name = "licencias")
 @DiscriminatorValue("licencias")
 public class Licencia extends Tramite implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "fechaExpedicion", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -45,32 +43,20 @@ public class Licencia extends Tramite implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private DuracionLicencia vigencia;
 
-    public Licencia() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_persona")
+    private Persona persona;
 
-    public Licencia(Long id, Calendar fechaExpedicion, Calendar fechaMax, TipoLicencia tipoLicencia, DuracionLicencia vigencia) {
-        super();
-        this.id = id;
-        this.fechaExpedicion = fechaExpedicion;
-        this.fechaMax = fechaMax;
-        this.tipoLicencia = tipoLicencia;
-        this.vigencia = vigencia;
+    public Licencia() {
     }
 
     public Licencia(Calendar fechaExpedicion, Calendar fechaMax, TipoLicencia tipoLicencia, DuracionLicencia vigencia) {
         super();
+
         this.fechaExpedicion = fechaExpedicion;
         this.fechaMax = fechaMax;
         this.tipoLicencia = tipoLicencia;
         this.vigencia = vigencia;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Calendar getFechaExpedicion() {
@@ -107,7 +93,7 @@ public class Licencia extends Tramite implements Serializable {
 
     @Override
     public String toString() {
-        return "Licencia{" + "id=" + id + ", fechaExpedicion=" + fechaExpedicion + ", fechaMax=" + fechaMax + ", tipoLicencia=" + tipoLicencia + ", vigencia=" + vigencia + '}';
+        return "Licencia{" + "fechaExpedicion=" + fechaExpedicion + ", fechaMax=" + fechaMax + ", tipoLicencia=" + tipoLicencia + ", vigencia=" + vigencia + '}';
     }
 
 }

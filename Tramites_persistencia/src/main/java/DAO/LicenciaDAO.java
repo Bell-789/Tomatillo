@@ -4,6 +4,7 @@ import Entidades.Licencia;
 import Entidades.Persona;
 import Interfaces.ILicenciaDAO;
 import excepciones.PersistenciaException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
@@ -23,44 +24,43 @@ import java.util.logging.Logger;
  */
 public class LicenciaDAO implements ILicenciaDAO {
 
-    public Licencia insertarLicencia(Licencia licencia) throws PersistenciaException {
+    public Licencia insertarLicencia(Licencia lic) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
 
-        Calendar fechaMax = (Calendar) licencia.getFechaExpedicion().clone();
+        Calendar fechaMax = (Calendar) lic.getFechaExpedicion().clone();
 
-        fechaMax.add(Calendar.MONTH, licencia.getVigencia().getDuracionDias());
+        fechaMax.add(Calendar.MONTH, lic.getVigencia().getDuracionDias());
 
-        licencia.setFechaMax(fechaMax);
+        lic.setFechaMax(fechaMax);
 
-        Persona per = licencia.getPersona();
+        Persona per = lic.getPersona();
 
         if (per != null) {
 
             em.getTransaction().begin();
 
-            if (per.getTramites() != null) {
-                per.getTramites().add(licencia);
+            if (per.getLicencias() != null) {
+                per.getLicencias().add(lic);
             } else {
-                per.setTramites(Arrays.asList(licencia));
+                per.setLicencias(Arrays.asList(lic));
             }
 
-            em.persist(licencia);
+            em.persist(lic);
             em.merge(per);
             em.getTransaction().commit();
-            em.refresh(licencia);
+            em.refresh(lic);
         } else {
             throw new PersistenceException("La licencia no cuenta con una persona asociada");
         }
 
         em.close();
 
-        return licencia;
+        return lic;
+    }
 
 //    public void actualizarLicencia(Licencia licencia) throws PersistenciaException {
 //    }
-    }
-
     @Override
     public void actualizarLicencia(Licencia licencia) throws PersistenciaException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

@@ -25,9 +25,9 @@ public class ControlNavegacion implements IControlNavegacionBO {
      * Permite la navegacion hacia el formulario de Licencia
      */
     public void navegarLicenciaForm() {
-        JLicenciaForm jLicenciaForm = new JLicenciaForm();
+//        JLicenciaForm jLicenciaForm = new JLicenciaForm(jMenu);
 
-        jLicenciaForm.setVisible(true);
+//        jLicenciaForm.setVisible(true);
     }
 
     public void navegarValidaExito() {

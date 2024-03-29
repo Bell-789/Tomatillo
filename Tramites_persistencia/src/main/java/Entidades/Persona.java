@@ -29,7 +29,7 @@ public class Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "RFC", nullable = false,unique = true , length = 13)
+    @Column(name = "RFC", nullable = false, unique = true, length = 13)
     private String rfc;
 
     @Column(name = "nombres", nullable = false, length = 100)
@@ -56,9 +56,16 @@ public class Persona implements Serializable {
     @JoinColumn(name = "id_tramites")
     private List<Tramite> tramites;
 
+    /**
+     * Relacion uno a muchos con licencia
+     */
+    @OneToMany(mappedBy = "persona", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Licencia> licencias;
+
     public Persona() {
         this.tramites = new ArrayList<>();
         this.automoviles = new ArrayList<>();
+        this.licencias = new ArrayList<>();
     }
 
     public Persona(Long id, String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String Estado, Calendar fechaNacimiento) {
@@ -71,6 +78,7 @@ public class Persona implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
         this.tramites = new ArrayList<>();
         this.automoviles = new ArrayList<>();
+        this.licencias = new ArrayList<>();
     }
 
     public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento) {
@@ -82,6 +90,7 @@ public class Persona implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
         this.tramites = new ArrayList<>();
         this.automoviles = new ArrayList<>();
+        this.licencias = new ArrayList<>();
     }
 
     public Long getId() {
@@ -154,6 +163,14 @@ public class Persona implements Serializable {
 
     public void setTramites(List<Tramite> tramites) {
         this.tramites = tramites;
+    }
+
+    public List<Licencia> getLicencias() {
+        return licencias;
+    }
+
+    public void setLicencias(List<Licencia> licencias) {
+        this.licencias = licencias;
     }
 
 }

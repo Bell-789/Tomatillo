@@ -29,7 +29,7 @@ public class Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "RFC", nullable = false, length = 20, unique = true)
+    @Column(name = "RFC", nullable = false,unique = true , length = 13)
     private String rfc;
 
     @Column(name = "nombres", nullable = false, length = 100)
@@ -43,16 +43,11 @@ public class Persona implements Serializable {
 
     @Column(name = "telefono", nullable = false, length = 15)
     private String telefono;
-    
-    @Column(name = "Estado", nullable = false, length = 15)
-    private String Estado;
-
 
     @Column(name = "fechaNacimiento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaNacimiento;
-    
-    
+
     @OneToMany(mappedBy = "persona", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_automoviles")
     private List<Automovil> automoviles;
@@ -66,39 +61,27 @@ public class Persona implements Serializable {
         this.automoviles = new ArrayList<>();
     }
 
-    public Persona(Long id, String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,String Estado, Calendar fechaNacimiento, List<Automovil> automoviles, List<Tramite> tramites) {
+    public Persona(Long id, String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String Estado, Calendar fechaNacimiento) {
         this.id = id;
         this.rfc = rfc;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
-        this.Estado = Estado;
         this.fechaNacimiento = fechaNacimiento;
-        this.automoviles = automoviles;
-        this.tramites = tramites;
+        this.tramites = new ArrayList<>();
+        this.automoviles = new ArrayList<>();
     }
 
-    public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,String Estado, Calendar fechaNacimiento, List<Automovil> automoviles, List<Tramite> tramites) {
+    public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento) {
         this.rfc = rfc;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
-        this.Estado = Estado;
         this.fechaNacimiento = fechaNacimiento;
-        this.automoviles = automoviles;
-        this.tramites = tramites;
-    }
-
-    public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,String Estado, Calendar fechaNacimiento) {
-        this.rfc = rfc;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.telefono = telefono;
-        this.Estado = Estado;
-        this.fechaNacimiento = fechaNacimiento;
+        this.tramites = new ArrayList<>();
+        this.automoviles = new ArrayList<>();
     }
 
     public Long getId() {
@@ -149,14 +132,6 @@ public class Persona implements Serializable {
         this.telefono = telefono;
     }
 
-    public String getEstado() {
-        return Estado;
-    }
-
-    public void setEstado(String Estado) {
-        this.Estado = Estado;
-    }
-
     public Calendar getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -181,5 +156,4 @@ public class Persona implements Serializable {
         this.tramites = tramites;
     }
 
-    
 }

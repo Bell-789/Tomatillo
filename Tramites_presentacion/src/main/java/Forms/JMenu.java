@@ -1,8 +1,7 @@
 package Forms;
 
-import excepciones.PersistenciaException;
-import javax.swing.JOptionPane;
-import negocio.GenerarPersona;
+import DAO.PersonaDAO;
+import negocio.InsertarVeintePersonas;
 
 /**
  *
@@ -16,6 +15,8 @@ public class JMenu extends javax.swing.JFrame {
     public JMenu() {
         initComponents();
     }
+
+    InsertarVeintePersonas insertPer = new InsertarVeintePersonas();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -198,34 +199,8 @@ public class JMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_botonConsultasActionPerformed
 
     private void botonInsertarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarPersonasActionPerformed
-        insertPersonas();
+        insertPer.insertarPersonas(this);
     }//GEN-LAST:event_botonInsertarPersonasActionPerformed
-
-    private void insertPersonas() {
-        if (insertados) {
-            mostrarMensajeFallo2OPersonas();
-            return;
-        } else {
-            insertados = true;
-        }
-        GenerarPersona p = new GenerarPersona();
-        try {
-            p.insertarBoton();
-            mostrarMensajeExito20Personas();
-        } catch (PersistenciaException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }
-
-    private static boolean insertados = false;
-
-    private void mostrarMensajeExito20Personas() {
-        JOptionPane.showMessageDialog(this, "Personas insertadas");
-    }
-
-    private void mostrarMensajeFallo2OPersonas() {
-        JOptionPane.showMessageDialog(this, "Ya se han insertado las personas");
-    }
 
     /**
      * @param args the command line arguments

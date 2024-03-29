@@ -255,11 +255,11 @@ public class JLicenciaForm extends javax.swing.JFrame {
         } else {
             
                 Persona pepo = null;
-            try {
-                pepo = (Persona) perDao.consultarRFC((RFCBusqueda.getText()));
-            } catch (PersistenciaException ex) {
-                Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                pepo = (Persona) perDao.consultarRFC((RFCBusqueda.getText()));
+//            } catch (PersistenciaException ex) {
+//                Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
+//            }
                 
                 TxTNombre.setText(pepo.getNombre());
                 TxtApellidoP.setText(pepo.getApellidoPaterno());

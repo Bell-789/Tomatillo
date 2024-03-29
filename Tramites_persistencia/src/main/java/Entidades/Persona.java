@@ -43,11 +43,16 @@ public class Persona implements Serializable {
 
     @Column(name = "telefono", nullable = false, length = 15)
     private String telefono;
+    
+    @Column(name = "Estado", nullable = false, length = 15)
+    private String Estado;
+
 
     @Column(name = "fechaNacimiento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaNacimiento;
-
+    
+    
     @OneToMany(mappedBy = "persona", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_automoviles")
     private List<Automovil> automoviles;
@@ -61,35 +66,38 @@ public class Persona implements Serializable {
         this.automoviles = new ArrayList<>();
     }
 
-    public Persona(Long id, String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento, List<Automovil> automoviles, List<Tramite> tramites) {
+    public Persona(Long id, String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,String Estado, Calendar fechaNacimiento, List<Automovil> automoviles, List<Tramite> tramites) {
         this.id = id;
         this.rfc = rfc;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
+        this.Estado = Estado;
         this.fechaNacimiento = fechaNacimiento;
         this.automoviles = automoviles;
         this.tramites = tramites;
     }
 
-    public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento, List<Automovil> automoviles, List<Tramite> tramites) {
+    public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,String Estado, Calendar fechaNacimiento, List<Automovil> automoviles, List<Tramite> tramites) {
         this.rfc = rfc;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
+        this.Estado = Estado;
         this.fechaNacimiento = fechaNacimiento;
         this.automoviles = automoviles;
         this.tramites = tramites;
     }
 
-    public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento) {
+    public Persona(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,String Estado, Calendar fechaNacimiento) {
         this.rfc = rfc;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
+        this.Estado = Estado;
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -99,18 +107,6 @@ public class Persona implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public Calendar getFechaNacimiento() {
-        return fechaNacimiento;
     }
 
     public String getRfc() {
@@ -145,12 +141,24 @@ public class Persona implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public List<Tramite> getTramites() {
-        return tramites;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setTramites(List<Tramite> tramites) {
-        this.tramites = tramites;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
+
+    public Calendar getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
     public void setFechaNacimiento(Calendar fechaNacimiento) {
@@ -165,12 +173,13 @@ public class Persona implements Serializable {
         this.automoviles = automoviles;
     }
 
-    public List<Tramite> getTramite() {
+    public List<Tramite> getTramites() {
         return tramites;
     }
 
-    public void setTramite(List<Tramite> tramites) {
+    public void setTramites(List<Tramite> tramites) {
         this.tramites = tramites;
     }
 
+    
 }

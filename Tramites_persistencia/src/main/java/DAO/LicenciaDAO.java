@@ -40,9 +40,9 @@ public class LicenciaDAO implements ILicenciaDAO {
             em.getTransaction().begin();
 
             if (per.getTramites() != null) {
-                per.getTramite().add(licencia);
+                per.getTramites().add(licencia);
             } else {
-                per.setTramite(Arrays.asList(licencia));
+                per.setTramites(Arrays.asList(licencia));
             }
 
             em.persist(licencia);

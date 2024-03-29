@@ -53,7 +53,7 @@ public interface IPersonaDAO {
      * @throws PersistenciaException Arroja una excepcion de tipo
      * PersistenciaException
      */
-    public List<Persona> consultarRFC() throws PersistenciaException;
+    public List<Persona> consultarRFC(String RFC) throws PersistenciaException;
 
     /**
      * Actualiza la lista de Automoviles

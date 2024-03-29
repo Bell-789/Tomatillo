@@ -15,7 +15,7 @@ public class ControlNavegacion implements IControlNavegacionBO {
     /**
      * Permite la navegacion hacia el Menu
      */
-    public void navegarMenu() {
+   public void navegarMenu() {
         JMenu jMenu = new JMenu();
 
         jMenu.setVisible(true);
@@ -41,5 +41,7 @@ public class ControlNavegacion implements IControlNavegacionBO {
 
         validacionFracaso.setVisible(true);
     }
-
 }
+
+
+

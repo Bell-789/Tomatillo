@@ -60,7 +60,7 @@ public class RegistraLicencia {
 //        }
 //        this.per = perDAO.consultarRFC(RFC);
 //    }
-
+//
 //    public void realizarTramite(JLicenciaForm form) {
 //        Licencia lic = new Licencia();
 //        lic.setMonto(form.getMonto());

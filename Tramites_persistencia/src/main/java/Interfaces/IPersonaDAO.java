@@ -1,6 +1,7 @@
 package Interfaces;
 
 import Entidades.Persona;
+import dto.PersonaDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface IPersonaDAO {
      * @throws PersistenciaException Arroja una excepcion de tipo
      * PersistenciaException
      */
-    public Persona insertarPersonas(Persona persona) throws PersistenciaException;
+    public Persona insertarPersonas(PersonaDTO personaDTO) throws PersistenciaException;
 
     /**
      * Inserta en la base de datos a 20 personas dadas en el parametro
@@ -25,7 +26,7 @@ public interface IPersonaDAO {
      * @throws PersistenciaException En caso de que exista algun error al
      * insertar a las personas
      */
-    public void VeintePersonas(List<Persona> personas) throws PersistenciaException;
+    public void VeintePersonas(List<PersonaDTO> personas) throws PersistenciaException;
 
     /**
      * Regresa la lista de personas dentro de la base de datos para su uso

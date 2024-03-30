@@ -7,6 +7,7 @@ package negocio;
 import DAO.PersonaDAO;
 import Entidades.Persona;
 import Forms.JMenu;
+import dto.PersonaDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
 import javax.swing.JDialog;
@@ -42,11 +43,12 @@ public class InsertarVeintePersonas {
         PersonaDAO pers = new PersonaDAO();
         GeneraPersonas person = new GeneraPersonas();
         try {
-            pers.VeintePersonas(person.obtenerPersonas());
+            List<PersonaDTO> personasDTO = person.obtenerPersonasDTO();
+            pers.VeintePersonas(personasDTO);
+
             JOptionPane.showMessageDialog(form, "Se agregaron las personas correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (PersistenciaException e) {
-            JOptionPane.showMessageDialog(form, "Error al agregar las personas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE
-            );
+            JOptionPane.showMessageDialog(form, "Error al agregar las personas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

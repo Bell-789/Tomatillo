@@ -5,7 +5,6 @@
 package recursos;
 
 import Entidades.Persona;
-import dto.PersonaDTO;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -108,18 +107,18 @@ public class GeneraPersonas {
      *
      * @return Lista con las personas.
      */
-    public List<PersonaDTO> obtenerPersonasDTO() {
-        List<PersonaDTO> personasDTO = new ArrayList<>();
+    public List<Persona> obtenerPersonas() {
+        List<Persona> personas = new ArrayList<>();
         for (int i = 0; i < RFC.length; i++) {
-            PersonaDTO personaDTO = new PersonaDTO();
-            personaDTO.setNombre(nombres[i]);
-            personaDTO.setApellidoPaterno(apellidoP[i]);
-            personaDTO.setApellidoMaterno(apellidoM[i]);
-            personaDTO.setFechaNacimiento(fechaNacimiento[i]);
-            personaDTO.setRfc(RFC[i]);
-            personaDTO.setTelefono(telefono[i]);
-            personasDTO.add(personaDTO);
+            Persona per = new Persona();
+            per.setNombre(nombres[i]);
+            per.setApellidoPaterno(apellidoP[i]);
+            per.setApellidoMaterno(apellidoM[i]);
+            per.setFechaNacimiento(fechaNacimiento[i]);
+            per.setRfc(RFC[i]);
+            per.setTelefono(telefono[i]);
+            personas.add(per);
         }
-        return personasDTO;
+        return personas;
     }
 }

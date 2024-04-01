@@ -22,6 +22,12 @@ public class PersonaDTO {
     public PersonaDTO() {
     }
 
+    public PersonaDTO(String rfc) {
+        this.rfc = rfc;
+    }
+    
+    
+
     public PersonaDTO(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento) {
         this.rfc = rfc;
         this.nombre = nombre;

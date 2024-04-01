@@ -30,6 +30,7 @@ public class PersonasNegocio {
     Persona persona;
 
     public PersonasNegocio() {
+       this.pers = new PersonaDAO(); 
     }
 
     public PersonasNegocio(PersonaDAO pers) {

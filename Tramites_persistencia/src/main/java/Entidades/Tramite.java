@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tramites")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "Tipo_tramite", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "tipo_tramite", discriminatorType = DiscriminatorType.STRING)
 public class Tramite implements Serializable {
 
     @Id
@@ -44,16 +44,15 @@ public class Tramite implements Serializable {
     @JoinColumn(name = "idPersona")
     private Persona persona;
 
-    private String tipo;
+    private String tipo_tramite;
 
     public Tramite() {
     }
 
-    public Tramite(Calendar fechaEmision, Float monto, Persona persona, String tipo) {
+    public Tramite(Calendar fechaEmision, Float monto, Persona persona) {
         this.fechaEmision = fechaEmision;
         this.monto = monto;
         this.persona = persona;
-        this.tipo = tipo;
     }
 
     public Long getId() {
@@ -88,12 +87,12 @@ public class Tramite implements Serializable {
         this.persona = persona;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getTipo_tramite() {
+        return tipo_tramite;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipo_tramite(String tipo_tramite) {
+        this.tipo_tramite = tipo_tramite;
     }
 
 }

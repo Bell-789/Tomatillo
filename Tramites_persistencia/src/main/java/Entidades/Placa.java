@@ -50,8 +50,8 @@ public class Placa extends Tramite implements Serializable {
         this.automovil = automovil;
     }
 
-    public Placa(String numPlaca, Calendar fechaRecepcion, TipoVehiculo tipoVehiculo, Automovil automovil, Calendar fechaEmision, Float monto, Persona persona, String tipo) {
-        super(fechaEmision, monto, persona, tipo);
+    public Placa(String numPlaca, Calendar fechaRecepcion, TipoVehiculo tipoVehiculo, Automovil automovil, Calendar fechaEmision, Float monto, Persona persona) {
+        super(fechaEmision, monto, persona);
         this.numPlaca = numPlaca;
         this.fechaRecepcion = fechaRecepcion;
         this.tipoVehiculo = tipoVehiculo;

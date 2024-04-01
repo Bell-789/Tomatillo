@@ -6,9 +6,6 @@ import excepciones.PersistenciaException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -47,7 +44,7 @@ public class TramiteDAO implements ITramiteDAO {
                 Calendar fechaEmision = (Calendar) resultado[2];
                 Persona persona = (Persona) resultado[3];
                 Tramite tramite = new Tramite();
-                tramite.setTipo(tipo);
+                tramite.setTipo_tramite(tipo);
                 tramite.setMonto(monto);
                 tramite.setFechaEmision(fechaEmision);
                 tramite.setPersona(persona);

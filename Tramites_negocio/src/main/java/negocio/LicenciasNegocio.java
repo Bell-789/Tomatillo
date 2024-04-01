@@ -10,8 +10,7 @@ import Entidades.Licencia;
 import Entidades.Persona;
 import dto.LicenciaDTO;
 import excepciones.PersistenciaException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *

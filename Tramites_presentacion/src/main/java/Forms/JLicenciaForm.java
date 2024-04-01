@@ -20,6 +20,7 @@ import javax.persistence.EntityManager;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import negocio.LicenciasNegocio;
+import negocio.PersonasNegocio;
 import negocio.RegistraLicencia;
 import recursos.DuracionLicencia;
 import recursos.TipoLicencia;
@@ -56,6 +57,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
     private LicenciaDAO licDAO;
     private RegistraLicencia regLic;
     private LicenciasNegocio licNeg;
+    private PersonasNegocio perNeg;
 
     /**
      * Creates new form JLicenciaForm
@@ -71,6 +73,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
         this.personaDTO = new PersonaDTO();
         this.licNeg = new LicenciasNegocio();
         this.per = new Persona();
+        this.perNeg = new PersonasNegocio();
     }
 
     private void regresar() {
@@ -358,7 +361,11 @@ public class JLicenciaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        buscar();
+        try {
+            buscar();
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void botonRegresar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar5ActionPerformed
@@ -367,7 +374,8 @@ public class JLicenciaForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_botonRegresar5ActionPerformed
 
-    private void buscar() {
+    private void buscar() throws PersistenciaException {
+        personaDTO = new PersonaDTO(RFCBusqueda.getText());
         String RFCb = RFCBusqueda.getText();
         if (RFCb.isEmpty()) {
             JOptionPane.showMessageDialog(
@@ -382,7 +390,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
             mostrarMensajeErrorFormatoRFC();
             return;
         }
-        this.per = perDao.consultarRFC(RFCb);
+        personaDTO = perNeg.consultarPersonaPorRfc(personaDTO);
 
         validarPersona();
     }
@@ -410,12 +418,12 @@ public class JLicenciaForm extends javax.swing.JFrame {
      * Método para validar una persona encontrada.
      */
     public void validarPersona() {
-        if (per != null) {
+        if (personaDTO != null) {
             float monto = getMonto();
-            String rfc = per.getRfc();
-            String nombre = per.getNombre() + " " + per.getApellidoPaterno() + " " + per.getApellidoMaterno();
-            String nacimiento = formatoFecha(per.getFechaNacimiento());
-            String telefono = per.getTelefono();
+            String rfc = personaDTO.getRfc();
+            String nombre = personaDTO.getNombre() + " " + personaDTO.getApellidoPaterno() + " " + personaDTO.getApellidoMaterno();
+            String nacimiento = formatoFecha(personaDTO.getFechaNacimiento());
+            String telefono = personaDTO.getTelefono();
 
             txtRFC.setText(rfc);
             txtNombre.setText(nombre);

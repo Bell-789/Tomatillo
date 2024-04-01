@@ -5,8 +5,11 @@ import DAO.PersonaDAO;
 import Entidades.Licencia;
 import Entidades.Persona;
 import Forms.JLicenciaForm;
+import dto.LicenciaDTO;
 import excepciones.PersistenciaException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import recursos.DuracionLicencia;
 import recursos.TipoLicencia;
@@ -37,52 +40,34 @@ public class RegistraLicencia {
         this.form = form;
     }
 
-    public void setValidadores(Validadores validadores) {
-        this.validadores = validadores;
-    }
-
-    public void setPerDAO(PersonaDAO perDAO) {
-        this.perDAO = perDAO;
-    }
-
-    public void setLicDAO(LicenciaDAO licDAO) {
-        this.licDAO = licDAO;
-    }
-
-//    public void buscar(JLicenciaForm form, String RFC) {
-//        if (RFC.isEmpty()) {
-//            JOptionPane.showMessageDialog(form, "Por favor, ingrese el RFC para continuar", "Error: Campo vacío", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        if (!validadores.validaRfc(RFC)) {
-//            JOptionPane.showMessageDialog(form, "RFC inválido. Verifica que el RFC sea \n el correcto e ingréselo nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        this.per = perDAO.consultarRFC(RFC);
-//    }
-
-//    public void realizarTramite(JLicenciaForm form) {
-//        Licencia lic = new Licencia();
-//        lic.setMonto(form.getMonto());
-//        lic.setFechaEmision(Calendar.getInstance());
-//        lic.setFechaExpedicion(Calendar.getInstance());
-//        lic.setPersona(form.getPer());
-//        lic.setTipoLicencia(form.getTipo());
-//        lic.setVigencia(form.getDuracion());
-//
-//        if (lic.getPersona() == null) {
-//            JOptionPane.showMessageDialog(form, "Persona no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        Licencia licN = null;
+//    public LicenciaDTO realizarTramite(LicenciaDTO licenciaDTO, String rfc) throws PersistenciaException {
 //        try {
-//            licN = licDAO.insertarLicencia(lic);
-//        } catch (PersistenciaException e) {
-//            JOptionPane.showMessageDialog(form, "Trámite falló");
-//        }
+//            Licencia licencia = new Licencia(
+//                    licenciaDTO.getFechaExpedicion(),
+//                    licenciaDTO.getFechaMaxima(),
+//                    licenciaDTO.getTipo(),
+//                    licenciaDTO.getDuracion()
+//            );
 //
-//        if (licN != null) {
-//            JOptionPane.showMessageDialog(form, "Trámite realizado con éxito.\nCon folio: " + licN.getId());
+//            Persona persona = perDAO.consultarRFC(rfc);
+//
+//            if (persona == null) {
+//                throw new PersistenciaException("No se encontró una persona con el RFC especificado.");
+//            }
+//
+//            licencia.setFechaEmision(licenciaDTO.getFechaEmision());
+//            licencia.setMonto(licenciaDTO.getMonto());
+//            licencia.setPersona(persona);
+//
+//            licDAO.insertarLicencia(licencia);
+//
+//            return licenciaDTO;
+//        } catch (PersistenciaException e) {
+//
+//            throw e;
+//        } catch (Exception e) {
+//
+//            throw new PersistenciaException("Ocurrió un error al realizar el trámite: " + e.getMessage());
 //        }
 //    }
 

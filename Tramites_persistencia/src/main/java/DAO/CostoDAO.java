@@ -1,7 +1,6 @@
 package DAO;
 
 import Entidades.Costo;
-import Interfaces.ICostoDAO;
 import excepciones.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

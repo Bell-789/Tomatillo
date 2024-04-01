@@ -1,4 +1,4 @@
-package Interfaces;
+package DAO;
 
 import Entidades.Persona;
 import excepciones.PersistenciaException;
@@ -28,14 +28,18 @@ public interface IPersonaDAO {
     public void VeintePersonas(List<Persona> personas) throws PersistenciaException;
 
     /**
-     * Regresa la lista de personas dentro de la base de datos para su uso
-     * dentro de la licencia
-     *
-     * @return Lista de Personas dentro de la Base de datos
-     * @throws PersistenciaException Arroja una excepcion de tipo
-     * PersistenciaException
+     * Realiza una consulta de personas en general.
+     * @return regresa una lista de personas registradas en la base de datos.
+     * @throws PersistenciaException Si ocurre un error durante la consulta.
      */
-    public List<String> consultarPersonas() throws PersistenciaException;
+    public List<Persona> consultarPersonas() throws PersistenciaException;
+    
+    /**
+     * Verifica si existen registros de personas.
+     *
+     * @return true si hay registros de personas, false si la tabla está vacía.
+     */
+    public boolean hayRegistros();
 
     /**
      * Consulta por medio de un nombre dado en especifico
@@ -62,7 +66,7 @@ public interface IPersonaDAO {
      * @throws PersistenciaException Arroja una excepcion de tipo
      * PersistenciaException
      */
-    public Persona consultarRFC(String RFC) throws PersistenciaException;
+    public Persona consultarRFC(Persona persona) throws PersistenciaException;
 
     /**
      * Actualiza la lista de Automoviles

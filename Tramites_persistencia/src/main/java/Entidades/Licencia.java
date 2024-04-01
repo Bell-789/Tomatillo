@@ -7,11 +7,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,14 +22,6 @@ import recursos.TipoLicencia;
 @DiscriminatorValue("licencias")
 public class Licencia extends Tramite implements Serializable {
 
-    @Column(name = "fechaExpedicion", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar fechaExpedicion;
-
-    @Column(name = "fechaMax", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar fechaMax;
-
     @Column(name = "tipoLicencia", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private TipoLicencia tipoLicencia;
@@ -43,36 +30,18 @@ public class Licencia extends Tramite implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private DuracionLicencia vigencia;
 
-    @ManyToOne
-    @JoinColumn(name = "id_persona")
-    private Persona persona;
-
     public Licencia() {
     }
 
-    public Licencia(Calendar fechaExpedicion, Calendar fechaMax, TipoLicencia tipoLicencia, DuracionLicencia vigencia) {
-        super();
-
-        this.fechaExpedicion = fechaExpedicion;
-        this.fechaMax = fechaMax;
+    public Licencia(TipoLicencia tipoLicencia, DuracionLicencia vigencia) {
         this.tipoLicencia = tipoLicencia;
         this.vigencia = vigencia;
     }
 
-    public Calendar getFechaExpedicion() {
-        return fechaExpedicion;
-    }
-
-    public void setFechaExpedicion(Calendar fechaExpedicion) {
-        this.fechaExpedicion = fechaExpedicion;
-    }
-
-    public Calendar getFechaMax() {
-        return fechaMax;
-    }
-
-    public void setFechaMax(Calendar fechaMax) {
-        this.fechaMax = fechaMax;
+    public Licencia(TipoLicencia tipoLicencia, DuracionLicencia vigencia, Calendar fechaEmision, Float monto, Persona persona, String tipo) {
+        super(fechaEmision, monto, persona, tipo);
+        this.tipoLicencia = tipoLicencia;
+        this.vigencia = vigencia;
     }
 
     public TipoLicencia getTipoLicencia() {
@@ -89,11 +58,6 @@ public class Licencia extends Tramite implements Serializable {
 
     public void setVigencia(DuracionLicencia vigencia) {
         this.vigencia = vigencia;
-    }
-
-    @Override
-    public String toString() {
-        return "Licencia{" + "fechaExpedicion=" + fechaExpedicion + ", fechaMax=" + fechaMax + ", tipoLicencia=" + tipoLicencia + ", vigencia=" + vigencia + '}';
     }
 
 }

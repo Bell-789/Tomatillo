@@ -1,6 +1,7 @@
 package dto;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -8,31 +9,42 @@ import java.util.Calendar;
  */
 public class TramiteDTO {
 
-    private Calendar fechaEmision;
-    private Integer monto;
+    private Date fechaEmision;
+    private float monto;
+    private PersonaDTO personaDTO;
 
     public TramiteDTO() {
+
     }
 
-    public TramiteDTO(Calendar fechaEmision, Integer monto) {
+    public TramiteDTO(Date fechaEmision, float monto, PersonaDTO personaDTO) {
         this.fechaEmision = fechaEmision;
         this.monto = monto;
+        this.personaDTO = personaDTO;
     }
 
-    public Calendar getFechaEmision() {
+    public Date getFechaEmision() {
         return fechaEmision;
     }
 
-    public void setFechaEmision(Calendar fechaEmision) {
+    public void setFechaEmision(Date fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
 
-    public Integer getMonto() {
+    public float getMonto() {
         return monto;
     }
 
-    public void setMonto(Integer monto) {
+    public void setMonto(float monto) {
         this.monto = monto;
+    }
+
+    public PersonaDTO getPersonaDTO() {
+        return personaDTO;
+    }
+
+    public void setPersonaDTO(PersonaDTO personaDTO) {
+        this.personaDTO = personaDTO;
     }
 
     @Override

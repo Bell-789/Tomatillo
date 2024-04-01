@@ -2,7 +2,6 @@ package DAO;
 
 import Entidades.Licencia;
 import Entidades.Persona;
-import Interfaces.ILicenciaDAO;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,39 +23,19 @@ import java.util.logging.Logger;
  */
 public class LicenciaDAO implements ILicenciaDAO {
 
-    public Licencia insertarLicencia(Licencia lic) throws PersistenciaException {
+    public Licencia insertarLicencia(Licencia licencia){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
 
-        Calendar fechaMax = (Calendar) lic.getFechaExpedicion().clone();
+        em.getTransaction().begin();
 
-        fechaMax.add(Calendar.MONTH, lic.getVigencia().getDuracionDias());
+        em.persist(licencia);
 
-        lic.setFechaMax(fechaMax);
-
-        Persona per = lic.getPersona();
-
-        if (per != null) {
-
-            em.getTransaction().begin();
-
-            if (per.getLicencias() != null) {
-                per.getLicencias().add(lic);
-            } else {
-                per.setLicencias(Arrays.asList(lic));
-            }
-
-            em.persist(lic);
-            em.merge(per);
-            em.getTransaction().commit();
-            em.refresh(lic);
-        } else {
-            throw new PersistenceException("La licencia no cuenta con una persona asociada");
-        }
+        em.getTransaction().commit();
 
         em.close();
 
-        return lic;
+        return licencia;
     }
 
 //    public void actualizarLicencia(Licencia licencia) throws PersistenciaException {

@@ -1,4 +1,4 @@
-package Interfaces;
+package DAO;
 
 import Entidades.Costo;
 import excepciones.PersistenciaException;

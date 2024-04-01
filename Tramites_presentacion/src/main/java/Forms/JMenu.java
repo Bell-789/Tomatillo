@@ -1,7 +1,6 @@
 package Forms;
 
-import DAO.PersonaDAO;
-import negocio.InsertarVeintePersonas;
+import negocio.PersonasNegocio;
 
 /**
  *
@@ -9,14 +8,15 @@ import negocio.InsertarVeintePersonas;
  */
 public class JMenu extends javax.swing.JFrame {
 
+    PersonasNegocio perNeg;
+
     /**
      * Creates new form JMenu
      */
     public JMenu() {
         initComponents();
+        this.perNeg = new PersonasNegocio();
     }
-
-    InsertarVeintePersonas insertPer = new InsertarVeintePersonas();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -199,7 +199,7 @@ public class JMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_botonConsultasActionPerformed
 
     private void botonInsertarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarPersonasActionPerformed
-        insertPer.insertarPersonas(this);
+        perNeg.insertarPersonas(this);
     }//GEN-LAST:event_botonInsertarPersonasActionPerformed
 
     /**

@@ -4,8 +4,10 @@ import DAO.LicenciaDAO;
 import DAO.PersonaDAO;
 import Entidades.Licencia;
 import Entidades.Persona;
-import Interfaces.ILicenciaDAO;
-import Interfaces.IPersonaDAO;
+import DAO.ILicenciaDAO;
+import DAO.IPersonaDAO;
+import dto.LicenciaDTO;
+import dto.PersonaDTO;
 import excepciones.PersistenciaException;
 import java.awt.List;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import negocio.LicenciasNegocio;
 import negocio.RegistraLicencia;
 import recursos.DuracionLicencia;
 import recursos.TipoLicencia;
@@ -34,11 +37,15 @@ public class JLicenciaForm extends javax.swing.JFrame {
 
     private ILicenciaDAO licDao;
 
+    private PersonaDTO personaDTO;
+
     private IPersonaDAO IperDao;
 
     private PersonaDAO perDao;
 
     private JMenu anterior;
+
+    private LicenciaDTO lic;
 
     private DuracionLicencia duracion;
 
@@ -47,6 +54,8 @@ public class JLicenciaForm extends javax.swing.JFrame {
     private Validadores validadores;
     private PersonaDAO perDAO;
     private LicenciaDAO licDAO;
+    private RegistraLicencia regLic;
+    private LicenciasNegocio licNeg;
 
     /**
      * Creates new form JLicenciaForm
@@ -57,6 +66,11 @@ public class JLicenciaForm extends javax.swing.JFrame {
         this.perDao = new PersonaDAO();
         this.validadores = new Validadores();
         this.anterior = anterior;
+        this.regLic = new RegistraLicencia();
+        this.lic = new LicenciaDTO();
+        this.personaDTO = new PersonaDTO();
+        this.licNeg = new LicenciasNegocio();
+        this.per = new Persona();
     }
 
     private void regresar() {
@@ -329,7 +343,18 @@ public class JLicenciaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        realizarTramite();
+        Calendar fechaEmision = Calendar.getInstance();
+        lic = new LicenciaDTO(
+                tipo,
+                duracion,
+                fechaEmision,
+                getMonto(),
+                personaDTO);
+        try {
+            licNeg.realizarTramite(lic);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
@@ -368,33 +393,6 @@ public class JLicenciaForm extends javax.swing.JFrame {
                 "RFC inválido. Verifica que el RFC sea \n el correcto e ingréselo nuevamente",
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
-    }
-
-    /**
-     * Método para realizar el tramite de una licencia.
-     */
-    private void realizarTramite() {
-        Licencia lic = new Licencia();
-        lic.setMonto(getMonto());
-        lic.setFechaEmision(Calendar.getInstance());
-        lic.setFechaExpedicion(Calendar.getInstance());
-        lic.setPersona(per);
-        lic.setTipoLicencia(tipo);
-        lic.setVigencia(duracion);
-        if (per == null) {
-            mostrarMensajeErrorNoEncontrado();
-            return;
-        }
-        Licencia licN = null;
-        try {
-            licN = licDao.insertarLicencia(lic);
-        } catch (PersistenciaException e) {
-            JOptionPane.showMessageDialog(this, "Tramite fallo");
-        }
-        if (licN != null) {
-            JOptionPane.showMessageDialog(this, "Tramite realizado con exito.\nCon folio: " + licN.getId());
-            regresar();
-        }
     }
 
     /**

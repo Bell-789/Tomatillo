@@ -2,7 +2,7 @@ package Entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.CascadeType;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -14,7 +14,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,30 +40,20 @@ public class Tramite implements Serializable {
     @Column(name = "monto", nullable = false)
     private Float monto;
 
-    @OneToOne(cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "id_costo")
-    private Costo costo;
-
     @ManyToOne
     @JoinColumn(name = "idPersona")
     private Persona persona;
 
+    private String tipo;
+
     public Tramite() {
     }
 
-    public Tramite(Long id, Calendar fechaEmision, Float monto, Costo costo, Persona persona) {
-        this.id = id;
+    public Tramite(Calendar fechaEmision, Float monto, Persona persona, String tipo) {
         this.fechaEmision = fechaEmision;
         this.monto = monto;
-        this.costo = costo;
         this.persona = persona;
-    }
-
-    public Tramite(Calendar fechaEmision, Float monto, Costo costo, Persona persona) {
-        this.fechaEmision = fechaEmision;
-        this.monto = monto;
-        this.costo = costo;
-        this.persona = persona;
+        this.tipo = tipo;
     }
 
     public Long getId() {
@@ -91,14 +80,6 @@ public class Tramite implements Serializable {
         this.monto = monto;
     }
 
-    public Costo getCosto() {
-        return costo;
-    }
-
-    public void setCosto(Costo costo) {
-        this.costo = costo;
-    }
-
     public Persona getPersona() {
         return persona;
     }
@@ -107,9 +88,12 @@ public class Tramite implements Serializable {
         this.persona = persona;
     }
 
-    @Override
-    public String toString() {
-        return "Tramite{" + "id=" + id + ", fechaEmision=" + fechaEmision + ", monto=" + monto + ", costo=" + costo + ", persona=" + persona + '}';
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 }

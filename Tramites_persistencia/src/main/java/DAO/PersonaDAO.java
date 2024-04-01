@@ -2,7 +2,6 @@ package DAO;
 
 import Entidades.Persona;
 import excepciones.PersistenciaException;
-import Interfaces.IPersonaDAO;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -10,7 +9,9 @@ import java.util.logging.Logger;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -77,31 +78,50 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     /**
-     * Regresa la lista de personas dentro de la base de datos para su uso
-     * dentro de la licencia
+     * Realiza una consulta de personas en general.
      *
-     * @return Lista de Personas dentro de la Base de datos
-     * @throws PersistenciaException Arroja una excepcion de tipo
-     * PersistenciaException
+     * @return regresa una lista de personas registradas en la base de datos.
+     * @throws PersistenciaException Si ocurre un error durante la consulta.
      */
-    public List<String> consultarPersonas() throws PersistenciaException {
+    @Override
+    public List<Persona> consultarPersonas() throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
+        List<Persona> personas = null;
 
-        em.getTransaction().begin();
-        List<Persona> personas = em.createQuery("SELECT p FROM Persona p", Persona.class).getResultList();
-
-        List<String> list = null;
-
-        for (Persona p1 : personas) {
-            list.add(p1.getNombre());
+        try {
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Persona> query = builder.createQuery(Persona.class);
+            Root<Persona> root = query.from(Persona.class);
+            query.select(root);
+            personas = em.createQuery(query).getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar personas: " + e);
+        } finally {
+            em.close();
         }
+        return personas;
+    }
 
-        em.getTransaction().commit();
+    /**
+     * Verifica si existen registros de personas.
+     *
+     * @return true si hay registros de personas, false si la tabla está vacía.
+     */
+    @Override
+    public boolean hayRegistros() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<Persona> root = criteria.from(Persona.class);
+        criteria.select(builder.count(root));
+        TypedQuery<Long> query = em.createQuery(criteria);
+        Long count = query.getSingleResult();
 
         em.close();
-        em.close();
-        return list;
+        return count != 0;
     }
 
     public void actualizarAutomoviles(Persona persona) throws PersistenciaException {
@@ -119,17 +139,38 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     @Override
-    public Persona consultarRFC(String RFC) {
+    public Persona consultarRFC(Persona persona) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
 
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Persona> cq = cb.createQuery(Persona.class);
+            Root<Persona> root = cq.from(Persona.class);
+
+            cq.select(root)
+                    .where(cb.equal(root.get("rfc"), persona.getRfc()));
+
+            Persona personaConsultada = em.createQuery(cq).getSingleResult();
+            return personaConsultada;
+        } catch (NoResultException nre) {
+            throw new PersistenciaException("RFC inválido, persona inexistente");
+        } finally {
+            em.close();
+        }
+    }
+
+    public Persona consultarRFC(String rfc) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
         CriteriaBuilder builder = em.getCriteriaBuilder();
 
         CriteriaQuery<Persona> criteria = builder.createQuery(Persona.class);
         Root<Persona> root = criteria.from(Persona.class);
 
         criteria = criteria.select(root).where(
-                builder.like(root.get("rfc"), RFC));
+                builder.like(root.get("rfc"), rfc)
+        );
 
         TypedQuery<Persona> query = em.createQuery(criteria);
 

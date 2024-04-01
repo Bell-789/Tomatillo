@@ -12,7 +12,6 @@ import java.util.Calendar;
  */
 public class PersonaDTO {
 
-    private Long id;
     private String rfc;
     private String nombre;
     private String apellidoPaterno;
@@ -23,8 +22,7 @@ public class PersonaDTO {
     public PersonaDTO() {
     }
 
-    public PersonaDTO(Long id, String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento) {
-        this.id = id;
+    public PersonaDTO(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento) {
         this.rfc = rfc;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -33,13 +31,13 @@ public class PersonaDTO {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Long getId() {
-        return id;
+    public PersonaDTO(String nombre, String apellidoPaterno, String apellidoMaterno) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
+    
 
     public String getRfc() {
         return rfc;

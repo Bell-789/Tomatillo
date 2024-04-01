@@ -10,36 +10,21 @@ import recursos.TipoLicencia;
  */
 public class LicenciaDTO {
 
-    private Calendar fechaExpedicion;
-    private Calendar fechaMaxima;
     private TipoLicencia tipo;
     private DuracionLicencia duracion;
+    private Calendar fechaEmision;
+    private Float monto;
+    private PersonaDTO persona;
 
     public LicenciaDTO() {
     }
 
-    public LicenciaDTO(Calendar fechaExpedicion, Calendar fechaMaxima, TipoLicencia tipo, DuracionLicencia duracion) {
-        this.fechaExpedicion = fechaExpedicion;
-        this.fechaMaxima = fechaMaxima;
+    public LicenciaDTO(TipoLicencia tipo, DuracionLicencia duracion, Calendar fechaEmision, Float monto, PersonaDTO persona) {
         this.tipo = tipo;
         this.duracion = duracion;
-    }
-
-
-    public Calendar getFechaExpedicion() {
-        return fechaExpedicion;
-    }
-
-    public void setFechaExpedicion(Calendar fechaExpedicion) {
-        this.fechaExpedicion = fechaExpedicion;
-    }
-
-    public Calendar getFechaMaxima() {
-        return fechaMaxima;
-    }
-
-    public void setFechaMaxima(Calendar fechaMaxima) {
-        this.fechaMaxima = fechaMaxima;
+        this.fechaEmision = fechaEmision;
+        this.monto = monto;
+        this.persona = persona;
     }
 
     public TipoLicencia getTipo() {
@@ -58,9 +43,28 @@ public class LicenciaDTO {
         this.duracion = duracion;
     }
 
-    @Override
-    public String toString() {
-        return "LicenciaDTO{" + "fechaExpedicion=" + fechaExpedicion + ", fechaMaxima=" + fechaMaxima + ", tipo=" + tipo + ", duracion=" + duracion + '}';
+    public Calendar getFechaEmision() {
+        return fechaEmision;
+    }
+
+    public void setFechaEmision(Calendar fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+
+    public Float getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Float monto) {
+        this.monto = monto;
+    }
+
+    public PersonaDTO getPersona() {
+        return persona;
+    }
+
+    public void setPersona(PersonaDTO persona) {
+        this.persona = persona;
     }
 
 }

@@ -1,4 +1,4 @@
-package DAO;
+package interfaces;
 
 import Entidades.Licencia;
 import excepciones.PersistenciaException;

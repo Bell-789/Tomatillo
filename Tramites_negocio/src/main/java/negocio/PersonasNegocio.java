@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package negocio;
 
 import DAO.PersonaDAO;
 import Entidades.Persona;
-import Forms.JMenu;
 import dto.PersonaDTO;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
@@ -30,7 +25,7 @@ public class PersonasNegocio {
     Persona persona;
 
     public PersonasNegocio() {
-       this.pers = new PersonaDAO(); 
+        this.pers = new PersonaDAO();
     }
 
     public PersonasNegocio(PersonaDAO pers) {
@@ -42,9 +37,9 @@ public class PersonasNegocio {
      * insertado personas previamente, muestra mensaje de error. Si no, inserta
      * personas en la base de datos y muestra mensaje de éxito.
      */
-    public void insertarPersonas(JMenu form) {
+    public void insertarPersonas() {
         if (insertados) {
-            JOptionPane.showMessageDialog(form, "Ya se han agregado las personas previamente", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ya se han agregado las personas previamente", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } else {
             insertados = true;
@@ -53,10 +48,9 @@ public class PersonasNegocio {
         GeneraPersonas person = new GeneraPersonas();
         try {
             pers.VeintePersonas(person.obtenerPersonas());
-            JOptionPane.showMessageDialog(form, "Se agregaron las personas correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se agregaron las personas correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (PersistenciaException e) {
-            JOptionPane.showMessageDialog(form, "Error al agregar las personas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE
-            );
+            JOptionPane.showMessageDialog(null, "Error al agregar las personas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -2,29 +2,22 @@ package Forms;
 
 import DAO.LicenciaDAO;
 import DAO.PersonaDAO;
-import Entidades.Licencia;
-import Entidades.Persona;
-import DAO.ILicenciaDAO;
-import DAO.IPersonaDAO;
+import interfaces.ILicenciaDAO;
+import interfaces.IPersonaDAO;
 import dto.LicenciaDTO;
 import dto.PersonaDTO;
 import excepciones.PersistenciaException;
-import java.awt.List;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import negocio.LicenciasNegocio;
 import negocio.PersonasNegocio;
-import negocio.RegistraLicencia;
 import recursos.DuracionLicencia;
 import recursos.TipoLicencia;
-import recursos.Validadores;
+import validaciones.Validadores;
 
 /**
  *
@@ -32,30 +25,16 @@ import recursos.Validadores;
  */
 public class JLicenciaForm extends javax.swing.JFrame {
 
-    private DefaultComboBoxModel listaPersonas;
-
-    private Persona per;
-
     private ILicenciaDAO licDao;
-
     private PersonaDTO personaDTO;
-
     private IPersonaDAO IperDao;
-
     private PersonaDAO perDao;
-
     private JMenu anterior;
-
     private LicenciaDTO lic;
-
     private DuracionLicencia duracion;
-
     private TipoLicencia tipo;
-
     private Validadores validadores;
     private PersonaDAO perDAO;
-    private LicenciaDAO licDAO;
-    private RegistraLicencia regLic;
     private LicenciasNegocio licNeg;
     private PersonasNegocio perNeg;
 
@@ -68,11 +47,9 @@ public class JLicenciaForm extends javax.swing.JFrame {
         this.perDao = new PersonaDAO();
         this.validadores = new Validadores();
         this.anterior = anterior;
-        this.regLic = new RegistraLicencia();
         this.lic = new LicenciaDTO();
         this.personaDTO = new PersonaDTO();
         this.licNeg = new LicenciasNegocio();
-        this.per = new Persona();
         this.perNeg = new PersonasNegocio();
     }
 
@@ -99,7 +76,6 @@ public class JLicenciaForm extends javax.swing.JFrame {
         botonAceptar = new javax.swing.JButton();
         RFCBusqueda = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         txtNacimiento = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         BtnBuscar = new javax.swing.JToggleButton();
@@ -167,18 +143,21 @@ public class JLicenciaForm extends javax.swing.JFrame {
             }
         });
 
+        txtNombre.setEditable(false);
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
             }
         });
 
+        txtNacimiento.setEditable(false);
         txtNacimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNacimientoActionPerformed(evt);
             }
         });
 
+        txtTelefono.setEditable(false);
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonoActionPerformed(evt);
@@ -204,7 +183,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
             }
         });
 
-        cbVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 anio", "2 anios", "3 anios" }));
+        cbVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 año", "2 años", "3 años" }));
         cbVigencia.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbVigenciaItemStateChanged(evt);
@@ -225,6 +204,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
             }
         });
 
+        txtMonto.setEditable(false);
         txtMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMontoActionPerformed(evt);
@@ -232,6 +212,8 @@ public class JLicenciaForm extends javax.swing.JFrame {
         });
 
         jLabel5.setText("Monto:");
+
+        txtRFC.setEditable(false);
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
@@ -271,12 +253,9 @@ public class JLicenciaForm extends javax.swing.JFrame {
                                     .addComponent(chbDiscapacidad))
                                 .addComponent(txtNacimiento, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
-                            .addGroup(fondoLayout.createSequentialGroup()
-                                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtRFC, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtRFC, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))))
                     .addGroup(fondoLayout.createSequentialGroup()
                         .addGap(214, 214, 214)
                         .addComponent(jLabel5)
@@ -303,9 +282,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
-                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addComponent(txtNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -339,9 +316,9 @@ public class JLicenciaForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-
         JMenu me = new JMenu();
         me.setVisible(true);
+
         dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
@@ -355,6 +332,9 @@ public class JLicenciaForm extends javax.swing.JFrame {
                 personaDTO);
         try {
             licNeg.realizarTramite(lic);
+            ValidacionExitosa validacionExitosa = new ValidacionExitosa();
+            validacionExitosa.show();
+            dispose();
         } catch (PersistenciaException ex) {
             Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -452,13 +432,13 @@ public class JLicenciaForm extends javax.swing.JFrame {
         if (chbDiscapacidad.isSelected()) {
             tipo = TipoLicencia.discapacitado;
             switch (cbVigencia.getSelectedItem().toString()) {
-                case "1 anio":
+                case "1 año":
                     duracion = DuracionLicencia.UnAnio;
                     break;
-                case "2 anios":
+                case "2 años":
                     duracion = DuracionLicencia.dosAnios;
                     break;
-                case "3 anios":
+                case "3 años":
                     duracion = DuracionLicencia.tresAnios;
                     break;
             }
@@ -466,13 +446,13 @@ public class JLicenciaForm extends javax.swing.JFrame {
         } else {
             tipo = TipoLicencia.normal;
             switch (cbVigencia.getSelectedItem().toString()) {
-                case "1 anio":
+                case "1 año":
                     duracion = DuracionLicencia.UnAnio;
                     break;
-                case "2 anios":
+                case "2 años":
                     duracion = DuracionLicencia.dosAnios;
                     break;
-                case "3 anios":
+                case "3 años":
                     duracion = DuracionLicencia.tresAnios;
                     break;
             }
@@ -480,9 +460,6 @@ public class JLicenciaForm extends javax.swing.JFrame {
         }
     }
 
-//    private void chbDiscapacidadItemStateChanged(java.awt.event.ItemEvent evt) {
-//        cambiarEstadoCosto();
-//    }
     private void cambiarEstadoCosto() {
         float monto = getMonto();
         txtMonto.setText(monto + "");
@@ -538,7 +515,6 @@ public class JLicenciaForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNacimiento;
     private javax.swing.JTextField txtNombre;

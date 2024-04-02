@@ -1,5 +1,6 @@
 package DAO;
 
+import interfaces.ITramiteDAO;
 import Entidades.Persona;
 import Entidades.Tramite;
 import excepciones.PersistenciaException;

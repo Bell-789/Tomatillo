@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dto;
 
 import java.util.Calendar;
@@ -25,8 +21,6 @@ public class PersonaDTO {
     public PersonaDTO(String rfc) {
         this.rfc = rfc;
     }
-    
-    
 
     public PersonaDTO(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Calendar fechaNacimiento) {
         this.rfc = rfc;
@@ -42,8 +36,6 @@ public class PersonaDTO {
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
     }
-    
-    
 
     public String getRfc() {
         return rfc;

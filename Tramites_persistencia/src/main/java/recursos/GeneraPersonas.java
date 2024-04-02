@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package recursos;
 
 import Entidades.Persona;
@@ -21,8 +17,8 @@ public class GeneraPersonas {
      * Constructor de la clase VeintePersonas.
      */
     public GeneraPersonas() {
+        fechaNacimiento = fechas();
         RFC = generarRFC();
-
     }
 
     /**
@@ -52,10 +48,75 @@ public class GeneraPersonas {
     /**
      * Arreglo Calendar con la fecha de nacimiento de cada persona.
      */
-    private Calendar[] fechaNacimiento = {Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(),
-        Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(),
-        Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(),
-        Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance()};
+    private Calendar[] fechaNacimiento;
+
+    public Calendar[] fechas() {
+        Calendar[] c = new Calendar[20];
+
+        Calendar f = Calendar.getInstance();
+        f.set(2004, Calendar.JANUARY, 1);
+        Calendar f2 = Calendar.getInstance();
+        f2.set(1999, Calendar.FEBRUARY, 10);
+        Calendar f3 = Calendar.getInstance();
+        f3.set(2000, Calendar.MARCH, 1);
+        Calendar f4 = Calendar.getInstance();
+        f4.set(2009, Calendar.APRIL, 18);
+        Calendar f5 = Calendar.getInstance();
+        f5.set(1998, Calendar.MAY, 24);
+        Calendar f6 = Calendar.getInstance();
+        f6.set(1990, Calendar.JUNE, 28);
+        Calendar f7 = Calendar.getInstance();
+        f7.set(1979, Calendar.JULY, 5);
+        Calendar f8 = Calendar.getInstance();
+        f8.set(1990, Calendar.AUGUST, 3);
+        Calendar f9 = Calendar.getInstance();
+        f9.set(2002, Calendar.OCTOBER, 31);
+        Calendar f10 = Calendar.getInstance();
+        f10.set(2001, Calendar.SEPTEMBER, 14);
+        Calendar f11 = Calendar.getInstance();
+        f11.set(1977, Calendar.NOVEMBER, 2);
+        Calendar f12 = Calendar.getInstance();
+        f12.set(1996, Calendar.DECEMBER, 16);
+        Calendar f13 = Calendar.getInstance();
+        f13.set(2005, Calendar.JULY, 28);
+        Calendar f14 = Calendar.getInstance();
+        f14.set(1993, Calendar.APRIL, 24);
+        Calendar f15 = Calendar.getInstance();
+        f15.set(1988, Calendar.SEPTEMBER, 15);
+        Calendar f16 = Calendar.getInstance();
+        f16.set(1997, Calendar.DECEMBER, 15);
+        Calendar f17 = Calendar.getInstance();
+        f17.set(1970, Calendar.OCTOBER, 30);
+        Calendar f18 = Calendar.getInstance();
+        f18.set(1977, Calendar.JULY, 27);
+        Calendar f19 = Calendar.getInstance();
+        f19.set(1966, Calendar.FEBRUARY, 14);
+        Calendar f20 = Calendar.getInstance();
+        f20.set(2004, Calendar.JANUARY, 6);
+
+        c[0] = f;
+        c[1] = f2;
+        c[2] = f3;
+        c[3] = f4;
+        c[4] = f5;
+        c[5] = f6;
+        c[6] = f7;
+        c[7] = f8;
+        c[8] = f9;
+        c[9] = f10;
+        c[10] = f11;
+        c[11] = f12;
+        c[12] = f13;
+        c[13] = f14;
+        c[14] = f15;
+        c[15] = f16;
+        c[16] = f17;
+        c[17] = f18;
+        c[18] = f19;
+        c[19] = f20;
+
+        return c;
+    }
 
     /**
      * Arreglo de String con el número de teléfono de cada persona.
@@ -85,7 +146,7 @@ public class GeneraPersonas {
             RFC.append(apellidoM[i].substring(0, 1));
             RFC.append(nombres[i].substring(0, 1));
             RFC.append(anio.format(fechaNacimiento[i].getTime()));
-            RFC.append(mes(fechaNacimiento[i].get(Calendar.MONTH)+1));
+            RFC.append(mes(fechaNacimiento[i].get(Calendar.MONTH) + 1));
             RFC.append(mes(fechaNacimiento[i].get(Calendar.DAY_OF_MONTH)));
             RFC.append(RandomStringUtils.randomAlphanumeric(3));
             RFCa[i] = RFC.toString().toUpperCase();
@@ -93,8 +154,8 @@ public class GeneraPersonas {
         }
         return RFCa;
     }
-    
-     private String mes(int i) {
+
+    private String mes(int i) {
         if (i < 10) {
             return "0" + i;
         } else {

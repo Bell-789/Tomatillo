@@ -1,4 +1,4 @@
-package DAO;
+package interfaces;
 
 import Entidades.Persona;
 import Entidades.Tramite;

@@ -79,7 +79,10 @@ public class ValidacionExitosa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-       
+        JMenu jMenu = new JMenu();
+        jMenu.setVisible(true);
+        
+        dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
 package recursos;
 
 /**
@@ -9,5 +5,5 @@ package recursos;
  * @author Chris, bell y kathya
  */
 public enum TipoLicencia {
-    normal,discapacitado
+    normal, discapacitado
 }

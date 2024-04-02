@@ -189,17 +189,19 @@ public class JMenu extends javax.swing.JFrame {
     private void botonPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPlacasActionPerformed
         JPlacaMenu pm = new JPlacaMenu();
         pm.setVisible(true);
+        
         dispose();
     }//GEN-LAST:event_botonPlacasActionPerformed
 
     private void botonConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultasActionPerformed
         JConsultas co = new JConsultas();
         co.setVisible(true);
+        
         dispose();
     }//GEN-LAST:event_botonConsultasActionPerformed
 
     private void botonInsertarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarPersonasActionPerformed
-        perNeg.insertarPersonas(this);
+        perNeg.insertarPersonas();
     }//GEN-LAST:event_botonInsertarPersonasActionPerformed
 
     /**

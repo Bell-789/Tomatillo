@@ -94,22 +94,18 @@ public class Automovil implements Serializable {
     /**
      * Constructor con atributos como parametros y inicializa una lista placas.
      *
-     * @param numeroSerie el numero de serie de el automovil.
-     * @param marca la marca de el automovil.
-     * @param color el color de el automovil.
-     * @param modelo el modelo de el automovil.
+     *  * @param modelo el modelo de el automovil.
      * @param linea la linea de el automovil.
      * @param tipo el tipo de carro (nuevo o usado).
      * @param persona la persona con el automovil.
      */
-    public Automovil(String numeroSerie, String marca, String color, String modelo, String linea, TipoAutomovil tipo, Persona persona) {
+    public Automovil(String numeroSerie, String marca, String color, String modelo, String linea, TipoAutomovil tipo) {
         this.numeroSerie = numeroSerie;
         this.marca = marca;
         this.color = color;
         this.modelo = modelo;
         this.linea = linea;
         this.tipo = tipo;
-        this.persona = persona;
         this.placas = new ArrayList<>();
     }
 
@@ -147,6 +143,24 @@ public class Automovil implements Serializable {
      */
     public void setNumeroSerie(String numeroSerie) {
         this.numeroSerie = numeroSerie;
+    }
+
+    /**
+     * Metodo para obtener la persona del automovil.
+     *
+     * @return regresa la persona del automovil.
+     */
+    public Persona getPersona() {
+        return persona;
+    }
+
+    /**
+     * Metodo para asignar la persona al automovil.
+     *
+     * @param persona la persona a asignar.
+     */
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     /**
@@ -240,24 +254,6 @@ public class Automovil implements Serializable {
     }
 
     /**
-     * Metodo para obtener la persona del automovil.
-     *
-     * @return regresa la persona del automovil.
-     */
-    public Persona getPersona() {
-        return persona;
-    }
-
-    /**
-     * Metodo para asignar la persona al automovil.
-     *
-     * @param persona la persona a asignar.
-     */
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    /**
      * Metodo para obtener la lista de las placas del automovil.
      *
      * @return regresa las placas del automovil.
@@ -284,5 +280,4 @@ public class Automovil implements Serializable {
     public String toString() {
         return "Automovil{" + "id=" + id + ", numeroSerie=" + numeroSerie + ", marca=" + marca + ", color=" + color + ", modelo=" + modelo + ", linea=" + linea + ", tipo=" + tipo + ", persona=" + persona + ", placas=" + placas + '}';
     }
-
 }

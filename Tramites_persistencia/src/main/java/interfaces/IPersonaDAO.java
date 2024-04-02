@@ -29,11 +29,12 @@ public interface IPersonaDAO {
 
     /**
      * Realiza una consulta de personas en general.
+     *
      * @return regresa una lista de personas registradas en la base de datos.
      * @throws PersistenciaException Si ocurre un error durante la consulta.
      */
     public List<Persona> consultarPersonas() throws PersistenciaException;
-    
+
     /**
      * Verifica si existen registros de personas.
      *

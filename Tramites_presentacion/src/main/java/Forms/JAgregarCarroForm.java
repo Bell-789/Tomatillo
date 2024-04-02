@@ -1,16 +1,37 @@
 package Forms;
 
+import dto.AutomovilDTO;
+import dto.PersonaDTO;
+import excepciones.PersistenciaException;
+import javax.swing.JOptionPane;
+import negocio.AutomovilesNegocio;
+import negocio.PersonasNegocio;
+import recursos.TipoAutomovil;
+import validaciones.Validadores;
+
 /**
  *
  * @author Bell
  */
 public class JAgregarCarroForm extends javax.swing.JFrame {
 
+    private PersonaDTO personaDTO;
+    private AutomovilDTO automovilDTO;
+    private Validadores validadores;
+    private PersonasNegocio perNeg;
+    private AutomovilesNegocio autoNeg;
+    private TipoAutomovil tipo;
+
     /**
      * Creates new form JAgregarCarroForm
      */
     public JAgregarCarroForm() {
         initComponents();
+        this.validadores = new Validadores();
+        this.perNeg = new PersonasNegocio();
+        this.autoNeg = new AutomovilesNegocio();
+        this.personaDTO = new PersonaDTO(); 
+        this.automovilDTO = new AutomovilDTO();
     }
 
     /**
@@ -22,7 +43,6 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botonRegresar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -31,23 +51,16 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        TxtNumSerie = new javax.swing.JTextField();
-        TxtMarcaCarro = new javax.swing.JTextField();
         TxtLineaCarro = new javax.swing.JTextField();
+        TxtNumeroSerie = new javax.swing.JTextField();
+        TxtMarcaCarro = new javax.swing.JTextField();
         TxtModeloCarro = new javax.swing.JTextField();
         TxtColorCarro = new javax.swing.JTextField();
         BtnRegistrarCarro = new javax.swing.JToggleButton();
-        botonRegresar1 = new javax.swing.JButton();
-
-        botonRegresar.setBackground(new java.awt.Color(117, 117, 117));
-        botonRegresar.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
-        botonRegresar.setText(">");
-        botonRegresar.setBorder(null);
-        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegresarActionPerformed(evt);
-            }
-        });
+        botonRegresar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        TxtRfc = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,6 +109,18 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
             }
         });
 
+        TxtMarcaCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtMarcaCarroActionPerformed(evt);
+            }
+        });
+
+        TxtModeloCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtModeloCarroActionPerformed(evt);
+            }
+        });
+
         BtnRegistrarCarro.setBackground(new java.awt.Color(175, 244, 198));
         BtnRegistrarCarro.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
         BtnRegistrarCarro.setText("Registrar");
@@ -105,56 +130,62 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
             }
         });
 
-        botonRegresar1.setBackground(new java.awt.Color(117, 117, 117));
-        botonRegresar1.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
-        botonRegresar1.setText(">");
-        botonRegresar1.setBorder(null);
-        botonRegresar1.addActionListener(new java.awt.event.ActionListener() {
+        botonRegresar.setBackground(new java.awt.Color(117, 117, 117));
+        botonRegresar.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
+        botonRegresar.setText(">");
+        botonRegresar.setBorder(null);
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegresar1ActionPerformed(evt);
+                botonRegresarActionPerformed(evt);
             }
         });
+
+        jLabel7.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
+        jLabel7.setText("RFC");
+
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(TxtNumSerie))
-                    .addComponent(jLabel3))
-                .addGap(52, 52, 52)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TxtMarcaCarro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TxtLineaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(50, 50, 50))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(TxtModeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(95, 95, 95)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(TxtColorCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(BtnRegistrarCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(229, 229, 229))
+                .addGap(206, 206, 206))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TxtNumeroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(TxtColorCarro)
+                                    .addComponent(TxtLineaCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                                    .addComponent(TxtMarcaCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                                    .addComponent(TxtModeloCarro))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,29 +193,36 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonRegresar1))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(botonRegresar))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxtMarcaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxtLineaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7)
+                    .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(TxtNumeroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(TxtMarcaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(TxtModeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtModeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(TxtLineaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
                     .addComponent(TxtColorCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(32, 32, 32)
                 .addComponent(BtnRegistrarCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,22 +240,59 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonRegresarActionPerformed
-
-    private void botonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar1ActionPerformed
         JPlacaMenu m = new JPlacaMenu();
         m.setVisible(true);
+
         dispose();
-    }//GEN-LAST:event_botonRegresar1ActionPerformed
+    }//GEN-LAST:event_botonRegresarActionPerformed
+
+    private void TxtMarcaCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtMarcaCarroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtMarcaCarroActionPerformed
+
+    private void BtnRegistrarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarCarroActionPerformed
+        try {
+            buscar();
+            
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_BtnRegistrarCarroActionPerformed
 
     private void TxtLineaCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLineaCarroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtLineaCarroActionPerformed
 
-    private void BtnRegistrarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarCarroActionPerformed
+    private void TxtModeloCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtModeloCarroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BtnRegistrarCarroActionPerformed
+    }//GEN-LAST:event_TxtModeloCarroActionPerformed
+
+    private void buscar() throws PersistenciaException {
+        personaDTO = new PersonaDTO(TxtRfc.getText());
+        String RFCb = TxtRfc.getText();
+        if (RFCb.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor, ingrese el RFC para continuar",
+                    "Error: Campo vacío",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+        if (!validadores.validaRfc(RFCb)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "RFC inválido. Verifica que el RFC sea \n el correcto e ingréselo nuevamente",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);;
+            return;
+        }
+        personaDTO = perNeg.consultarPersonaPorRfc(personaDTO);
+    }
+
+    private void carro() throws PersistenciaException {
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnRegistrarCarro;
@@ -225,16 +300,18 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     public javax.swing.JTextField TxtLineaCarro;
     public javax.swing.JTextField TxtMarcaCarro;
     public javax.swing.JTextField TxtModeloCarro;
-    public javax.swing.JTextField TxtNumSerie;
+    public javax.swing.JTextField TxtNumeroSerie;
+    private javax.swing.JTextField TxtRfc;
     private javax.swing.JButton botonRegresar;
-    private javax.swing.JButton botonRegresar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

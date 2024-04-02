@@ -1,9 +1,5 @@
 package Forms;
 
-import DAO.LicenciaDAO;
-import DAO.PersonaDAO;
-import interfaces.ILicenciaDAO;
-import interfaces.IPersonaDAO;
 import dto.LicenciaDTO;
 import dto.PersonaDTO;
 import excepciones.PersistenciaException;
@@ -25,16 +21,11 @@ import validaciones.Validadores;
  */
 public class JLicenciaForm extends javax.swing.JFrame {
 
-    private ILicenciaDAO licDao;
     private PersonaDTO personaDTO;
-    private IPersonaDAO IperDao;
-    private PersonaDAO perDao;
-    private JMenu anterior;
     private LicenciaDTO lic;
     private DuracionLicencia duracion;
     private TipoLicencia tipo;
     private Validadores validadores;
-    private PersonaDAO perDAO;
     private LicenciasNegocio licNeg;
     private PersonasNegocio perNeg;
 
@@ -43,19 +34,11 @@ public class JLicenciaForm extends javax.swing.JFrame {
      */
     public JLicenciaForm(JMenu anterior) {
         initComponents();
-        this.licDao = new LicenciaDAO();
-        this.perDao = new PersonaDAO();
         this.validadores = new Validadores();
-        this.anterior = anterior;
         this.lic = new LicenciaDTO();
         this.personaDTO = new PersonaDTO();
         this.licNeg = new LicenciasNegocio();
         this.perNeg = new PersonasNegocio();
-    }
-
-    private void regresar() {
-        this.anterior.setVisible(true);
-        this.dispose();
     }
 
     /**

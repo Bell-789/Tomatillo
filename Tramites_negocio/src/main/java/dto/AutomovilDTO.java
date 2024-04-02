@@ -1,5 +1,6 @@
 package dto;
 
+import Entidades.Persona;
 import recursos.TipoAutomovil;
 
 /**

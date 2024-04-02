@@ -1,31 +1,31 @@
 package DAO;
 
-import interfaces.ILicenciaDAO;
-import Entidades.Licencia;
+import Entidades.Automovil;
 import excepciones.PersistenciaException;
+import interfaces.IAutomovilDAO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * Clase encargada de brindar los metodos de licencia.
  *
- * @author Chris, bell y kat
+ * @author Katt
  */
-public class LicenciaDAO implements ILicenciaDAO {
+public class AutomovilDAO implements IAutomovilDAO {
 
-    public Licencia insertarLicencia(Licencia licencia) {
+    public Automovil registrarAuto(Automovil automovil) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
 
-        em.persist(licencia);
+        em.persist(automovil);
 
         em.getTransaction().commit();
 
         em.close();
 
-        return licencia;
+        return automovil;
     }
+
 }

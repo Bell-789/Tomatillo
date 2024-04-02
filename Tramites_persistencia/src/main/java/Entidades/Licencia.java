@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import recursos.DuracionLicencia;
 import recursos.TipoLicencia;
+import recursos.ValidaActivo;
 
 /**
  *
@@ -36,8 +37,8 @@ public class Licencia extends Tramite implements Serializable {
         this.vigencia = vigencia;
     }
 
-    public Licencia(TipoLicencia tipoLicencia, DuracionLicencia vigencia, Calendar fechaEmision, Float monto, Persona persona) {
-        super(fechaEmision, monto, persona);
+    public Licencia(TipoLicencia tipoLicencia, DuracionLicencia vigencia, Calendar fechaEmision, Float monto, ValidaActivo activo, Persona persona) {
+        super(fechaEmision, monto, activo, persona);
         this.tipoLicencia = tipoLicencia;
         this.vigencia = vigencia;
     }

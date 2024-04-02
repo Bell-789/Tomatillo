@@ -10,6 +10,8 @@ import java.util.List;
  * @author Katt, Bell y Cri
  */
 public interface ITramiteDAO {
+    
+    public void actualizarTramite() throws PersistenciaException;
 
     /**
      * Realiza una consulta de los tramites según el criterio especificado.

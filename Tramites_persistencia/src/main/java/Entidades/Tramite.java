@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import recursos.ValidaActivo;
 
 /**
  *
@@ -39,6 +42,10 @@ public class Tramite implements Serializable {
     @Column(name = "monto", nullable = false)
     private Float monto;
 
+    @Column(name = "Estado", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private ValidaActivo activo;
+
     @ManyToOne
     @JoinColumn(name = "idPersona")
     private Persona persona;
@@ -48,9 +55,10 @@ public class Tramite implements Serializable {
     public Tramite() {
     }
 
-    public Tramite(Calendar fechaEmision, Float monto, Persona persona) {
+    public Tramite(Calendar fechaEmision, Float monto, ValidaActivo activo, Persona persona) {
         this.fechaEmision = fechaEmision;
         this.monto = monto;
+        this.activo = activo;
         this.persona = persona;
     }
 

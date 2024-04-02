@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import recursos.TipoVehiculo;
+import recursos.ValidaActivo;
 
 /**
  *
@@ -46,8 +47,8 @@ public class Placa extends Tramite implements Serializable {
         this.automovil = automovil;
     }
 
-    public Placa(String numPlaca, Calendar fechaRecepcion, TipoVehiculo tipoVehiculo, Automovil automovil, Calendar fechaEmision, Float monto, Persona persona) {
-        super(fechaEmision, monto, persona);
+    public Placa(String numPlaca, Calendar fechaRecepcion, TipoVehiculo tipoVehiculo, Automovil automovil, Calendar fechaEmision, Float monto, ValidaActivo activo, Persona persona) {
+        super(fechaEmision, monto, activo, persona);
         this.numPlaca = numPlaca;
         this.fechaRecepcion = fechaRecepcion;
         this.tipoVehiculo = tipoVehiculo;

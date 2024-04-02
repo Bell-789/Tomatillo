@@ -90,4 +90,7 @@ public class TramiteDAO implements ITramiteDAO {
         return tramites;
     }
 
+    public void actualizarTramite() throws PersistenciaException {
+    }
+
 }

@@ -3,6 +3,7 @@ package dto;
 import java.util.Calendar;
 import recursos.DuracionLicencia;
 import recursos.TipoLicencia;
+import recursos.ValidaActivo;
 
 /**
  *
@@ -10,6 +11,7 @@ import recursos.TipoLicencia;
  */
 public class LicenciaDTO {
 
+    private ValidaActivo activo;
     private TipoLicencia tipo;
     private DuracionLicencia duracion;
     private Calendar fechaEmision;
@@ -19,9 +21,10 @@ public class LicenciaDTO {
     public LicenciaDTO() {
     }
 
-    public LicenciaDTO(TipoLicencia tipo, DuracionLicencia duracion, Calendar fechaEmision, Float monto, PersonaDTO persona) {
+    public LicenciaDTO(TipoLicencia tipo, DuracionLicencia duracion, ValidaActivo activo, Calendar fechaEmision, Float monto, PersonaDTO persona) {
         this.tipo = tipo;
         this.duracion = duracion;
+        this.activo = activo;
         this.fechaEmision = fechaEmision;
         this.monto = monto;
         this.persona = persona;
@@ -65,6 +68,14 @@ public class LicenciaDTO {
 
     public void setPersona(PersonaDTO persona) {
         this.persona = persona;
+    }
+
+    public ValidaActivo getActivo() {
+        return activo;
+    }
+
+    public void setActivo(ValidaActivo activo) {
+        this.activo = activo;
     }
 
 }

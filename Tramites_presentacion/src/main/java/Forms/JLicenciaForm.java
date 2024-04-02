@@ -13,6 +13,7 @@ import negocio.LicenciasNegocio;
 import negocio.PersonasNegocio;
 import recursos.DuracionLicencia;
 import recursos.TipoLicencia;
+import recursos.ValidaActivo;
 import validaciones.Validadores;
 
 /**
@@ -310,6 +311,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
         lic = new LicenciaDTO(
                 tipo,
                 duracion,
+                ValidaActivo.Activa,
                 fechaEmision,
                 getMonto(),
                 personaDTO);

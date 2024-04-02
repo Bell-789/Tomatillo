@@ -18,7 +18,8 @@ import javax.persistence.Table;
 import recursos.TipoAutomovil;
 
 /**
- *
+ * Esta clase representa la tabla Automoviles en la base de datos.
+ * 
  * @author Chris, bell y kat
  */
 @Entity
@@ -85,7 +86,7 @@ public class Automovil implements Serializable {
     private List<Placa> placas;
 
     /**
-     * Constructor por defercto que inicializa la lista de las placas.
+     * Constructor por defecto que inicializa la lista de las placas.
      */
     public Automovil() {
         this.placas = new ArrayList<>();
@@ -276,9 +277,8 @@ public class Automovil implements Serializable {
     }
 
     /**
-     * Metodo para obtener los datos completos del automovil.
-     *
-     * @return regresa los datos del automovil.
+     * Metodo para regresar los datos de los automoviles.
+     * @return String con los datos completos.
      */
     @Override
     public String toString() {

@@ -9,7 +9,7 @@ import excepciones.PersistenciaException;
 
 /**
  *
- * @author Chris
+ * @author Chris, bell y kathya
  */
 public class LicenciasNegocio {
 
@@ -28,7 +28,8 @@ public class LicenciasNegocio {
 
         Licencia licencia = new Licencia(
                 licenciaDTO.getTipo(),
-                licenciaDTO.getDuracion()
+                licenciaDTO.getDuracion(),
+                licenciaDTO.getActivo()
         );
         pers = new PersonaDAO();
 

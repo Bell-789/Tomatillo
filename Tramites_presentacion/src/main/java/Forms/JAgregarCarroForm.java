@@ -3,6 +3,8 @@ package Forms;
 import dto.AutomovilDTO;
 import dto.PersonaDTO;
 import excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import negocio.AutomovilesNegocio;
 import negocio.PersonasNegocio;
@@ -30,7 +32,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         this.validadores = new Validadores();
         this.perNeg = new PersonasNegocio();
         this.autoNeg = new AutomovilesNegocio();
-        this.personaDTO = new PersonaDTO(); 
+        this.personaDTO = new PersonaDTO();
         this.automovilDTO = new AutomovilDTO();
     }
 
@@ -253,9 +255,9 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     private void BtnRegistrarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarCarroActionPerformed
         try {
             buscar();
-            
-        } catch (Exception e) {
-
+            carro();
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JAgregarCarroForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BtnRegistrarCarroActionPerformed
 
@@ -291,7 +293,22 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     }
 
     private void carro() throws PersistenciaException {
-        
+        if (TxtLineaCarro.getText().isBlank() || TxtColorCarro.getText().isBlank() || TxtMarcaCarro.getText().isBlank() || TxtModeloCarro.getText().isBlank() || TxtNumeroSerie.getText().isBlank() || TxtRfc.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Complete los campos solicitados");
+        } else {
+            automovilDTO.setColor(TxtColorCarro.getText());
+            automovilDTO.setLinea(TxtLineaCarro.getText());
+            automovilDTO.setMarca(TxtMarcaCarro.getText());
+            automovilDTO.setModelo(TxtModeloCarro.getText());
+            automovilDTO.setNumSerie(TxtNumeroSerie.getText());
+            automovilDTO.setTipo(tipo.Nuevo);
+            automovilDTO.setPersona(personaDTO);
+
+            autoNeg.registraraCarro(automovilDTO);
+            ValidacionExitosa ca = new ValidacionExitosa();
+            ca.show();
+            dispose();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

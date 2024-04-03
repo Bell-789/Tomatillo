@@ -28,4 +28,9 @@ public class LicenciaDAO implements ILicenciaDAO {
 
         return licencia;
     }
+
+    public boolean buscarLicenciaVigente(Licencia licencia) throws PersistenciaException {
+        
+        return true;
+    }
 }

@@ -18,10 +18,12 @@ public class AutomovilesNegocio {
 
     public AutomovilesNegocio() {
         this.auto = new AutomovilDAO();
+        this.persona = new PersonaDAO();
     }
 
     public AutomovilesNegocio(AutomovilDAO auto) {
         this.auto = auto;
+        this.persona = new PersonaDAO();
     }
 
     public AutomovilDTO registraraCarro(AutomovilDTO movil) throws PersistenciaException {

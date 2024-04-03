@@ -1,5 +1,6 @@
 package Forms;
 
+import javax.swing.JOptionPane;
 import negocio.PersonasNegocio;
 
 /**
@@ -201,7 +202,11 @@ public class JMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_botonConsultasActionPerformed
 
     private void botonInsertarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarPersonasActionPerformed
-        perNeg.insertarPersonas();
+        if (perNeg.hayRegistros()) {
+            JOptionPane.showMessageDialog(null, "Ya se han agregado las personas previamente", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            perNeg.insertarPersonas();
+        }
     }//GEN-LAST:event_botonInsertarPersonasActionPerformed
 
     /**

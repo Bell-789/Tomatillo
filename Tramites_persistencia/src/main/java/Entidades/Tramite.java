@@ -190,4 +190,12 @@ public class Tramite implements Serializable {
         this.tipo_tramite = tipo_tramite;
     }
 
+    public ValidaActivo getActivo() {
+        return activo;
+    }
+
+    public void setActivo(ValidaActivo activo) {
+        this.activo = activo;
+    }
+
 }

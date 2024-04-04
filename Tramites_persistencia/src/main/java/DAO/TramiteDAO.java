@@ -4,9 +4,17 @@ import interfaces.ITramiteDAO;
 import Entidades.Persona;
 import Entidades.Tramite;
 import excepciones.PersistenciaException;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,6 +23,11 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -91,6 +104,26 @@ public class TramiteDAO implements ITramiteDAO {
     }
 
     public void actualizarTramite() throws PersistenciaException {
+    }
+
+    public JasperPrint ImprimirReporte(Connection cx) {
+        File reporte = new File(getClass().getResource("/reportes/Tramite.jasper").getFile());
+        if (!reporte.exists()) {
+            return null;
+        }
+        try {
+            InputStream is = new BufferedInputStream(new FileInputStream(reporte.getAbsoluteFile()));
+            try {
+                JasperReport jr = (JasperReport) JRLoader.loadObject(is);
+                JasperPrint jp = JasperFillManager.fillReport(jr, null, cx);
+                return jp;
+            } catch (JRException ex) {
+                Logger.getLogger(TramiteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TramiteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

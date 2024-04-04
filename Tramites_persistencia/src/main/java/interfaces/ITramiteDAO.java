@@ -3,7 +3,9 @@ package interfaces;
 import Entidades.Persona;
 import Entidades.Tramite;
 import excepciones.PersistenciaException;
+import java.sql.Connection;
 import java.util.List;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -12,6 +14,8 @@ import java.util.List;
 public interface ITramiteDAO {
 
     public void actualizarTramite() throws PersistenciaException;
+
+    public JasperPrint ImprimirReporte(Connection cx);
 
     /**
      * Realiza una consulta de los tramites según el criterio especificado.

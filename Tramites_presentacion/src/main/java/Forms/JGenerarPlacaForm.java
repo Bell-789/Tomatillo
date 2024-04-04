@@ -32,6 +32,8 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         BtnGenerarPlaca = new javax.swing.JToggleButton();
         botonRegresar1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         jLabel3.setFont(new java.awt.Font("Lucida Sans", 1, 14)); // NOI18N
         jLabel3.setText("Numero de placa anterior");
@@ -42,8 +44,8 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(18, 234, 207));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Generar Placa");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -62,28 +64,41 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        jLabel4.setText("RFC del Solicitante:");
         jLabel4.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jLabel4.setText("Numero de placa nuevo:");
 
-        jLabel5.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel5.setText("Automovil Seleccionado:");
+        jLabel5.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
 
         TxtPlacaNueva.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
 
         jComboBox1.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        BtnGenerarPlaca.setText("Generar");
         BtnGenerarPlaca.setBackground(new java.awt.Color(175, 244, 198));
         BtnGenerarPlaca.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
-        BtnGenerarPlaca.setText("Generar");
+        BtnGenerarPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGenerarPlacaActionPerformed(evt);
+            }
+        });
 
-        botonRegresar1.setBackground(new java.awt.Color(117, 117, 117));
-        botonRegresar1.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
         botonRegresar1.setText(">");
+        botonRegresar1.setBackground(new java.awt.Color(117, 117, 117));
         botonRegresar1.setBorder(null);
+        botonRegresar1.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
         botonRegresar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegresar1ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton1.setBackground(new java.awt.Color(175, 244, 198));
+        jToggleButton1.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
+        jToggleButton1.setText("Buscar");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
             }
         });
 
@@ -95,10 +110,11 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 89, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 15, Short.MAX_VALUE))
+                        .addGap(28, 28, 28))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
@@ -106,11 +122,19 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TxtPlacaNueva)
-                            .addComponent(jComboBox1, 0, 126, Short.MAX_VALUE))
+                            .addComponent(jComboBox1, 0, 220, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(170, 170, 170)
-                .addComponent(BtnGenerarPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jSeparator1))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(221, 221, 221)
+                        .addComponent(BtnGenerarPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(227, 227, 227)
+                        .addComponent(jToggleButton1)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,13 +148,17 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(TxtPlacaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
+                .addComponent(jToggleButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(39, 39, 39)
                 .addComponent(BtnGenerarPlaca)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,6 +181,14 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
+    private void BtnGenerarPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGenerarPlacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnGenerarPlacaActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnGenerarPlaca;
     public javax.swing.JTextField TxtPlacaNueva;
@@ -164,5 +200,7 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

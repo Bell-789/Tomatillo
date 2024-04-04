@@ -356,7 +356,6 @@ public class JLicenciaForm extends javax.swing.JFrame {
             return;
         }
         personaDTO = perNeg.consultarPersonaPorRfc(personaDTO);
-
         validarPersona();
     }
 

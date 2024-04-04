@@ -63,6 +63,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         TxtRfc = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        bBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,6 +148,13 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
+        bBuscar.setText("Buscar");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,7 +179,10 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                                     .addComponent(jLabel7))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(bBuscar))
                                     .addComponent(TxtNumeroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +210,8 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,6 +281,14 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtModeloCarroActionPerformed
 
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        try {
+            buscar();
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bBuscarActionPerformed
+
     private void buscar() throws PersistenciaException {
         personaDTO = new PersonaDTO(TxtRfc.getText());
         String RFCb = TxtRfc.getText();
@@ -319,6 +339,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     public javax.swing.JTextField TxtModeloCarro;
     public javax.swing.JTextField TxtNumeroSerie;
     private javax.swing.JTextField TxtRfc;
+    private javax.swing.JButton bBuscar;
     private javax.swing.JButton botonRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

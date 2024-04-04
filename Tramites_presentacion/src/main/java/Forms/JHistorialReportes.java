@@ -1,16 +1,23 @@
 package Forms;
 
+import negocio.ReportesNegocio;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Bell
  */
 public class JHistorialReportes extends javax.swing.JFrame {
+    
+    private ReportesNegocio re = new ReportesNegocio();
 
     /**
      * Creates new form JHistorialReportes
      */
     public JHistorialReportes() {
         initComponents();
+        this.re = new ReportesNegocio();
     }
 
     /**
@@ -94,7 +101,8 @@ public class JHistorialReportes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGenerarReporteActionPerformed
-        // TODO add your handling code here:
+        JasperPrint jp = re.reporteTramites();
+        JasperViewer.viewReport(jp);
     }//GEN-LAST:event_BtnGenerarReporteActionPerformed
 
     private void botonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar1ActionPerformed

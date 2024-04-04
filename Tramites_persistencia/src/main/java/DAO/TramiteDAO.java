@@ -107,20 +107,15 @@ public class TramiteDAO implements ITramiteDAO {
     }
 
     public JasperPrint ImprimirReporte(Connection cx) {
-        File reporte = new File(getClass().getResource("/reportes/Tramite.jasper").getFile());
-        if (!reporte.exists()) {
+        InputStream is = getClass().getResourceAsStream("/reportes/Tramite.jasper");
+        if (is == null) {
             return null;
         }
         try {
-            InputStream is = new BufferedInputStream(new FileInputStream(reporte.getAbsoluteFile()));
-            try {
-                JasperReport jr = (JasperReport) JRLoader.loadObject(is);
-                JasperPrint jp = JasperFillManager.fillReport(jr, null, cx);
-                return jp;
-            } catch (JRException ex) {
-                Logger.getLogger(TramiteDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (FileNotFoundException ex) {
+            JasperReport jr = (JasperReport) JRLoader.loadObject(is);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, cx);
+            return jp;
+        } catch (JRException ex) {
             Logger.getLogger(TramiteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

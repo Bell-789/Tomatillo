@@ -43,8 +43,8 @@ public class JReporteTramite extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(18, 234, 207));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Reporte de Trámites Realizados");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -63,30 +63,35 @@ public class JReporteTramite extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        botonRegresar1.setBackground(new java.awt.Color(117, 117, 117));
-        botonRegresar1.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
         botonRegresar1.setText(">");
+        botonRegresar1.setBackground(new java.awt.Color(117, 117, 117));
         botonRegresar1.setBorder(null);
+        botonRegresar1.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
         botonRegresar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegresar1ActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel2.setText("Nombre:");
+        jLabel2.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel3.setText("Tipo de tramite:");
+        jLabel3.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel4.setText("Periodo de tiempo:");
+        jLabel4.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Licencia", "Placa" }));
 
         BtnBuscar.setText("Buscar");
         BtnBuscar.setBackground(new java.awt.Color(175, 244, 198));
         BtnBuscar.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
+        BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -185,6 +190,13 @@ public class JReporteTramite extends javax.swing.JFrame {
         m.setVisible(true);
         dispose();
     }//GEN-LAST:event_botonRegresar1ActionPerformed
+
+    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
+        JHistorialReportes j = new JHistorialReportes();
+        j.setVisible(true);
+
+        dispose();
+    }//GEN-LAST:event_BtnBuscarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnBuscar;

@@ -255,6 +255,9 @@
                   <Font name="Lucida Sans" size="18" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnBuscarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="com.github.lgooddatepicker.components.CalendarPanel" name="calendarPanel1">
             </Component>

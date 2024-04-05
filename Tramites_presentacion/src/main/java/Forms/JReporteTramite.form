@@ -247,7 +247,8 @@
             </Component>
             <Component class="javax.swing.JToggleButton" name="BtnBuscar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Buscar"/>
+                <Property name="text" type="java.lang.String" value="Generar Reporte"/>
+                <Property name="actionCommand" type="java.lang.String" value="Generar"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c6" green="f4" red="af" type="rgb"/>
                 </Property>

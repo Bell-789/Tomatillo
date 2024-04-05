@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAO;
 
 import Entidades.Placa;
 import excepciones.PersistenciaException;
+import interfaces.IPlacaDAO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -19,7 +16,7 @@ import javax.persistence.criteria.Root;
  *
  * @author Chris
  */
-public class PlacaDAO {
+public class PlacaDAO implements IPlacaDAO {
 
     public Placa agregarPlaca(Placa placa) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -41,7 +38,7 @@ public class PlacaDAO {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Placa> criteria = cb.createQuery(Placa.class);
         Root<Placa> root = criteria.from(Placa.class);
-        criteria.select(root).where(cb.equal(root.get("numero"), placa.getNumPlaca()));
+        criteria.select(root).where(cb.equal(root.get("numPlaca"), placa.getNumPlaca()));
         TypedQuery<Placa> query = em.createQuery(criteria);
         Placa placas;
         try {

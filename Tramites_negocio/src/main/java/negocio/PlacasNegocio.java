@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package negocio;
 
 import DAO.AutomovilDAO;
@@ -64,7 +60,7 @@ public class PlacasNegocio {
         placa.setMonto(placaDTO.getMonto());
         placa.setFechaEmision(Calendar.getInstance());
         placa.setActivo(ValidaActivo.Activa);
-        placa.setNumPlaca(placaDTO.getNumero());
+        placa.setNumPlaca(placaDTO.getNumPlaca());
 
         placa = placasDAO.agregarPlaca(placa);
         placaDTO.setFechaEmision(placa.getFechaEmision());

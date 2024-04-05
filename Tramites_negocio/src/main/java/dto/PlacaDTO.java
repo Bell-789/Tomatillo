@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dto;
 
 import java.util.Calendar;
@@ -16,7 +12,7 @@ public class PlacaDTO {
     private AutomovilDTO vehiculo;
     private Calendar fechaRecepcion;
     private Calendar fechaEmision;
-    private String numero;
+    private String numPlaca;
     private ValidaActivo estado;
     private Float monto;
     private PersonaDTO persona;
@@ -25,11 +21,11 @@ public class PlacaDTO {
     public PlacaDTO() {
     }
 
-    public PlacaDTO(AutomovilDTO vehiculo, Calendar fechaRecepcion, Calendar fechaEmision, String numero, ValidaActivo estado, Float monto, PersonaDTO persona, String tipoVehiculo) {
+    public PlacaDTO(AutomovilDTO vehiculo, Calendar fechaRecepcion, Calendar fechaEmision, String numPlaca, ValidaActivo estado, Float monto, PersonaDTO persona, String tipoVehiculo) {
         this.vehiculo = vehiculo;
         this.fechaRecepcion = fechaRecepcion;
         this.fechaEmision = fechaEmision;
-        this.numero = numero;
+        this.numPlaca = numPlaca;
         this.estado = estado;
         this.monto = monto;
         this.persona = persona;
@@ -60,12 +56,12 @@ public class PlacaDTO {
         this.fechaEmision = fechaEmision;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getNumPlaca() {
+        return numPlaca;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNumPlaca(String numPlaca) {
+        this.numPlaca = numPlaca;
     }
 
     public ValidaActivo getEstado() {
@@ -84,8 +80,6 @@ public class PlacaDTO {
         this.monto = monto;
     }
 
-    
-
     public PersonaDTO getPersona() {
         return persona;
     }
@@ -101,7 +95,5 @@ public class PlacaDTO {
     public void setTipoVehiculo(String tipoVehiculo) {
         this.tipoVehiculo = tipoVehiculo;
     }
-    
-    
 
 }

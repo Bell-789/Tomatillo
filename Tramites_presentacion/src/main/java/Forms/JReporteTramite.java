@@ -1,16 +1,23 @@
 package Forms;
 
+import negocio.ReportesNegocio;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Bell
  */
 public class JReporteTramite extends javax.swing.JFrame {
 
+    private ReportesNegocio re = new ReportesNegocio();
+
     /**
      * Creates new form JReporteTramite
      */
     public JReporteTramite() {
         initComponents();
+        this.re = new ReportesNegocio();
     }
 
     /**
@@ -84,7 +91,8 @@ public class JReporteTramite extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Licencia", "Placa" }));
 
-        BtnBuscar.setText("Buscar");
+        BtnBuscar.setText("Generar Reporte");
+        BtnBuscar.setActionCommand("Generar");
         BtnBuscar.setBackground(new java.awt.Color(175, 244, 198));
         BtnBuscar.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
         BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -192,10 +200,8 @@ public class JReporteTramite extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        JHistorialReportes j = new JHistorialReportes();
-        j.setVisible(true);
-
-        dispose();
+        JasperPrint jp = re.reporteTramites();
+        JasperViewer.viewReport(jp);
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -49,7 +49,7 @@ public interface IPersonaDAO {
      * @throws PersistenciaException Arroja una excepcion de tipo
      * PersistenciaException
      */
-    public List<Persona> consultarNombres() throws PersistenciaException;
+    public List<Persona> consultarNombres(String nombre) throws PersistenciaException;
 
     /**
      * Consulta por medio de una Fecha de Nacimiento en especifíco
@@ -58,7 +58,9 @@ public interface IPersonaDAO {
      * @throws PersistenciaException Arroja una excepcion de tipo
      * PersistenciaException
      */
-    public List<Persona> consultarFechaNacimiento() throws PersistenciaException;
+    public List<Persona> consultarFechaNacimiento(String fechaNac) throws PersistenciaException;
+
+    public List<Persona> consultarRFCTabla(String rfc) throws PersistenciaException;
 
     /**
      * Consulta por un RFC en especifico

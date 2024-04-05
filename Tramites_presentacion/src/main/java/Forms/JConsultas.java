@@ -1,16 +1,27 @@
 package Forms;
 
+import excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import negocio.PersonasNegocio;
+
 /**
  *
  * @author Bell
  */
 public class JConsultas extends javax.swing.JFrame {
 
+    private PersonasNegocio pe = new PersonasNegocio();
+
     /**
      * Creates new form JConsultas
      */
     public JConsultas() {
         initComponents();
+        this.pe = new PersonasNegocio();
     }
 
     /**
@@ -36,7 +47,7 @@ public class JConsultas extends javax.swing.JFrame {
         TxtFechaNacimiento = new javax.swing.JTextField();
         BtnBuscar = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,11 +105,23 @@ public class JConsultas extends javax.swing.JFrame {
         jLabel3.setText("Fecha De Nacimiento");
 
         jLabel4.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jLabel4.setText("Curp");
+        jLabel4.setText("Curp / RFC");
+
+        TxtNombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtNombresActionPerformed(evt);
+            }
+        });
 
         TxtRFC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtRFCActionPerformed(evt);
+            }
+        });
+
+        TxtFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtFechaNacimientoActionPerformed(evt);
             }
         });
 
@@ -111,23 +134,23 @@ public class JConsultas extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        table.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, "", null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, "", null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nombres", "Apellido Materno", "Apellido Paterno", "RFC", "Fecha Nacimiento", "Telefono", "Estado"
+                "Id", "Nombres", "Apellido Materno", "Apellido Paterno", "RFC", "Fecha Nacimiento", "Telefono"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -138,16 +161,12 @@ public class JConsultas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(224, 224, 224)
-                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,6 +191,10 @@ public class JConsultas extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 25, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(233, 233, 233)
+                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,12 +241,53 @@ public class JConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar3ActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        // TODO add your handling code here:
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+            }
+        });
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void TxtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRFCActionPerformed
-        // TODO add your handling code here:
+        if (TxtRFC.getText().equals(null)) {
+            JOptionPane.showMessageDialog(null, "Campo vacio!");
+        } else {
+            try {
+                pe.listarRfc(table, TxtRFC.getText());
+            } catch (PersistenciaException ex) {
+                Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_TxtRFCActionPerformed
+
+    private void TxtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtFechaNacimientoActionPerformed
+        if (TxtFechaNacimiento.getText().equals(null)) {
+            JOptionPane.showMessageDialog(null, "Campo Vacio!");
+        } else {
+            if (!this.TxtFechaNacimiento.getText().matches("^\\d{4}-(0?[1-9]|1[0-2])-(3[01]|[12][0-9]|0?[1-9])$")) {
+                JOptionPane.showMessageDialog(null, "Formato de fecha invalido ingrese una fecha 'yyyy-mm-dd'");
+            } else {
+                try {
+                    pe.listarNacimiento(table, TxtFechaNacimiento.getText());
+                } catch (PersistenciaException ex) {
+                    Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+    }//GEN-LAST:event_TxtFechaNacimientoActionPerformed
+
+    private void TxtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombresActionPerformed
+        if (TxtNombres.getText().equals(null)) {
+            JOptionPane.showMessageDialog(null, "Campo Vacio!");
+        } else {
+            try {
+                pe.listarNombres(table, TxtNombres.getText());
+            } catch (PersistenciaException ex) {
+                Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_TxtNombresActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnBuscar;
@@ -240,6 +304,6 @@ public class JConsultas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

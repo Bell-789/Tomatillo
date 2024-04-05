@@ -129,14 +129,6 @@ public class PersonaDAO implements IPersonaDAO {
     public void actualizarTramites(Persona persona) throws PersistenciaException {
     }
 
-    public List<Persona> consultarNombres() throws PersistenciaException {
-        return null;
-    }
-
-    public List<Persona> consultarFechaNacimiento() throws PersistenciaException {
-        return null;
-    }
-
     @Override
     public Persona consultarRFC(Persona persona) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -179,5 +171,47 @@ public class PersonaDAO implements IPersonaDAO {
         } else {
             return null;
         }
+    }
+
+    public List<Persona> consultarNombres(String nombre) throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Persona> criteria = builder.createQuery(Persona.class);
+        Root<Persona> root = criteria.from(Persona.class);
+        criteria = criteria.select(root).where(builder.like(root.get("nombre"), nombre));
+        TypedQuery<Persona> query = em.createQuery(criteria);
+
+        List<Persona> lista = query.getResultList();
+        return lista;
+    }
+
+    public List<Persona> consultarFechaNacimiento(String fechaNac) throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Persona> criteria = builder.createQuery(Persona.class);
+        Root<Persona> root = criteria.from(Persona.class);
+        criteria = criteria.select(root).where(builder.equal(root.get("fechaNacimiento"), fechaNac));
+        TypedQuery<Persona> query = em.createQuery(criteria);
+
+        List<Persona> lista = query.getResultList();
+        return lista;
+    }
+
+    public List<Persona> consultarRFCTabla(String rfc) throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Persona> criteria = builder.createQuery(Persona.class);
+        Root<Persona> root = criteria.from(Persona.class);
+        criteria = criteria.select(root).where(builder.equal(root.get("rfc"), rfc));
+        TypedQuery<Persona> query = em.createQuery(criteria);
+
+        List<Persona> lista = query.getResultList();
+        return lista;
     }
 }

@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import recursos.GeneraPersonas;
 
 /**
@@ -26,10 +28,12 @@ public class PersonasNegocio {
 
     public PersonasNegocio() {
         this.pers = new PersonaDAO();
+        this.persona = new Persona();
     }
 
     public PersonasNegocio(PersonaDAO pers) {
         this.pers = new PersonaDAO();
+        this.persona = new Persona();
     }
 
     /**
@@ -97,6 +101,72 @@ public class PersonasNegocio {
 
     public boolean hayRegistros() {
         return pers.hayRegistros();
+    }
+
+    public void listarNombres(JTable table, String nombre) throws PersistenciaException {
+        DefaultTableModel model;
+        String[] titulo = {"Id", "Nombres", "Apellido Materno", "Apellido Paterno", "RFC", "Fecha Nacimiento", "Telefono"};
+        model = new DefaultTableModel(null, titulo);
+
+        List<Persona> p = pers.consultarNombres(nombre);
+
+        String[] datos = new String[7];
+        for (Persona persona : p) {
+            datos[0] = persona.getId().toString();
+            datos[1] = persona.getNombre();
+            datos[2] = persona.getApellidoMaterno();
+            datos[3] = persona.getApellidoPaterno();
+            datos[4] = persona.getRfc();
+            datos[5] = persona.getFechaNacimiento().getCalendarType();
+            datos[6] = persona.getTelefono();
+
+            model.addRow(datos);
+        }
+        table.setModel(model);
+    }
+
+    public void listarRfc(JTable table, String rfc) throws PersistenciaException {
+        DefaultTableModel model;
+        String[] titulo = {"Id", "Nombres", "Apellido Materno", "Apellido Paterno", "RFC", "Fecha Nacimiento", "Telefono"};
+        model = new DefaultTableModel(null, titulo);
+
+        List<Persona> p = pers.consultarRFCTabla(rfc);
+
+        String[] datos = new String[7];
+        for (Persona persona : p) {
+            datos[0] = persona.getId().toString();
+            datos[1] = persona.getNombre();
+            datos[2] = persona.getApellidoMaterno();
+            datos[3] = persona.getApellidoPaterno();
+            datos[4] = persona.getRfc();
+            datos[5] = persona.getFechaNacimiento().getCalendarType();
+            datos[6] = persona.getTelefono();
+
+            model.addRow(datos);
+        }
+        table.setModel(model);
+    }
+
+    public void listarNacimiento(JTable table, String fechaNac) throws PersistenciaException {
+        DefaultTableModel model;
+        String[] titulo = {"Id", "Nombres", "Apellido Materno", "Apellido Paterno", "RFC", "Fecha Nacimiento", "Telefono"};
+        model = new DefaultTableModel(null, titulo);
+
+        List<Persona> p = pers.consultarFechaNacimiento(fechaNac);
+
+        String[] datos = new String[7];
+        for (Persona persona : p) {
+            datos[0] = persona.getId().toString();
+            datos[1] = persona.getNombre();
+            datos[2] = persona.getApellidoMaterno();
+            datos[3] = persona.getApellidoPaterno();
+            datos[4] = persona.getRfc();
+            datos[5] = persona.getFechaNacimiento().getCalendarType().toString();
+            datos[6] = persona.getTelefono();
+
+            model.addRow(datos);
+        }
+        table.setModel(model);
     }
 
 }

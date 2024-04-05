@@ -1,16 +1,27 @@
 package Forms;
 
+import dto.PlacaDTO;
+import excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import negocio.ConsultasNegocio;
+
 /**
  *
  * @author Bell
  */
 public class JModuloPlacaForm extends javax.swing.JFrame {
 
+    private PlacaDTO dto;
+    private ConsultasNegocio co;
+
     /**
      * Creates new form JModuloPlacaForm
      */
     public JModuloPlacaForm() {
         initComponents();
+        this.dto = new PlacaDTO();
+        this.co = new ConsultasNegocio();
     }
 
     /**
@@ -150,14 +161,25 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
     private void BtnBuscarPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPlacaActionPerformed
-        JHistorialPlacasAntiguas old = new JHistorialPlacasAntiguas();
-        old.setVisible(true);
-        dispose();
+        try {
+            regresarPlaca();
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JModuloPlacaForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+//        JHistorialPlacasAntiguas old = new JHistorialPlacasAntiguas();
+//        old.setVisible(true);
+//        dispose();
     }//GEN-LAST:event_BtnBuscarPlacaActionPerformed
 
     private void TxtPlacaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPlacaAnteriorActionPerformed
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_TxtPlacaAnteriorActionPerformed
+
+    private void regresarPlaca() throws PersistenciaException {
+        dto.setNumPlaca(TxtPlacaAnterior.getText());
+        co.consultaPlaca(dto);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnBuscarPlaca;

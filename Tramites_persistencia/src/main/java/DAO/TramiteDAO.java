@@ -4,10 +4,6 @@ import interfaces.ITramiteDAO;
 import Entidades.Persona;
 import Entidades.Tramite;
 import excepciones.PersistenciaException;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -119,6 +115,20 @@ public class TramiteDAO implements ITramiteDAO {
             Logger.getLogger(TramiteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public List<Tramite> consultarTramitesTabla(String idPersona) throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+        Root<Tramite> root = criteria.from(Tramite.class);
+        criteria = criteria.select(root).where(builder.equal(root.get("id"), idPersona));
+        TypedQuery<Tramite> query = em.createQuery(criteria);
+
+        List<Tramite> lista = query.getResultList();
+        return lista;
     }
 
 }

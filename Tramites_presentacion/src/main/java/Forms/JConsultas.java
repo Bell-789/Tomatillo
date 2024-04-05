@@ -4,9 +4,11 @@ import excepciones.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import negocio.PersonasNegocio;
+import negocio.TramitesNegocio;
 
 /**
  *
@@ -15,6 +17,7 @@ import negocio.PersonasNegocio;
 public class JConsultas extends javax.swing.JFrame {
 
     private PersonasNegocio pe = new PersonasNegocio();
+    private TramitesNegocio te = new TramitesNegocio();
 
     /**
      * Creates new form JConsultas
@@ -22,6 +25,8 @@ public class JConsultas extends javax.swing.JFrame {
     public JConsultas() {
         initComponents();
         this.pe = new PersonasNegocio();
+        this.te = new TramitesNegocio();
+        //this.table = (JTable) pe.consultarPersonas();
     }
 
     /**
@@ -161,6 +166,11 @@ public class JConsultas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -243,7 +253,14 @@ public class JConsultas extends javax.swing.JFrame {
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+                try {
+                    String j = (table.getValueAt(table.getSelectedRow(), 0).toString());
+//                    te.listarTramites(table, j);
+                } catch (NullPointerException ex) {
+                    Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (PersistenciaException ex) {
+//                    Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }//GEN-LAST:event_BtnBuscarActionPerformed
@@ -288,6 +305,11 @@ public class JConsultas extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_TxtNombresActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+
+    }//GEN-LAST:event_tableMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnBuscar;

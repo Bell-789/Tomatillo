@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -58,6 +60,26 @@ public class TramitesNegocio {
                 persona.getApellidoPaterno(),
                 persona.getApellidoMaterno()
         );
+    }
+
+    public void listarTramites(JTable table, String id) throws PersistenciaException {
+        DefaultTableModel model;
+        String[] titulo = {"Id", "Tipo de Tramite", "Estado", "Fecha de Emision", "Monto"};
+        model = new DefaultTableModel(null, titulo);
+
+        List<Tramite> t = tramiDAO.consultarTramitesTabla(id);
+
+        String[] datos = new String[5];
+        for (Tramite tramite : t) {
+            datos[0] = tramite.getId().toString();
+            datos[1] = tramite.getTipo_tramite();
+            datos[2] = tramite.getActivo().toString();
+            datos[3] = tramite.getFechaEmision().toInstant().toString();
+            datos[4] = tramite.getMonto().toString();
+
+            model.addRow(datos);
+        }
+        table.setModel(model);
     }
 
 }

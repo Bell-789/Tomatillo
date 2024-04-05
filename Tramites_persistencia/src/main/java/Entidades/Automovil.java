@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,11 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import recursos.TipoAutomovil;
 
 /**
  * Esta clase representa la tabla Automoviles en la base de datos.
- * 
+ *
  * @author Chris, bell y kat
  */
 @Entity
@@ -65,13 +62,6 @@ public class Automovil implements Serializable {
     private String linea;
 
     /**
-     * Tipo de los automoviles (nuevo o usado).
-     */
-    @Column(name = "tipo", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TipoAutomovil tipo;
-
-    /**
      * Relacion muchos a uno con la persona.
      */
     @ManyToOne
@@ -92,22 +82,27 @@ public class Automovil implements Serializable {
         this.placas = new ArrayList<>();
     }
 
+    public Automovil(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
+        this.placas = new ArrayList<>();
+    }
+
     /**
      * Constructor con atributos como parametros y inicializa una lista placas.
      *
-     *  * @param modelo el modelo de el automovil.
+     * @param modelo el modelo de el automovil.
      * @param linea la linea de el automovil.
      * @param tipo el tipo de carro (nuevo o usado).
      * @param persona la persona con el automovil.
      */
-    public Automovil(String numeroSerie, String marca, String color, String modelo, String linea, TipoAutomovil tipo) {
+    public Automovil(String numeroSerie, String marca, String color, String modelo, String linea, Persona persona) {
         this.numeroSerie = numeroSerie;
         this.marca = marca;
         this.color = color;
         this.modelo = modelo;
         this.linea = linea;
-        this.tipo = tipo;
         this.placas = new ArrayList<>();
+        this.persona = persona;
     }
 
     /**
@@ -237,24 +232,6 @@ public class Automovil implements Serializable {
     }
 
     /**
-     * Metodo para obtner el tipo del automovil.
-     *
-     * @return regresa el tipo del automovil.
-     */
-    public TipoAutomovil getTipo() {
-        return tipo;
-    }
-
-    /**
-     * Metodo para asignar el tipo de automovil.
-     *
-     * @param tipo el tipo a asignar.
-     */
-    public void setTipo(TipoAutomovil tipo) {
-        this.tipo = tipo;
-    }
-
-    /**
      * Metodo para obtener la lista de las placas del automovil.
      *
      * @return regresa las placas del automovil.
@@ -274,10 +251,12 @@ public class Automovil implements Serializable {
 
     /**
      * Metodo para regresar los datos de los automoviles.
+     *
      * @return String con los datos completos.
      */
     @Override
     public String toString() {
-        return "Automovil{" + "id=" + id + ", numeroSerie=" + numeroSerie + ", marca=" + marca + ", color=" + color + ", modelo=" + modelo + ", linea=" + linea + ", tipo=" + tipo + ", persona=" + persona + ", placas=" + placas + '}';
+        return "Automovil{" + "id=" + id + ", numeroSerie=" + numeroSerie + ", marca=" + marca + ", color=" + color + ", modelo=" + modelo + ", linea=" + linea + ", persona=" + persona + ", placas=" + placas + '}';
     }
+
 }

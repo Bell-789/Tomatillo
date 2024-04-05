@@ -26,20 +26,20 @@ public class AutomovilesNegocio {
         this.persona = new PersonaDAO();
     }
     
-    public AutomovilDTO registraraCarro(AutomovilDTO movil) throws PersistenciaException {
-        Automovil automovil = new Automovil(movil.getNumSerie(), movil.getMarca(), movil.getColor(), movil.getModelo(), movil.getLinea(), movil.getTipo());
-        
-        Persona p = new Persona();
-        p.setRfc(movil.getPersona().getRfc());
-        
-        p = persona.consultarRFC(p);
-        
-        automovil.setPersona(p);
-        
-        auto.registrarAuto(automovil);
-        
-        return movil;
-        
-    }
+//    public AutomovilDTO registraraCarro(AutomovilDTO movil) throws PersistenciaException {
+//        Automovil automovil = new Automovil(movil.getNumSerie(), movil.getMarca(), movil.getColor(), movil.getModelo(), movil.getLinea(), movil.getTipo());
+//        
+//        Persona p = new Persona();
+//        p.setRfc(movil.getPersona().getRfc());
+//        
+//        p = persona.consultarRFC(p);
+//        
+//        automovil.setPersona(p);
+//        
+//        auto.registrarAuto(automovil);
+//        
+//        return movil;
+//        
+//    }
     
 }

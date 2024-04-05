@@ -28,8 +28,8 @@ public class Placa extends Tramite implements Serializable {
     /**
      * Numero de las placas.
      */
-    @Column(name = "numPlaca", nullable = false, unique = true, length = 7)
-    private String numPlaca;
+    @Column(name = "numero", nullable = false, unique = true, length = 7)
+    private String numero;
 
     /**
      * Fecha de recepcion de las placas.
@@ -67,7 +67,7 @@ public class Placa extends Tramite implements Serializable {
      * @param automovil el automovil de la placa.
      */
     public Placa(String numPlaca, Calendar fechaRecepcion, TipoVehiculo tipoVehiculo, Automovil automovil) {
-        this.numPlaca = numPlaca;
+        this.numero = numPlaca;
         this.fechaRecepcion = fechaRecepcion;
         this.tipoVehiculo = tipoVehiculo;
         this.automovil = automovil;
@@ -88,7 +88,7 @@ public class Placa extends Tramite implements Serializable {
      */
     public Placa(String numPlaca, Calendar fechaRecepcion, TipoVehiculo tipoVehiculo, Automovil automovil, Calendar fechaEmision, Float monto, ValidaActivo activo, Persona persona) {
         super(fechaEmision, monto, activo, persona);
-        this.numPlaca = numPlaca;
+        this.numero = numPlaca;
         this.fechaRecepcion = fechaRecepcion;
         this.tipoVehiculo = tipoVehiculo;
         this.automovil = automovil;
@@ -100,7 +100,7 @@ public class Placa extends Tramite implements Serializable {
      * @return regresa el numero de la placa.
      */
     public String getNumPlaca() {
-        return numPlaca;
+        return numero;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Placa extends Tramite implements Serializable {
      * @param numPlaca el numero de placa a asignar.
      */
     public void setNumPlaca(String numPlaca) {
-        this.numPlaca = numPlaca;
+        this.numero = numPlaca;
     }
 
     /**

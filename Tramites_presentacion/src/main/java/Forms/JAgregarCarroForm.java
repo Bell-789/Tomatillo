@@ -2,12 +2,14 @@ package Forms;
 
 import dto.AutomovilDTO;
 import dto.PersonaDTO;
+import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import negocio.AutomovilesNegocio;
 import negocio.PersonasNegocio;
+import negocio.PlacasNegocio;
 import recursos.TipoAutomovil;
 import validaciones.Validadores;
 
@@ -22,6 +24,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     private Validadores validadores;
     private PersonasNegocio perNeg;
     private AutomovilesNegocio autoNeg;
+    private PlacaDTO placaDTO;
     private TipoAutomovil tipo;
 
     /**
@@ -53,16 +56,19 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        TxtLineaCarro = new javax.swing.JTextField();
-        TxtNumeroSerie = new javax.swing.JTextField();
-        TxtMarcaCarro = new javax.swing.JTextField();
-        TxtModeloCarro = new javax.swing.JTextField();
-        TxtColorCarro = new javax.swing.JTextField();
+        txtLineaVehiculo = new javax.swing.JTextField();
+        txtNumSerie = new javax.swing.JTextField();
+        txtMarcaVehiculo = new javax.swing.JTextField();
+        txtModeloVehiculo = new javax.swing.JTextField();
+        txtColorVehiculo = new javax.swing.JTextField();
         BtnRegistrarCarro = new javax.swing.JToggleButton();
         botonRegresar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         TxtRfc = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        cbxTipo = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        bBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,35 +97,41 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jLabel2.setText("Modelo del carro");
+        jLabel2.setText("Modelo del vehiculo");
 
         jLabel3.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel3.setText("Numero de serie");
 
         jLabel4.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jLabel4.setText("Color del carro");
+        jLabel4.setText("Color del vehiculo");
 
         jLabel5.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jLabel5.setText("Marca de carro");
+        jLabel5.setText("Marca del vehiculo");
 
         jLabel6.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jLabel6.setText("Linea del carro");
+        jLabel6.setText("Linea del vehiculo");
 
-        TxtLineaCarro.addActionListener(new java.awt.event.ActionListener() {
+        txtLineaVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtLineaCarroActionPerformed(evt);
+                txtLineaVehiculoActionPerformed(evt);
             }
         });
 
-        TxtMarcaCarro.addActionListener(new java.awt.event.ActionListener() {
+        txtNumSerie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtMarcaCarroActionPerformed(evt);
+                txtNumSerieActionPerformed(evt);
             }
         });
 
-        TxtModeloCarro.addActionListener(new java.awt.event.ActionListener() {
+        txtMarcaVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtModeloCarroActionPerformed(evt);
+                txtMarcaVehiculoActionPerformed(evt);
+            }
+        });
+
+        txtModeloVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtModeloVehiculoActionPerformed(evt);
             }
         });
 
@@ -143,18 +155,25 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jLabel7.setText("RFC");
+        jLabel7.setText("RFC de la persona");
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+
+        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Automovil" }));
+
+        jLabel8.setText("Tipo de vehiculo");
+
+        bBuscar.setText("Buscar");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(BtnRegistrarCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(206, 206, 206))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -164,31 +183,45 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                         .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(138, 138, 138)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel7))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TxtNumeroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtModeloVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtMarcaVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtLineaVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel8))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cbxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtColorVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(TxtColorCarro)
-                                    .addComponent(TxtLineaCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                                    .addComponent(TxtMarcaCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                                    .addComponent(TxtModeloCarro))))
-                        .addGap(89, 89, 89)))
+                                .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(bBuscar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(BtnRegistrarCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(206, 206, 206))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,30 +233,38 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtMarcaVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtModeloVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtLineaVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtColorVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(TxtNumeroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(TxtMarcaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(TxtModeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(TxtLineaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(TxtColorCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
                 .addComponent(BtnRegistrarCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -249,26 +290,42 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
-    private void TxtMarcaCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtMarcaCarroActionPerformed
+    private void txtMarcaVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaVehiculoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtMarcaCarroActionPerformed
+    }//GEN-LAST:event_txtMarcaVehiculoActionPerformed
 
     private void BtnRegistrarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarCarroActionPerformed
+        cargarDatosVehiculo();
         try {
-            buscar();
-            carro();
+            new PlacasNegocio().existeVehiculo(automovilDTO);
+            cargarDatosPlaca();
+            JTramitaPlaca p = new JTramitaPlaca(placaDTO);
+            p.setVisible(true);
+            dispose();
         } catch (PersistenciaException ex) {
             Logger.getLogger(JAgregarCarroForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BtnRegistrarCarroActionPerformed
 
-    private void TxtLineaCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLineaCarroActionPerformed
+    private void txtLineaVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLineaVehiculoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtLineaCarroActionPerformed
+    }//GEN-LAST:event_txtLineaVehiculoActionPerformed
 
-    private void TxtModeloCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtModeloCarroActionPerformed
+    private void txtModeloVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModeloVehiculoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtModeloCarroActionPerformed
+    }//GEN-LAST:event_txtModeloVehiculoActionPerformed
+
+    private void txtNumSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumSerieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumSerieActionPerformed
+
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        try {
+            buscar();
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JAgregarCarroForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bBuscarActionPerformed
 
     private void buscar() throws PersistenciaException {
         personaDTO = new PersonaDTO(TxtRfc.getText());
@@ -293,34 +350,30 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         personaDTO = perNeg.consultarPersonaPorRfc(personaDTO);
     }
 
-    private void carro() throws PersistenciaException {
-        if (TxtLineaCarro.getText().isBlank() || TxtColorCarro.getText().isBlank() || TxtMarcaCarro.getText().isBlank() || TxtModeloCarro.getText().isBlank() || TxtNumeroSerie.getText().isBlank() || TxtRfc.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Complete los campos solicitados");
-        } else {
-            automovilDTO.setColor(TxtColorCarro.getText());
-            automovilDTO.setLinea(TxtLineaCarro.getText());
-            automovilDTO.setMarca(TxtMarcaCarro.getText());
-            automovilDTO.setModelo(TxtModeloCarro.getText());
-            automovilDTO.setNumSerie(TxtNumeroSerie.getText());
-            automovilDTO.setTipo(tipo.Nuevo);
-            automovilDTO.setPersona(personaDTO);
+    private void cargarDatosVehiculo() {
+        automovilDTO.setLinea(txtLineaVehiculo.getText());
+        automovilDTO.setColor(txtColorVehiculo.getText());
+        automovilDTO.setModelo(txtModeloVehiculo.getText());
+        automovilDTO.setMarca(txtMarcaVehiculo.getText());
+        automovilDTO.setNumSerie(txtNumSerie.getText());
+    }
 
-            autoNeg.registraraCarro(automovilDTO);
-            ValidacionExitosa ca = new ValidacionExitosa();
-            ca.show();
-            dispose();
-        }
+    /**
+     * Método para cargar los datos de la placa del vehículo.
+     */
+    private void cargarDatosPlaca() {
+        placaDTO = new PlacaDTO();
+        placaDTO.setPersona(personaDTO);
+        placaDTO.setTipoVehiculo(cbxTipo.getSelectedItem().toString());
+        placaDTO.setVehiculo(automovilDTO);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnRegistrarCarro;
-    public javax.swing.JTextField TxtColorCarro;
-    public javax.swing.JTextField TxtLineaCarro;
-    public javax.swing.JTextField TxtMarcaCarro;
-    public javax.swing.JTextField TxtModeloCarro;
-    public javax.swing.JTextField TxtNumeroSerie;
     private javax.swing.JTextField TxtRfc;
+    private javax.swing.JButton bBuscar;
     private javax.swing.JButton botonRegresar;
+    private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -328,8 +381,14 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    public javax.swing.JTextField txtColorVehiculo;
+    public javax.swing.JTextField txtLineaVehiculo;
+    public javax.swing.JTextField txtMarcaVehiculo;
+    public javax.swing.JTextField txtModeloVehiculo;
+    public javax.swing.JTextField txtNumSerie;
     // End of variables declaration//GEN-END:variables
 }

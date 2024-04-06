@@ -6,6 +6,7 @@ import interfaces.IAutomovilDAO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -45,7 +46,26 @@ public class AutomovilDAO implements IAutomovilDAO {
         em.close();
         return count > 0;
     }
-    
+
+    public Automovil buscarVehiculo(Automovil vehiculo) throws PersistenceException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Automovil> criteria = builder.createQuery(Automovil.class);
+
+        Root<Automovil> root = criteria.from(Automovil.class);
+        criteria.select(root).
+                where(builder.equal(root.get("numeroSerie"), vehiculo.getNumeroSerie()));
+
+        TypedQuery<Automovil> query = em.createQuery(criteria);
+
+        Automovil vehiculoBuscar = query.getSingleResult();
+        em.close();
+        return vehiculoBuscar;
+    }
+
     public String consultarIDAutomovil(String numeroSerie) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -59,7 +79,7 @@ public class AutomovilDAO implements IAutomovilDAO {
         String id = query.getSingleResult().getId().toString();
         return id;
     }
-    
+
     public String consultarIDPersona(String numeroSerie) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();

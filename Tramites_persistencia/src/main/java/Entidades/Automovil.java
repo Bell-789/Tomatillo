@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import recursos.TipoAutomovil;
 
 /**
  * Esta clase representa la tabla Automoviles en la base de datos.
@@ -62,6 +65,13 @@ public class Automovil implements Serializable {
     private String linea;
 
     /**
+     * Tipo de los automoviles (nuevo o usado).
+     */
+    @Column(name = "tipo", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TipoAutomovil tipo;
+
+    /**
      * Relacion muchos a uno con la persona.
      */
     @ManyToOne
@@ -95,12 +105,13 @@ public class Automovil implements Serializable {
      * @param tipo el tipo de carro (nuevo o usado).
      * @param persona la persona con el automovil.
      */
-    public Automovil(String numeroSerie, String marca, String color, String modelo, String linea, Persona persona) {
+    public Automovil(String numeroSerie, String marca, String color, String modelo, String linea, TipoAutomovil tipo, Persona persona) {
         this.numeroSerie = numeroSerie;
         this.marca = marca;
         this.color = color;
         this.modelo = modelo;
         this.linea = linea;
+        this.tipo = tipo;
         this.placas = new ArrayList<>();
         this.persona = persona;
     }
@@ -229,6 +240,24 @@ public class Automovil implements Serializable {
      */
     public void setLinea(String linea) {
         this.linea = linea;
+    }
+    
+        /**
+     * Metodo para obtner el tipo del automovil.
+     *
+     * @return regresa el tipo del automovil.
+     */
+    public TipoAutomovil getTipo() {
+        return tipo;
+    }
+
+    /**
+     * Metodo para asignar el tipo de automovil.
+     *
+     * @param tipo el tipo a asignar.
+     */
+    public void setTipo(TipoAutomovil tipo) {
+        this.tipo = tipo;
     }
 
     /**

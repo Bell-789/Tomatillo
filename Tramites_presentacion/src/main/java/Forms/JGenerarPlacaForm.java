@@ -1,16 +1,40 @@
 package Forms;
 
+import dto.AutomovilDTO;
+import dto.ManejaPlacaDTO;
+import dto.PersonaDTO;
+import excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import negocio.PersonasNegocio;
+import negocio.PlacasNegocio;
+import recursos.TipoAutomovil;
+import validaciones.Validadores;
+
 /**
  *
  * @author Bell
  */
 public class JGenerarPlacaForm extends javax.swing.JFrame {
+    
+    private PersonaDTO personaDTO;
+    private ManejaPlacaDTO placaDTO;
+    private boolean numeroPlacaValidado;
+    private Validadores validadores;
+    private PersonasNegocio perNeg;
+    private PlacasNegocio plaNeg;
 
     /**
      * Creates new form JGenerarPlacaForm
      */
     public JGenerarPlacaForm() {
         initComponents();
+        this.personaDTO = new PersonaDTO();
+        this.plaNeg = new PlacasNegocio();
+        numeroPlacaValidado = false;
+        this.validadores = new Validadores();
+        this.perNeg = new PersonasNegocio();
     }
 
     /**
@@ -27,13 +51,26 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        TxtPlacaNueva = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtPlaca = new javax.swing.JTextField();
         BtnGenerarPlaca = new javax.swing.JToggleButton();
         botonRegresar1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        bBuscarNumP = new javax.swing.JToggleButton();
+        jLabel2 = new javax.swing.JLabel();
+        TxtRfc = new javax.swing.JTextField();
+        bBuscarPer = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        lblNumSer = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblMarca = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblModelo = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblTipoVeh = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lblLinea = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblColor = new javax.swing.JLabel();
 
         jLabel3.setFont(new java.awt.Font("Lucida Sans", 1, 14)); // NOI18N
         jLabel3.setText("Numero de placa anterior");
@@ -44,17 +81,17 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(18, 234, 207));
 
-        jLabel1.setText("Generar Placa");
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel1.setText("Generar Placa Nueva");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -64,101 +101,189 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel4.setText("RFC del Solicitante:");
         jLabel4.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
+        jLabel4.setText("Numero de placa:");
 
-        jLabel5.setText("Automovil Seleccionado:");
-        jLabel5.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
+        txtPlaca.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
+        txtPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlacaActionPerformed(evt);
+            }
+        });
 
-        TxtPlacaNueva.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-
-        jComboBox1.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-
-        BtnGenerarPlaca.setText("Generar");
         BtnGenerarPlaca.setBackground(new java.awt.Color(175, 244, 198));
         BtnGenerarPlaca.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
+        BtnGenerarPlaca.setText("Generar");
         BtnGenerarPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnGenerarPlacaActionPerformed(evt);
             }
         });
 
-        botonRegresar1.setText(">");
         botonRegresar1.setBackground(new java.awt.Color(117, 117, 117));
-        botonRegresar1.setBorder(null);
         botonRegresar1.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
+        botonRegresar1.setText(">");
+        botonRegresar1.setBorder(null);
         botonRegresar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegresar1ActionPerformed(evt);
             }
         });
 
-        jToggleButton1.setBackground(new java.awt.Color(175, 244, 198));
-        jToggleButton1.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
-        jToggleButton1.setText("Buscar");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        bBuscarNumP.setBackground(new java.awt.Color(175, 244, 198));
+        bBuscarNumP.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
+        bBuscarNumP.setText("Buscar");
+        bBuscarNumP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                bBuscarNumPActionPerformed(evt);
             }
         });
+
+        jLabel2.setText("RFC de persona: ");
+
+        TxtRfc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtRfcActionPerformed(evt);
+            }
+        });
+
+        bBuscarPer.setText("Buscar");
+        bBuscarPer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarPerActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Numero serie: ");
+
+        lblNumSer.setText("numSer");
+
+        jLabel6.setText("Marca:");
+
+        lblMarca.setText("marca");
+
+        jLabel7.setText("Modelo:");
+
+        lblModelo.setText("model");
+
+        jLabel8.setText("Tipo vehiculo:");
+
+        lblTipoVeh.setText("tipoVeh");
+
+        jLabel9.setText("Linea:");
+
+        lblLinea.setText("linea");
+
+        jLabel10.setText("Color:");
+
+        lblColor.setText("color");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 89, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtPlacaNueva)
-                            .addComponent(jComboBox1, 0, 220, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(143, 143, 143)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(93, 93, 93)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bBuscarNumP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bBuscarPer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 134, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
+                        .addGap(253, 253, 253)
                         .addComponent(BtnGenerarPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(227, 227, 227)
-                        .addComponent(jToggleButton1)))
+                        .addGap(162, 162, 162)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblMarca)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblTipoVeh)
+                                    .addComponent(lblNumSer))
+                                .addGap(69, 69, 69)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel7))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblModelo)
+                            .addComponent(lblLinea)
+                            .addComponent(lblColor))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscarPer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(TxtPlacaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jToggleButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                    .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscarNumP))
+                .addGap(25, 25, 25)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblModelo)
+                    .addComponent(jLabel8)
+                    .addComponent(lblTipoVeh))
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                    .addComponent(lblNumSer)
+                    .addComponent(jLabel9)
+                    .addComponent(lblLinea))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblMarca)
+                    .addComponent(jLabel10)
+                    .addComponent(lblColor))
+                .addGap(31, 31, 31)
                 .addComponent(BtnGenerarPlaca)
-                .addGap(40, 40, 40))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,25 +307,100 @@ public class JGenerarPlacaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
     private void BtnGenerarPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGenerarPlacaActionPerformed
-        // TODO add your handling code here:
+        JTramitaPlaca p = new JTramitaPlaca(placaDTO);
+        p.setVisible(true);
+        dispose();
     }//GEN-LAST:event_BtnGenerarPlacaActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void bBuscarNumPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarNumPActionPerformed
+        placaDTO = new ManejaPlacaDTO(txtPlaca.getText());
+        placaDTO.setPersona(personaDTO);
+        try {
+            placaDTO = plaNeg.consultarPlacaPorNumero(placaDTO);
+            cargarDatosVehiculo();
+            numeroPlacaValidado = true;
+            
+        } catch (PersistenciaException e) {
+            numeroPlacaValidado = false;
+            Logger.getLogger(JGenerarPlacaForm.class.getName()).log(Level.SEVERE, "Número placa inválido o no es suya");
+        }
+    }//GEN-LAST:event_bBuscarNumPActionPerformed
+
+    private void TxtRfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRfcActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_TxtRfcActionPerformed
+
+    private void bBuscarPerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarPerActionPerformed
+        try {
+            buscar();
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JAgregarCarroForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bBuscarPerActionPerformed
+
+    private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
+
+    }//GEN-LAST:event_txtPlacaActionPerformed
+    
+    private void buscar() throws PersistenciaException {
+        personaDTO = new PersonaDTO(TxtRfc.getText());
+        String RFCb = TxtRfc.getText();
+        if (RFCb.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor, ingrese el RFC para continuar",
+                    "Error: Campo vacío",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+        if (!validadores.validaRfc(RFCb)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "RFC inválido. Verifica que el RFC sea \n el correcto e ingréselo nuevamente",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);;
+            return;
+        }
+        personaDTO = perNeg.consultarPersonaPorRfc(personaDTO);
+    }
+    
+    private void cargarDatosVehiculo() {
+        AutomovilDTO vehiculoDTO = placaDTO.getVehiculo();
+        lblTipoVeh.setText(placaDTO.getTipoVehiculo());
+        lblColor.setText(vehiculoDTO.getColor());
+        lblMarca.setText(vehiculoDTO.getMarca());
+        lblModelo.setText(vehiculoDTO.getModelo());
+        lblLinea.setText(vehiculoDTO.getLinea());
+        lblNumSer.setText(vehiculoDTO.getNumSerie());
+        vehiculoDTO.setTipo(TipoAutomovil.Usado);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnGenerarPlaca;
-    public javax.swing.JTextField TxtPlacaNueva;
+    private javax.swing.JTextField TxtRfc;
+    private javax.swing.JToggleButton bBuscarNumP;
+    private javax.swing.JButton bBuscarPer;
     private javax.swing.JButton botonRegresar1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JLabel lblColor;
+    private javax.swing.JLabel lblLinea;
+    private javax.swing.JLabel lblMarca;
+    private javax.swing.JLabel lblModelo;
+    private javax.swing.JLabel lblNumSer;
+    private javax.swing.JLabel lblTipoVeh;
+    public javax.swing.JTextField txtPlaca;
     // End of variables declaration//GEN-END:variables
 }

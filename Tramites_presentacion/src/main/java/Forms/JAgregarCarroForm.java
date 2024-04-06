@@ -384,6 +384,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         automovilDTO.setModelo(txtModeloVehiculo.getText());
         automovilDTO.setMarca(txtMarcaVehiculo.getText());
         automovilDTO.setNumSerie(txtNumSerie.getText());
+        automovilDTO.setTipo(tipo.Nuevo);
     }
 
     /**

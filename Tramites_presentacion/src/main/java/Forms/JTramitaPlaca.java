@@ -1,11 +1,13 @@
 package Forms;
 
 import dto.AutomovilDTO;
+import dto.ManejaPlacaDTO;
 import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import negocio.PlacasNegocio;
+import recursos.TipoAutomovil;
 
 /**
  *
@@ -16,6 +18,7 @@ public class JTramitaPlaca extends javax.swing.JFrame {
     private AutomovilDTO autoDTO;
     private PlacaDTO placaDTO;
     private PlacasNegocio plaNeg;
+    private ManejaPlacaDTO mPla;
 
     /**
      * Creates new form JTramitaPlaca
@@ -24,10 +27,19 @@ public class JTramitaPlaca extends javax.swing.JFrame {
         initComponents();
         this.plaNeg = new PlacasNegocio();
         this.placaDTO = placaDTO;
-        cargarDatos();
+        this.autoDTO = new AutomovilDTO();
+        cargarDatosAutoNuevo();
     }
 
-    private void cargarDatos() {
+    public JTramitaPlaca(ManejaPlacaDTO placaDTO) {
+        initComponents();
+        this.plaNeg = new PlacasNegocio();
+        this.mPla = placaDTO;
+        this.autoDTO = new AutomovilDTO();
+        cargarDatosAutoUsado();
+    }
+
+    private void cargarDatosAutoNuevo() {
         String tipoVehiculo;
         String numeroPlaca = plaNeg.generaPlacaNueva();
         String numeroFormateado;
@@ -52,8 +64,35 @@ public class JTramitaPlaca extends javax.swing.JFrame {
 //            case "Automovil":
 //                lblOpcion1.setText("Automóvil nuevo");
 //                lblOpcion2.setText("Automóvil usado");
-//                lblCosto1.setText("$1,500.00 MXN");
-//                lblCosto2.setText("$1,000.00 MXN");
+//                break;
+//        }
+    }
+
+    private void cargarDatosAutoUsado() {
+        String tipoVehiculo;
+        String numeroPlaca = plaNeg.generaPlacaNueva();
+        String numeroFormateado;
+
+        lblTipo.setText("Usado");
+        plaNeg.calcularCostoVehiculoUsado(mPla);
+        mPla.setNumero(numeroPlaca);
+        autoDTO = mPla.getVehiculo();
+        lblNumeroPlaca.setText(mPla.getNumero());
+        tipoVehiculo = mPla.getTipoVehiculo();
+        numeroFormateado = String.format("%.2f", mPla.getMonto());
+
+        lblColor.setText(autoDTO.getColor());
+        lblLinea.setText(autoDTO.getLinea());
+        lblModelo.setText(autoDTO.getModelo());
+        lblMarca.setText(autoDTO.getMarca());
+        lblNumeroSerie.setText(autoDTO.getNumSerie());
+
+        lblCosto.setText("$" + numeroFormateado + " MXN");
+
+//        switch (tipoVehiculo) {
+//            case "Automovil":
+//                lblOpcion1.setText("Automóvil nuevo");
+//                lblOpcion2.setText("Automóvil usado");
 //                break;
 //        }
     }
@@ -87,9 +126,9 @@ public class JTramitaPlaca extends javax.swing.JFrame {
         lblTipo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        lblOpcion1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel19 = new javax.swing.JLabel();
+        lblOpcion2 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         lblCosto = new javax.swing.JLabel();
         botonRealizar = new javax.swing.JButton();
@@ -175,11 +214,11 @@ public class JTramitaPlaca extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         jLabel17.setText("COSTOS $$");
 
-        jLabel18.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel18.setText("Nuevo                $1500");
+        lblOpcion1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblOpcion1.setText("Nuevo                $1500");
 
-        jLabel19.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel19.setText("Usado                $1000");
+        lblOpcion2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblOpcion2.setText("Usado                $1000");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -192,8 +231,8 @@ public class JTramitaPlaca extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel18)))
+                    .addComponent(lblOpcion2)
+                    .addComponent(lblOpcion1)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,9 +242,9 @@ public class JTramitaPlaca extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel18)
+                .addComponent(lblOpcion1)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel19)
+                .addComponent(lblOpcion2)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -336,11 +375,20 @@ public class JTramitaPlaca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRealizarActionPerformed
+        TipoAutomovil tipo = autoDTO.getTipo();
         try {
-            plaNeg.realizarTramitePlaca(placaDTO);
-            ValidacionExitosa validacionExitosa = new ValidacionExitosa();
-            validacionExitosa.show();
-            dispose();
+            if (tipo == TipoAutomovil.Nuevo) {
+                plaNeg.realizarTramitePlaca(placaDTO);
+                ValidacionExitosa validacionExitosa = new ValidacionExitosa();
+                validacionExitosa.show();
+                dispose();
+            } else {
+                plaNeg.realizarTramitePlaca(mPla);
+                ValidacionExitosa validacionExitosa = new ValidacionExitosa();
+                validacionExitosa.show();
+                dispose();
+            }
+
         } catch (PersistenciaException ex) {
             Logger.getLogger(JTramitaPlaca.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -359,8 +407,6 @@ public class JTramitaPlaca extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -379,6 +425,8 @@ public class JTramitaPlaca extends javax.swing.JFrame {
     private javax.swing.JLabel lblModelo;
     private javax.swing.JLabel lblNumeroPlaca;
     private javax.swing.JLabel lblNumeroSerie;
+    private javax.swing.JLabel lblOpcion1;
+    private javax.swing.JLabel lblOpcion2;
     private javax.swing.JLabel lblTipo;
     // End of variables declaration//GEN-END:variables
 }

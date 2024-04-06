@@ -1,5 +1,6 @@
 package DAO;
 
+import Entidades.Automovil;
 import Entidades.Placa;
 import excepciones.PersistenciaException;
 import interfaces.IPlacaDAO;
@@ -16,6 +17,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 import javax.swing.JOptionPane;
+import recursos.ValidaActivo;
 
 /**
  *
@@ -103,5 +105,23 @@ public class PlacaDAO implements IPlacaDAO {
 
         List<Placa> placas = query.getResultList();
         return placas;
+    }
+
+    public void desactivarPlacas(Automovil auto) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Placa> criteria = cb.createQuery(Placa.class);
+        Root<Placa> root = criteria.from(Placa.class);
+        criteria.select(root).where(cb.equal(root.get("automovil").get("numeroSerie"), auto.getNumeroSerie()));
+        TypedQuery<Placa> query = em.createQuery(criteria);
+        List<Placa> placas = query.getResultList();
+
+        em.getTransaction().begin();
+        for (Placa placa : placas) {
+            placa.setActivo(ValidaActivo.Desactivada);
+        }
+        em.getTransaction().commit();
+        em.close();
     }
 }

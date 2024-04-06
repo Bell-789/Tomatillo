@@ -1,10 +1,12 @@
 package negocio;
 
+import DAO.AutomovilDAO;
 import DAO.PersonaDAO;
 import DAO.PlacaDAO;
 import DAO.TramiteDAO;
 import Entidades.Placa;
 import Entidades.Tramite;
+import dto.AutomovilDTO;
 import dto.PlacaDTO;
 import dto.TramiteDTO;
 import excepciones.PersistenciaException;
@@ -21,19 +23,22 @@ public class ConsultasNegocio {
     private PlacaDAO placaDAO = new PlacaDAO();
     private TramiteDAO tt = new TramiteDAO();
     private TramiteDTO tramitDTO = new TramiteDTO();
+    private AutomovilDAO au = new AutomovilDAO();
 
     public ConsultasNegocio() {
         this.placaDAO = new PlacaDAO();
         this.tt = new TramiteDAO();
         this.tramitDTO = new TramiteDTO();
+        this.au = new AutomovilDAO();
     }
 
-    public void listarPlaca(JTable table, PlacaDTO pepe) throws PersistenciaException {
+    public void listarPlaca(JTable table, AutomovilDTO pepe) throws PersistenciaException {
         DefaultTableModel model;
         String[] titulo = {"Id", "Fecha de Recepcion", "Numero de Placa", "Tipo de Vehiculo", "Estado", "Monto"};
         model = new DefaultTableModel(null, titulo);
 
-        List<Placa> p = placaDAO.buscarPlacaTabla(pepe.getNumPlaca());
+        String to = au.consultarIDAutomovil(pepe.getNumSerie());
+        List<Placa> p = placaDAO.buscarPlacaTabla(to);
 
         String[] datos = new String[6];
         for (Placa plac : p) {
@@ -43,9 +48,8 @@ public class ConsultasNegocio {
             datos[3] = plac.getTipoVehiculo().toString();
 
         }
-        
-        String h = placaDAO.consultarID(pepe.getNumPlaca());
 
+        String h = au.consultarIDPersona(to);
         List<Tramite> t = tt.consultarTramitesTabla(h);
 
         for (Tramite tramite : t) {

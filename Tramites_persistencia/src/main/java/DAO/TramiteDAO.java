@@ -122,9 +122,13 @@ public class TramiteDAO implements ITramiteDAO {
         EntityManager em = emf.createEntityManager();
         CriteriaBuilder builder = em.getCriteriaBuilder();
 
+        Long id = Long.parseLong(idPersona);
+
+        Persona persona = em.find(Persona.class, id);
+
         CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
         Root<Tramite> root = criteria.from(Tramite.class);
-        criteria = criteria.select(root).where(builder.equal(root.get("id"), idPersona));
+        criteria = criteria.select(root).where(builder.equal(root.get("persona"), persona));
         TypedQuery<Tramite> query = em.createQuery(criteria);
 
         List<Tramite> lista = query.getResultList();

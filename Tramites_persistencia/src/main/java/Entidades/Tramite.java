@@ -22,6 +22,7 @@ import recursos.ValidaActivo;
 
 /**
  * Esta clase representa la tabla Tramites en la base de datos.
+ *
  * @author Chris, bell y kathya
  */
 @Entity

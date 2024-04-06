@@ -1,5 +1,6 @@
 package Forms;
 
+import dto.AutomovilDTO;
 import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import negocio.ConsultasNegocio;
@@ -15,7 +16,7 @@ public class JHistorialPlacasAntiguas extends javax.swing.JFrame {
     /**
      * Creates new form JHistorialPlacasAntiguas
      */
-    public JHistorialPlacasAntiguas(PlacaDTO dto) throws PersistenciaException {
+    public JHistorialPlacasAntiguas(AutomovilDTO dto) throws PersistenciaException {
         initComponents();
         this.co = new ConsultasNegocio();
         co.listarPlaca(tabla, dto);

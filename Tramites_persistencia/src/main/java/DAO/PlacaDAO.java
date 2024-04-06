@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -87,31 +88,20 @@ public class PlacaDAO implements IPlacaDAO {
         return countResult > 0;
     }
 
-    public List<Placa> buscarPlacaTabla(String placa) throws PersistenciaException {
+    public List<Placa> buscarPlacaTabla(String idAuto) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
         CriteriaQuery<Placa> criteria = cb.createQuery(Placa.class);
         Root<Placa> root = criteria.from(Placa.class);
-        criteria.select(root).where(cb.equal(root.get("numero"), placa));
-        TypedQuery<Placa> query = em.createQuery(criteria);
+        criteria.select(root).where(cb.equal(root.get("id"), idAuto));
+        String queryString = "SELECT p FROM Placa p WHERE p.id = :id";
+        Query query = em.createQuery(queryString);
+        query.setParameter("id", Long.parseLong(idAuto));
+        List<Placa> resultList = query.getResultList();
 
-        List<Placa> lista = query.getResultList();
-        return lista;
-    }
-
-    public String consultarID(String numero) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
-        EntityManager em = emf.createEntityManager();
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-
-        CriteriaQuery<Placa> criteria = builder.createQuery(Placa.class);
-        Root<Placa> root = criteria.from(Placa.class);
-        criteria = criteria.select(root).where(builder.equal(root.get("numero"), numero));
-        TypedQuery<Placa> query = em.createQuery(criteria);
-
-        String id = query.getSingleResult().getId().toString();
-        return id;
+        List<Placa> placas = query.getResultList();
+        return placas;
     }
 }

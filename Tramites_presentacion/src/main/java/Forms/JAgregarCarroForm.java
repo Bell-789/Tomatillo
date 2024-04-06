@@ -4,6 +4,7 @@ import dto.AutomovilDTO;
 import dto.PersonaDTO;
 import dto.PlacaDTO;
 import excepciones.PersistenciaException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,7 +19,7 @@ import validaciones.Validadores;
  * @author Bell
  */
 public class JAgregarCarroForm extends javax.swing.JFrame {
-
+    
     private PersonaDTO personaDTO;
     private AutomovilDTO automovilDTO;
     private Validadores validadores;
@@ -290,7 +291,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
         JPlacaMenu m = new JPlacaMenu();
         m.setVisible(true);
-
+        
         dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
@@ -330,7 +331,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                     Logger.getLogger(JAgregarCarroForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
         }
     }//GEN-LAST:event_BtnRegistrarCarroActionPerformed
 
@@ -353,7 +354,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
             Logger.getLogger(JAgregarCarroForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bBuscarActionPerformed
-
+    
     private void buscar() throws PersistenciaException {
         personaDTO = new PersonaDTO(TxtRfc.getText());
         String RFCb = TxtRfc.getText();
@@ -376,7 +377,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         }
         personaDTO = perNeg.consultarPersonaPorRfc(personaDTO);
     }
-
+    
     private void cargarDatosVehiculo() {
         automovilDTO.setLinea(txtLineaVehiculo.getText());
         automovilDTO.setColor(txtColorVehiculo.getText());
@@ -393,6 +394,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         placaDTO.setPersona(personaDTO);
         placaDTO.setTipoVehiculo(cbxTipo.getSelectedItem().toString());
         placaDTO.setVehiculo(automovilDTO);
+        placaDTO.setFechaRecepcion(Calendar.getInstance());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

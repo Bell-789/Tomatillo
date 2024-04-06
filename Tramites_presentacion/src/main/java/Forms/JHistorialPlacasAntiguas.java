@@ -1,16 +1,24 @@
 package Forms;
 
+import dto.PlacaDTO;
+import excepciones.PersistenciaException;
+import negocio.ConsultasNegocio;
+
 /**
  *
  * @author Bell
  */
 public class JHistorialPlacasAntiguas extends javax.swing.JFrame {
 
+    private ConsultasNegocio co;
+
     /**
      * Creates new form JHistorialPlacasAntiguas
      */
-    public JHistorialPlacasAntiguas() {
+    public JHistorialPlacasAntiguas(PlacaDTO dto) throws PersistenciaException {
         initComponents();
+        this.co = new ConsultasNegocio();
+        co.listarPlaca(tabla, dto);
     }
 
     /**
@@ -27,7 +35,7 @@ public class JHistorialPlacasAntiguas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         botonRegresar1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,7 +73,7 @@ public class JHistorialPlacasAntiguas extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -91,7 +99,7 @@ public class JHistorialPlacasAntiguas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,6 +145,7 @@ public class JHistorialPlacasAntiguas extends javax.swing.JFrame {
     private void botonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar1ActionPerformed
         JModuloPlacaForm form = new JModuloPlacaForm();
         form.setVisible(true);
+
         dispose();
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
@@ -147,6 +156,6 @@ public class JHistorialPlacasAntiguas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

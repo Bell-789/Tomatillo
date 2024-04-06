@@ -66,6 +66,7 @@ public class PlacasNegocio {
         placa.setFechaEmision(Calendar.getInstance());
         placa.setActivo(ValidaActivo.Activa);
         placa.setNumPlaca(placaDTO.getNumPlaca());
+        placa.setFechaRecepcion(Calendar.getInstance());
 
         placa = placasDAO.agregarPlaca(placa);
         placaDTO.setFechaEmision(placa.getFechaEmision());

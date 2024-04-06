@@ -4,6 +4,8 @@ import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import negocio.ConsultasNegocio;
 
 /**
@@ -161,15 +163,24 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
     private void BtnBuscarPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPlacaActionPerformed
-        try {
-            regresarPlaca();
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(JModuloPlacaForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if (TxtPlacaAnterior.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Campo vacio!");
+        } else {
+            if (TxtPlacaAnterior.getText().length() > 7) {
+                JOptionPane.showMessageDialog(null, "Erorr de Caracteres, Ingrese de forma adecuada la placa 'XXX-000' ");
+            } else {
+                if (TxtPlacaAnterior.getText().length() < 7) {
+                    JOptionPane.showMessageDialog(null, "Errror de Caracteres, Ingrese de forma adecuada la placa 'XXX-000' ");
+                } else {
+                    try {
+                        regresarPlaca();
+                    } catch (PersistenciaException ex) {
+                        Logger.getLogger(JModuloPlacaForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
 
-//        JHistorialPlacasAntiguas old = new JHistorialPlacasAntiguas();
-//        old.setVisible(true);
-//        dispose();
+        }
     }//GEN-LAST:event_BtnBuscarPlacaActionPerformed
 
     private void TxtPlacaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPlacaAnteriorActionPerformed
@@ -178,7 +189,11 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
 
     private void regresarPlaca() throws PersistenciaException {
         dto.setNumPlaca(TxtPlacaAnterior.getText());
-        co.consultaPlaca(dto);
+
+        JHistorialPlacasAntiguas old = new JHistorialPlacasAntiguas(dto);
+        old.setVisible(true);
+
+        dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

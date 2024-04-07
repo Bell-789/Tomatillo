@@ -193,8 +193,8 @@ public class JTramitaPlaca extends javax.swing.JFrame {
         lblNumeroSerie.setFont(new java.awt.Font("Lucida Sans", 2, 20)); // NOI18N
         lblNumeroSerie.setText("M");
 
-        lblMarca.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         lblMarca.setText("M");
+        lblMarca.setFont(new java.awt.Font("Lucida Sans", 2, 20)); // NOI18N
 
         lblLinea.setFont(new java.awt.Font("Lucida Sans", 2, 20)); // NOI18N
         lblLinea.setText("M");
@@ -395,7 +395,7 @@ public class JTramitaPlaca extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRealizarActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        JAgregarCarroForm ca = new JAgregarCarroForm();
+        JPlacaMenu ca = new JPlacaMenu();
         ca.setVisible(true);
 
         dispose();

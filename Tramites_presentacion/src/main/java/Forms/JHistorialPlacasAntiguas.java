@@ -1,7 +1,6 @@
 package Forms;
 
 import dto.AutomovilDTO;
-import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import negocio.ConsultasNegocio;
 

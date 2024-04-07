@@ -66,7 +66,7 @@ public class AutomovilDAO implements IAutomovilDAO {
         return vehiculoBuscar;
     }
 
-    public String consultarIDAutomovil(String numeroSerie) {
+    public String consultarIDAuto(String numeroSerie) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -77,20 +77,6 @@ public class AutomovilDAO implements IAutomovilDAO {
         TypedQuery<Automovil> query = em.createQuery(criteria);
 
         String id = query.getSingleResult().getId().toString();
-        return id;
-    }
-
-    public String consultarIDPersona(String numeroSerie) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
-        EntityManager em = emf.createEntityManager();
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-
-        CriteriaQuery<Automovil> criteria = builder.createQuery(Automovil.class);
-        Root<Automovil> root = criteria.from(Automovil.class);
-        criteria = criteria.select(root).where(builder.equal(root.get("numeroSerie"), numeroSerie));
-        TypedQuery<Automovil> query = em.createQuery(criteria);
-
-        String id = query.getSingleResult().getPersona().toString();
         return id;
     }
 

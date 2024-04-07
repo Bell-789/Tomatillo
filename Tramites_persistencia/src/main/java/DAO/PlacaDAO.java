@@ -24,21 +24,23 @@ import recursos.ValidaActivo;
  * @author Chris
  */
 public class PlacaDAO implements IPlacaDAO {
-
+    
+    private Automovil automovil = new Automovil();
+    
     public Placa agregarPlaca(Placa placa) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
-
+        
         em.getTransaction().begin();
-
+        
         em.persist(placa);
-
+        
         em.getTransaction().commit();
-
+        
         em.close();
         return placa;
     }
-
+    
     public Placa buscarPlaca(Placa placa) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -50,7 +52,7 @@ public class PlacaDAO implements IPlacaDAO {
         Placa placas;
         try {
             placas = (Placa) query.getSingleResult();
-
+            
         } catch (NoResultException nre) {
             JOptionPane.showMessageDialog(null, "ERROR! Placa Inexistente");
             throw new PersistenciaException("Número de placa inexistente");
@@ -59,54 +61,81 @@ public class PlacaDAO implements IPlacaDAO {
         }
         return placas;
     }
-
+    
     public boolean existePlaca(Placa placa) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
-
+        
         CriteriaQuery<Long> criteria = cb.createQuery(Long.class);
         Root<Placa> rootCount = criteria.from(Placa.class);
         criteria.select(cb.count(rootCount)).where(cb.equal(rootCount.get("numero"), placa.getNumPlaca()));
         Long countResult = em.createQuery(criteria).getSingleResult();
-
+        
         return countResult > 0;
     }
-
+    
     public boolean existeNumero(Placa placa) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> criteria = cb.createQuery(Long.class);
-
+        
         Metamodel metamodel = em.getMetamodel();
         EntityType<Placa> Placa_ = metamodel.entity(Placa.class);
-
+        
         Root<Placa> rootCount = criteria.from(Placa.class);
-
+        
         criteria.select(cb.count(rootCount)).where(cb.equal(rootCount.get(Placa_.getSingularAttribute("numero")), placa.getNumPlaca()));
-
+        
         Long countResult = em.createQuery(criteria).getSingleResult();
         return countResult > 0;
     }
-
-    public List<Placa> buscarPlacaTabla(String idAuto) throws PersistenciaException {
+    
+    public List<Placa> buscarPlacaTabla(String placa) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
-
+        
         CriteriaQuery<Placa> criteria = cb.createQuery(Placa.class);
         Root<Placa> root = criteria.from(Placa.class);
-        criteria.select(root).where(cb.equal(root.get("id"), idAuto));
-        String queryString = "SELECT p FROM Placa p WHERE p.id = :id";
-        Query query = em.createQuery(queryString);
-        query.setParameter("id", Long.parseLong(idAuto));
-        List<Placa> resultList = query.getResultList();
-
-        List<Placa> placas = query.getResultList();
-        return placas;
+        criteria.select(root).where(cb.equal(root.get("numero"), placa));
+        TypedQuery<Placa> query = em.createQuery(criteria);
+        
+        List<Placa> lista = query.getResultList();
+        return lista;
     }
-
+    
+    public String consultarPlaca(String idAuto) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        
+        CriteriaQuery<Placa> criteria = builder.createQuery(Placa.class);
+        Root<Placa> root = criteria.from(Placa.class);
+        criteria = criteria.select(root).where(builder.equal(root.get("automovil"), idAuto));
+        TypedQuery<Placa> query = em.createQuery("SELECT p FROM Placa p WHERE p.automovil.id = :automovilId", Placa.class);
+        query.setParameter("automovilId", automovil.getId());
+        List<Placa> placas = query.getResultList();
+        
+        String id = query.getSingleResult().getNumPlaca();
+        return id;
+    }
+    
+    public String consultarID(String numero) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        
+        CriteriaQuery<Placa> criteria = builder.createQuery(Placa.class);
+        Root<Placa> root = criteria.from(Placa.class);
+        criteria = criteria.select(root).where(builder.equal(root.get("numero"), numero));
+        TypedQuery<Placa> query = em.createQuery(criteria);
+        
+        String id = query.getSingleResult().getId().toString();
+        return id;
+    }
+    
     public void desactivarPlacas(Automovil auto) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -116,7 +145,7 @@ public class PlacaDAO implements IPlacaDAO {
         criteria.select(root).where(cb.equal(root.get("automovil").get("numeroSerie"), auto.getNumeroSerie()));
         TypedQuery<Placa> query = em.createQuery(criteria);
         List<Placa> placas = query.getResultList();
-
+        
         em.getTransaction().begin();
         for (Placa placa : placas) {
             placa.setActivo(ValidaActivo.Desactivada);

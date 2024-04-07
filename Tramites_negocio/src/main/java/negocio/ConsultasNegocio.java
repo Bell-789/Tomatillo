@@ -61,4 +61,25 @@ public class ConsultasNegocio {
         table.setModel(model);
     }
 
+    public void listarTramites(JTable tabla, String idPersona) throws PersistenciaException {
+        DefaultTableModel model;
+        String[] titulo = {"Id", "Tipo Tramite", "Estado", "Fecha de Emision", "Monto"};
+        model = new DefaultTableModel(null, titulo);
+
+        List<Tramite> t = tt.consultarTramitesTabla(idPersona);
+
+        String[] datos = new String[5];
+        for (Tramite tramite : t) {
+            datos[0] = tramite.getId().toString();
+            datos[1] = tramite.getTipo_tramite();
+            datos[2] = tramite.getActivo().toString();
+            datos[3] = tramite.getFechaEmision().toString();
+            datos[4] = tramite.getMonto().toString();
+
+            model.addRow(datos);
+
+        }
+        tabla.setModel(model);
+    }
+
 }

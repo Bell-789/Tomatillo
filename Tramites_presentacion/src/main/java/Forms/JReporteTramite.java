@@ -38,9 +38,9 @@ public class JReporteTramite extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         TxtNombres = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        tramiteBox = new javax.swing.JComboBox<>();
         BtnBuscar = new javax.swing.JToggleButton();
-        calendarPanel1 = new com.github.lgooddatepicker.components.CalendarPanel();
+        calendar = new com.github.lgooddatepicker.components.CalendarPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,7 +89,7 @@ public class JReporteTramite extends javax.swing.JFrame {
         jLabel4.setText("Periodo de tiempo:");
         jLabel4.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Licencia", "Placa" }));
+        tramiteBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Licencia", "Placa" }));
 
         BtnBuscar.setText("Generar Reporte");
         BtnBuscar.setActionCommand("Generar");
@@ -123,10 +123,10 @@ public class JReporteTramite extends javax.swing.JFrame {
                                     .addComponent(jLabel3))
                                 .addGap(42, 42, 42)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(calendarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(TxtNombres)
-                                        .addComponent(jComboBox1, 0, 154, Short.MAX_VALUE)))))
+                                        .addComponent(tramiteBox, 0, 154, Short.MAX_VALUE)))))
                         .addGap(0, 27, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -148,7 +148,7 @@ public class JReporteTramite extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tramiteBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
@@ -156,7 +156,7 @@ public class JReporteTramite extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(calendarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addComponent(BtnBuscar)
                         .addGap(29, 29, 29))))
@@ -208,8 +208,7 @@ public class JReporteTramite extends javax.swing.JFrame {
     private javax.swing.JToggleButton BtnBuscar;
     public javax.swing.JTextField TxtNombres;
     private javax.swing.JButton botonRegresar1;
-    private com.github.lgooddatepicker.components.CalendarPanel calendarPanel1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private com.github.lgooddatepicker.components.CalendarPanel calendar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -217,5 +216,6 @@ public class JReporteTramite extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JComboBox<String> tramiteBox;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,9 +4,7 @@ import excepciones.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import negocio.PersonasNegocio;
 import negocio.TramitesNegocio;
 
@@ -26,7 +24,6 @@ public class JConsultas extends javax.swing.JFrame {
         initComponents();
         this.pe = new PersonasNegocio();
         this.te = new TramitesNegocio();
-        //this.table = (JTable) pe.consultarPersonas();
     }
 
     /**
@@ -50,7 +47,6 @@ public class JConsultas extends javax.swing.JFrame {
         TxtNombres = new javax.swing.JTextField();
         TxtRFC = new javax.swing.JTextField();
         TxtFechaNacimiento = new javax.swing.JTextField();
-        BtnBuscar = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
@@ -130,15 +126,6 @@ public class JConsultas extends javax.swing.JFrame {
             }
         });
 
-        BtnBuscar.setBackground(new java.awt.Color(175, 244, 198));
-        BtnBuscar.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
-        BtnBuscar.setText("Buscar");
-        BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBuscarActionPerformed(evt);
-            }
-        });
-
         table.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -202,10 +189,6 @@ public class JConsultas extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 25, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(256, 256, 256))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,9 +209,7 @@ public class JConsultas extends javax.swing.JFrame {
                     .addComponent(TxtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(BtnBuscar)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,21 +231,6 @@ public class JConsultas extends javax.swing.JFrame {
         m.setVisible(true);
         dispose();
     }//GEN-LAST:event_botonRegresar3ActionPerformed
-
-    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                try {
-                    String j = (table.getValueAt(table.getSelectedRow(), 0).toString());
-//                    te.listarTramites(table, j);
-                } catch (NullPointerException ex) {
-                    Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (PersistenciaException ex) {
-//                    Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void TxtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRFCActionPerformed
         if (TxtRFC.getText().equals(null)) {
@@ -308,12 +274,27 @@ public class JConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtNombresActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        int row = table.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        String j = (model.getValueAt(row, 0).toString());
+        try {
+            if (j.isBlank()) {
+                JOptionPane.showMessageDialog(null, "Seleccione resultado de la tabla!");
+            } else {
+                JConsultasDOS w = new JConsultasDOS(j);
+                w.setVisible(true);
 
+                dispose();
+            }
+        } catch (NullPointerException ex) {
+            Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_tableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton BtnBuscar;
     public javax.swing.JTextField TxtFechaNacimiento;
     public javax.swing.JTextField TxtNombres;
     public javax.swing.JTextField TxtRFC;

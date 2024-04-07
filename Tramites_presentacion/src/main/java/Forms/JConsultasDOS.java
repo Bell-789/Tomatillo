@@ -1,16 +1,23 @@
 package Forms;
 
+import excepciones.PersistenciaException;
+import negocio.ConsultasNegocio;
+
 /**
  *
  * @author Bell
  */
 public class JConsultasDOS extends javax.swing.JFrame {
+    
+    private ConsultasNegocio neg = new ConsultasNegocio();
 
     /**
      * Creates new form JConsultasDOS
      */
-    public JConsultasDOS() {
+    public JConsultasDOS(String g) throws PersistenciaException {
         initComponents();
+        this.neg = new ConsultasNegocio();
+        neg.listarTramites(tablin, g);
     }
 
     /**
@@ -27,7 +34,7 @@ public class JConsultasDOS extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         botonRegresar3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablin = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,7 +72,7 @@ public class JConsultasDOS extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -91,7 +98,7 @@ public class JConsultasDOS extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablin);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,6 +151,6 @@ public class JConsultasDOS extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablin;
     // End of variables declaration//GEN-END:variables
 }

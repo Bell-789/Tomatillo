@@ -1,7 +1,6 @@
 package Forms;
 
 import dto.AutomovilDTO;
-import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

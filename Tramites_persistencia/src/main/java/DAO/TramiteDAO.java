@@ -163,4 +163,17 @@ public class TramiteDAO implements ITramiteDAO {
         return lista;
     }
 
+    public List<Tramite> buscarTramites() throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+        Root<Tramite> root = criteria.from(Tramite.class);
+        TypedQuery<Tramite> query = em.createQuery(criteria);
+
+        List<Tramite> lista = query.getResultList();
+        return lista;
+    }
+
 }

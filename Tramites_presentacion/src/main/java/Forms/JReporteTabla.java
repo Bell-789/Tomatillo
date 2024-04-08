@@ -21,6 +21,7 @@ public class JReporteTabla extends javax.swing.JFrame {
         this.re = new ReportesNegocio();
         re.buscarFecha(jTable1, fecha);
         re.buscarTramite(jTable1, tramite);
+        re.buscarNombre(jTable1, nombre);
     }
 
     /**

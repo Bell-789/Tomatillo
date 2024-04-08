@@ -2,12 +2,9 @@ package negocio;
 
 import DAO.PersonaDAO;
 import DAO.TramiteDAO;
-<<<<<<< HEAD
 import Entidades.Automovil;
 import Entidades.Placa;
-=======
 import Entidades.Persona;
->>>>>>> 9d45f87c99988bbef07090c22bedccbc1b3095b1
 import Entidades.Tramite;
 import excepciones.PersistenciaException;
 import java.sql.Connection;

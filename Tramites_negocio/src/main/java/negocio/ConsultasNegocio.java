@@ -7,6 +7,7 @@ import Entidades.Automovil;
 import Entidades.Placa;
 import Entidades.Tramite;
 import dto.AutomovilDTO;
+import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
 import javax.swing.JTable;
@@ -28,14 +29,35 @@ public class ConsultasNegocio {
         this.au = new AutomovilDAO();
     }
 
-    public void listarPlaca(JTable table, AutomovilDTO auto) throws PersistenciaException {
+//    public void listarAuto(JTable table, AutomovilDTO auto) throws PersistenciaException {
+//        DefaultTableModel model;
+//        String[] titulo = {"Id", "Color", "Linea", "Marca", "Modelo", "Numero de Serie", "Tipo de Automovil"};
+//        model = new DefaultTableModel(null, titulo);
+//
+//        List<Automovil> ap = au.consultarTablauto(auto.getNumSerie());
+//
+//        String[] datos = new String[7];
+//        for (Automovil a : ap) {
+//            datos[0] = a.getId().toString();
+//            datos[1] = a.getColor();
+//            datos[2] = a.getLinea();
+//            datos[3] = a.getMarca();
+//            datos[4] = a.getModelo();
+//            datos[5] = a.getNumeroSerie();
+//            datos[6] = a.getTipo().toString();
+//
+//            model.addRow(datos);
+//
+//        }
+//
+//        table.setModel(model);
+//    }
+    public void listarPlaca(JTable table, PlacaDTO pepe) throws PersistenciaException {
         DefaultTableModel model;
         String[] titulo = {"Id", "Fecha de Recepcion", "Numero de Placa", "Tipo de Vehiculo", "Estado", "Monto"};
         model = new DefaultTableModel(null, titulo);
 
-        String idauto = au.consultarIDAuto(auto.getNumSerie());
-        String numPlaca = placaDAO.consultarPlaca(idauto);
-        List<Placa> p = placaDAO.buscarPlacaTabla(numPlaca);
+        List<Placa> p = placaDAO.buscarPlacaTabla(pepe.getNumPlaca());
 
         String[] datos = new String[6];
         for (Placa plac : p) {
@@ -46,7 +68,7 @@ public class ConsultasNegocio {
 
         }
 
-        String h = placaDAO.consultarID(numPlaca);
+        String h = placaDAO.consultarID(pepe.getNumPlaca());
 
         List<Tramite> t = tt.consultarTramitesTabla(h);
 

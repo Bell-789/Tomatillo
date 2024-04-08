@@ -1,6 +1,7 @@
 package Forms;
 
 import dto.AutomovilDTO;
+import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +14,7 @@ import negocio.ConsultasNegocio;
  */
 public class JModuloPlacaForm extends javax.swing.JFrame {
 
-    private AutomovilDTO dto;
+    private PlacaDTO dto;
     private ConsultasNegocio co;
 
     /**
@@ -21,7 +22,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
      */
     public JModuloPlacaForm() {
         initComponents();
-        this.dto = new AutomovilDTO();
+        this.dto = new PlacaDTO();
         this.co = new ConsultasNegocio();
     }
 
@@ -39,7 +40,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         botonRegresar1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        TxtNumSerie = new javax.swing.JTextField();
+        TxtPlaca = new javax.swing.JTextField();
         BtnBuscarPlaca = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,12 +80,12 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
-        jLabel3.setText("Numero de serie del Automovil");
+        jLabel3.setText("Numero de Placa Anterior ");
 
-        TxtNumSerie.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
-        TxtNumSerie.addActionListener(new java.awt.event.ActionListener() {
+        TxtPlaca.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
+        TxtPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtNumSerieActionPerformed(evt);
+                TxtPlacaActionPerformed(evt);
             }
         });
 
@@ -110,17 +111,18 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
                         .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TxtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TxtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(BtnBuscarPlaca)
-                .addGap(201, 201, 201))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(BtnBuscarPlaca)
+                        .addGap(201, 201, 201))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(118, 118, 118))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +137,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(TxtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TxtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(BtnBuscarPlaca)
                 .addContainerGap(35, Short.MAX_VALUE))
@@ -162,7 +164,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
     private void BtnBuscarPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPlacaActionPerformed
-        if (TxtNumSerie.getText().isBlank()) {
+        if (TxtPlaca.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Campo vacio!");
         } else {
             try {
@@ -175,12 +177,12 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_BtnBuscarPlacaActionPerformed
 
-    private void TxtNumSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNumSerieActionPerformed
+    private void TxtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPlacaActionPerformed
         //
-    }//GEN-LAST:event_TxtNumSerieActionPerformed
+    }//GEN-LAST:event_TxtPlacaActionPerformed
 
     private void regresarPlaca() throws PersistenciaException {
-        dto.setNumSerie(TxtNumSerie.getText());
+        dto.setNumPlaca(TxtPlaca.getText());
 
         JHistorialPlacasAntiguas old = new JHistorialPlacasAntiguas(dto);
         old.setVisible(true);
@@ -190,7 +192,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnBuscarPlaca;
-    public javax.swing.JTextField TxtNumSerie;
+    public javax.swing.JTextField TxtPlaca;
     private javax.swing.JButton botonRegresar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

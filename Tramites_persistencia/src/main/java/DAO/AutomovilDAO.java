@@ -3,6 +3,7 @@ package DAO;
 import Entidades.Automovil;
 import excepciones.PersistenciaException;
 import interfaces.IAutomovilDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -66,7 +67,7 @@ public class AutomovilDAO implements IAutomovilDAO {
         return vehiculoBuscar;
     }
 
-    public String consultarIDAuto(String numeroSerie) {
+    public List<Automovil> consultarTablauto(String numeroSerie) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -76,8 +77,8 @@ public class AutomovilDAO implements IAutomovilDAO {
         criteria = criteria.select(root).where(builder.equal(root.get("numeroSerie"), numeroSerie));
         TypedQuery<Automovil> query = em.createQuery(criteria);
 
-        String id = query.getSingleResult().getId().toString();
-        return id;
+        List<Automovil> a = query.getResultList();
+        return a;
     }
 
 }

@@ -1,8 +1,10 @@
 package Forms;
 
+import excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import negocio.ReportesNegocio;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -17,7 +19,6 @@ public class JReporteTramite extends javax.swing.JFrame {
      */
     public JReporteTramite() {
         initComponents();
-        this.re = new ReportesNegocio();
     }
 
     /**
@@ -89,7 +90,18 @@ public class JReporteTramite extends javax.swing.JFrame {
         jLabel4.setText("Periodo de tiempo:");
         jLabel4.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
 
+        TxtNombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtNombresActionPerformed(evt);
+            }
+        });
+
         tramiteBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Licencia", "Placa" }));
+        tramiteBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tramiteBoxActionPerformed(evt);
+            }
+        });
 
         BtnBuscar.setText("Generar Reporte");
         BtnBuscar.setActionCommand("Generar");
@@ -200,9 +212,48 @@ public class JReporteTramite extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        JasperPrint jp = re.reporteTramites();
-        JasperViewer.viewReport(jp);
+        String y = selecciones().toString();
+        String x = fechaSelect().toString();
+        String b = TxtNombres.getText().toString();
+        try {
+            JReporteTabla j = new JReporteTabla(b, y, x);
+
+            j.setVisible(true);
+
+            dispose();
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JReporteTramite.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_BtnBuscarActionPerformed
+
+    private void TxtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombresActionPerformed
+        if (TxtNombres.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Cacaroto");
+        }
+    }//GEN-LAST:event_TxtNombresActionPerformed
+
+    public String selecciones() {
+        String g = null;
+        switch (tramiteBox.getSelectedItem().toString()) {
+            case "Placa":
+                g = "placas";
+                break;
+            case "Licencia":
+                g = "licencias";
+                break;
+        }
+        return g;
+    }
+
+    public String fechaSelect() {
+        String f = calendar.getSelectedDate().toString();
+        return f;
+    }
+
+    private void tramiteBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tramiteBoxActionPerformed
+
+    }//GEN-LAST:event_tramiteBoxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnBuscar;

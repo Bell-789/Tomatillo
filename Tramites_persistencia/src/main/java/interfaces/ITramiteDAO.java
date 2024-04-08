@@ -14,8 +14,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 public interface ITramiteDAO {
 
     public void actualizarTramite() throws PersistenciaException;
-    
-    public List<Tramite> consultarTramitesTabla(String idPersona) throws PersistenciaException;
 
     public JasperPrint ImprimirReporte(Connection cx);
 

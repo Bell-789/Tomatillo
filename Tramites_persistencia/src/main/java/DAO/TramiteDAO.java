@@ -135,4 +135,32 @@ public class TramiteDAO implements ITramiteDAO {
         return lista;
     }
 
+    public List<Tramite> buscarFecha(String fechaEmision) throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+        Root<Tramite> root = criteria.from(Tramite.class);
+        criteria = criteria.select(root).where(builder.equal(root.get("fechaEmision"), fechaEmision));
+        TypedQuery<Tramite> query = em.createQuery(criteria);
+
+        List<Tramite> lista = query.getResultList();
+        return lista;
+    }
+
+    public List<Tramite> buscarTramite(String tipo_tramite) throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+        Root<Tramite> root = criteria.from(Tramite.class);
+        criteria = criteria.select(root).where(builder.equal(root.get("tipo_tramite"), tipo_tramite));
+        TypedQuery<Tramite> query = em.createQuery(criteria);
+
+        List<Tramite> lista = query.getResultList();
+        return lista;
+    }
+
 }

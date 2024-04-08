@@ -10,6 +10,14 @@ import dto.AutomovilDTO;
 import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -100,6 +108,31 @@ public class ConsultasNegocio {
 
         }
         tabla.setModel(model);
+    }
+    
+    public List<Automovil> consultarTablaAutoPlaca(String numeroPlacaAnterior) throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Automovil> criteria = builder.createQuery(Automovil.class);
+            Root<Automovil> root = criteria.from(Automovil.class);
+            Join<Automovil, Placa> placasJoin = root.join("placas");
+            criteria.select(root).distinct(true).where(builder.equal(placasJoin.get("numero"), numeroPlacaAnterior));
+            TypedQuery<Automovil> query = em.createQuery(criteria);
+
+            return query.getResultList();
+        } catch (Exception ex) {
+            throw new PersistenciaException("Error al consultar la tabla de automóviles por número de placa anterior");
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
+        }
     }
 
 }

@@ -1,7 +1,10 @@
 package Forms;
 
+import Entidades.Placa;
 import dto.PlacaDTO;
 import excepciones.PersistenciaException;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import negocio.ConsultasNegocio;
 
 /**
@@ -11,14 +14,15 @@ import negocio.ConsultasNegocio;
 public class JHistorialPlacasAntiguas extends javax.swing.JFrame {
 
     private ConsultasNegocio co;
+    private List<Placa> placas;
 
     /**
      * Creates new form JHistorialPlacasAntiguas
      */
-    public JHistorialPlacasAntiguas(PlacaDTO dto) throws PersistenciaException {
+    public JHistorialPlacasAntiguas(List<Placa> placas) throws PersistenciaException {
         initComponents();
-        this.co = new ConsultasNegocio();
-        co.listarPlaca(tabla, dto);
+        this.placas = placas;
+        mostrarPlacasEnTabla();
     }
 
     /**
@@ -157,6 +161,15 @@ public class JHistorialPlacasAntiguas extends javax.swing.JFrame {
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
 
     }//GEN-LAST:event_tablaMouseClicked
+
+    private void mostrarPlacasEnTabla() {
+        DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+        model.setRowCount(0); // Limpiar la tabla antes de agregar nuevos datos
+
+        for (Placa placa : placas) {
+            model.addRow(new Object[]{placa.getId(), placa.getFechaRecepcion(), placa.getNumPlaca(), placa.getTipoVehiculo(), placa.getActivo(), placa.getMonto()});
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

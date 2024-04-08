@@ -1,6 +1,8 @@
 package negocio;
 
 import DAO.TramiteDAO;
+import Entidades.Automovil;
+import Entidades.Placa;
 import Entidades.Tramite;
 import excepciones.PersistenciaException;
 import java.sql.Connection;
@@ -9,6 +11,14 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -78,5 +88,7 @@ public class ReportesNegocio {
         }
         tabla.setModel(model);
     }
+    
+    
 
 }

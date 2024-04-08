@@ -8,7 +8,6 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import negocio.AutomovilesNegocio;
 import negocio.PersonasNegocio;
 import negocio.PlacasNegocio;
 import recursos.TipoAutomovil;
@@ -24,7 +23,6 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     private AutomovilDTO automovilDTO;
     private Validadores validadores;
     private PersonasNegocio perNeg;
-    private AutomovilesNegocio autoNeg;
     private PlacaDTO placaDTO;
     private TipoAutomovil tipo;
 
@@ -35,7 +33,6 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         initComponents();
         this.validadores = new Validadores();
         this.perNeg = new PersonasNegocio();
-        this.autoNeg = new AutomovilesNegocio();
         this.personaDTO = new PersonaDTO();
         this.automovilDTO = new AutomovilDTO();
     }

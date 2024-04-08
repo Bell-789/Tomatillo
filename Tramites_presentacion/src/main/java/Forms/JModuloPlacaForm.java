@@ -1,8 +1,13 @@
 package Forms;
 
+import DAO.AutomovilDAO;
+import Entidades.Automovil;
+import Entidades.Placa;
 import dto.AutomovilDTO;
 import dto.PlacaDTO;
 import excepciones.PersistenciaException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -16,6 +21,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
 
     private PlacaDTO dto;
     private ConsultasNegocio co;
+    private AutomovilDAO autoDao;
 
     /**
      * Creates new form JModuloPlacaForm
@@ -24,6 +30,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
         initComponents();
         this.dto = new PlacaDTO();
         this.co = new ConsultasNegocio();
+        this.autoDao = new AutomovilDAO();
     }
 
     /**
@@ -40,7 +47,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         botonRegresar1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        TxtPlaca = new javax.swing.JTextField();
+        TxtNumPlaca = new javax.swing.JTextField();
         BtnBuscarPlaca = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,10 +89,10 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel3.setText("Numero de Placa Anterior ");
 
-        TxtPlaca.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
-        TxtPlaca.addActionListener(new java.awt.event.ActionListener() {
+        TxtNumPlaca.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
+        TxtNumPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtPlacaActionPerformed(evt);
+                TxtNumPlacaActionPerformed(evt);
             }
         });
 
@@ -111,7 +118,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
                         .addComponent(botonRegresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TxtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TxtNumPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -137,7 +144,7 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(TxtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TxtNumPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(BtnBuscarPlaca)
                 .addContainerGap(35, Short.MAX_VALUE))
@@ -164,35 +171,50 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
     private void BtnBuscarPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPlacaActionPerformed
-        if (TxtPlaca.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "Campo vacio!");
+        if (TxtNumPlaca.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Campo vacío!");
         } else {
             try {
+                String numeroPlaca = TxtNumPlaca.getText();
+                List<Automovil> automoviles = co.consultarTablaAutoPlaca(numeroPlaca);
+
+                StringBuilder sb = new StringBuilder();
+                for (Automovil automovil : automoviles) {
+                    sb.append("Automóvil con número de serie: ").append(automovil.getNumeroSerie()).append("\n");
+                    List<Placa> placas = automovil.getPlacas();
+                    for (Placa placa : placas) {
+                        sb.append("  Número de Placa: ").append(placa.getNumPlaca()).append("\n");
+                    }
+                }
                 regresarPlaca();
+
             } catch (PersistenciaException ex) {
                 Logger.getLogger(JModuloPlacaForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-
     }//GEN-LAST:event_BtnBuscarPlacaActionPerformed
 
-    private void TxtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPlacaActionPerformed
+    private void TxtNumPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNumPlacaActionPerformed
         //
-    }//GEN-LAST:event_TxtPlacaActionPerformed
+    }//GEN-LAST:event_TxtNumPlacaActionPerformed
 
     private void regresarPlaca() throws PersistenciaException {
-        dto.setNumPlaca(TxtPlaca.getText());
+        String numeroPlaca = TxtNumPlaca.getText();
+        List<Automovil> automoviles = co.consultarTablaAutoPlaca(numeroPlaca);
 
-        JHistorialPlacasAntiguas old = new JHistorialPlacasAntiguas(dto);
-        old.setVisible(true);
+        List<Placa> placas = new ArrayList<>();
+        for (Automovil automovil : automoviles) {
+            placas.addAll(automovil.getPlacas());
+        }
 
+        JHistorialPlacasAntiguas historialPlacasAntiguas = new JHistorialPlacasAntiguas(placas);
+        historialPlacasAntiguas.setVisible(true);
         dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtnBuscarPlaca;
-    public javax.swing.JTextField TxtPlaca;
+    public javax.swing.JTextField TxtNumPlaca;
     private javax.swing.JButton botonRegresar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

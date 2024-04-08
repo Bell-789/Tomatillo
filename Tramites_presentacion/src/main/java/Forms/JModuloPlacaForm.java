@@ -3,7 +3,6 @@ package Forms;
 import DAO.AutomovilDAO;
 import Entidades.Automovil;
 import Entidades.Placa;
-import dto.AutomovilDTO;
 import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;

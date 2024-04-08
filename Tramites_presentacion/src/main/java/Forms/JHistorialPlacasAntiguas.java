@@ -1,7 +1,6 @@
 package Forms;
 
 import Entidades.Placa;
-import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;

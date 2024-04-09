@@ -43,47 +43,21 @@ public class ReportesNegocio {
         return null;
     }
 
-    public void buscarNombre(JTable tabla, String nombre) throws PersistenciaException {
+    public void buscarReporte(JTable tabla, String nombre, String tipoTramite, String fecha) throws PersistenciaException {
         DefaultTableModel model;
         String[] titulo = {"Monto", "Fecha de Emision", "Tipo Tramite", "Nombre"};
         model = new DefaultTableModel(null, titulo);
 
-        List<Persona> t = ma.consultarNombres(nombre);
-
-        String[] datos = new String[4];
-        for (Persona ona : t) {
-            datos[3] = ona.getNombre();
-
-        }
-
-        List<Tramite> p = d.buscarTramites();
-
-        for (Tramite rar : p) {
-            datos[0] = rar.getMonto().toString();
-            datos[1] = rar.getFechaEmision().toString();
-            datos[2] = rar.getTipo_tramite();
-
-            model.addRow(datos);
-        }
-        tabla.setModel(model);
-    }
-
-    public void buscarFecha(JTable tabla, String fecha) throws PersistenciaException {
-        DefaultTableModel model;
-        String[] titulo = {"Monto", "Fecha de Emision", "Tipo Tramite", "Nombre"};
-        model = new DefaultTableModel(null, titulo);
-
-        List<Tramite> t = d.buscarFecha(fecha);
+        List<Tramite> t = d.buscarTrioTramites(nombre, tipoTramite, fecha);
 
         String[] datos = new String[4];
         for (Tramite tramite : t) {
             datos[0] = tramite.getMonto().toString();
             datos[1] = tramite.getFechaEmision().toString();
             datos[2] = tramite.getTipo_tramite();
-
         }
 
-        List<Persona> p = ma.consultarPersonas();
+        List<Persona> p = ma.buscarTrioTramites(nombre, tipoTramite, fecha);
 
         for (Persona per : p) {
             datos[3] = per.getNombre();
@@ -91,31 +65,7 @@ public class ReportesNegocio {
             model.addRow(datos);
         }
         tabla.setModel(model);
-    }
 
-    public void buscarTramite(JTable tabla, String trasm) throws PersistenciaException {
-        DefaultTableModel model;
-        String[] titulo = {"Monto", "Fecha de Emision", "Tipo Tramite", "Nombre"};
-        model = new DefaultTableModel(null, titulo);
-
-        List<Tramite> t = d.buscarTramite(trasm);
-
-        String[] datos = new String[4];
-        for (Tramite tramite : t) {
-            datos[0] = tramite.getMonto().toString();
-            datos[1] = tramite.getFechaEmision().toString();
-            datos[2] = tramite.getTipo_tramite();
-
-        }
-
-        List<Persona> p = ma.consultarPersonas();
-
-        for (Persona per : p) {
-            datos[3] = per.getNombre();
-
-            model.addRow(datos);
-        }
-        tabla.setModel(model);
     }
 
 }

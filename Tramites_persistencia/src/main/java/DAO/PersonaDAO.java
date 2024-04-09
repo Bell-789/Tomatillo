@@ -2,6 +2,7 @@ package DAO;
 
 import interfaces.IPersonaDAO;
 import Entidades.Persona;
+import Entidades.Tramite;
 import excepciones.PersistenciaException;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,6 +15,9 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -214,4 +218,32 @@ public class PersonaDAO implements IPersonaDAO {
         List<Persona> lista = query.getResultList();
         return lista;
     }
+
+    public List<Persona> buscarTrioTramites(String nombre, String tipo, String fecha) throws PersistenciaException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<Persona> criteria = builder.createQuery(Persona.class);
+        Root<Persona> root = criteria.from(Persona.class);
+        Join<Persona, Tramite> tramiteJoin = root.join("tramites", JoinType.LEFT);
+
+        Predicate predicate1 = builder.equal(root.get("nombre"), nombre);
+        Predicate predicate2 = builder.equal(tramiteJoin.get("fechaEmision"), fecha);
+        Predicate predicate3 = builder.equal(tramiteJoin.get("tipo_tramite"), tipo);
+
+        criteria.where(predicate1, predicate2, predicate3);
+
+        //personaJoin.on(builder.equal(personaJoin.get("nombre"), nombre));
+        criteria.select(root);
+
+        List<Persona> results = em.createQuery(criteria).getResultList();
+
+        em.close();
+        emf.close();
+
+        return results;
+
+    }
+
 }

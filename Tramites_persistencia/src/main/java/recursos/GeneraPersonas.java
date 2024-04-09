@@ -1,11 +1,16 @@
 package recursos;
 
 import Entidades.Persona;
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.lang3.RandomStringUtils;
+import java.util.Arrays;
+import java.util.Base64;
+import javax.crypto.Cipher;
 
 /**
  *
@@ -125,6 +130,87 @@ public class GeneraPersonas {
         "9673412456", "0973824758", "9103940149", "3894857210", "9019341301",
         "9812351891", "1045192734", "9814352538", "1425821302", "1458295234",
         "8917845135", "9104819572", "5175175917", "9018575182", "5183715193"};
+
+    String llave = "key";
+
+    /**
+     * Metodo para generar una llave para la encriptacion
+     *
+     * @param llave que utilizamos
+     * @return llave creada
+     */
+    public SecretKeySpec crearClave(String llave) {
+        try {
+            byte[] cadena = llave.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            cadena = md.digest(cadena);
+            cadena = Arrays.copyOf(cadena, 16);
+            SecretKeySpec s = new SecretKeySpec(cadena, "AES");
+            return s;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Metodo para encriptar los telefonos de las personas
+     *
+     * @param encriptar para obtener los bytes
+     * @return String encriptado
+     */
+    public String encriptar(String encriptar) {
+        try {
+            SecretKeySpec spec = crearClave(llave);
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.ENCRYPT_MODE, spec);
+
+            byte[] cadena = encriptar.getBytes("UTF-8");
+            byte[] encriptada = cipher.doFinal(cadena);
+            String cadena_encriptada = Base64.getEncoder().encodeToString(encriptada);
+            return cadena_encriptada;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return " ";
+        }
+    }
+
+    /**
+     * Metodo para desencriptar la clave generada anteriormente
+     *
+     * @param desencriptar Clave encriptada
+     * @return La desencriptacion
+     */
+    public String desencriptar(String desencriptar) {
+        try {
+            SecretKeySpec spec = crearClave(llave);
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, spec);
+
+            byte[] cadena = Base64.getDecoder().decode(desencriptar);
+            byte[] desencriptacion = cipher.doFinal(cadena);
+            String cadena_desencriptacion = new String(desencriptacion);
+            return cadena_desencriptacion;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return " ";
+        }
+    }
+
+    /**
+     * Metodo que encripta todos los telefonos de las personas
+     *
+     * @return Lista de telefonos encriptados
+     */
+    public String[] telefonosEncriptados() {
+        String[] s = new String[20];
+
+        for (int i = 0; i < s.length; i++) {
+            String m = telefono[i];
+            String arrow = encriptar(m);
+            s[i] = arrow;
+        }
+        return s;
+    }
 
     /**
      * Arreglo de String con los RFC.

@@ -10,7 +10,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Katt
  */
 public class JReporteTabla extends javax.swing.JFrame {
-
+    
     private ReportesNegocio re = new ReportesNegocio();
 
     /**
@@ -19,9 +19,7 @@ public class JReporteTabla extends javax.swing.JFrame {
     public JReporteTabla(String nombre, String tramite, String fecha) throws PersistenciaException {
         initComponents();
         this.re = new ReportesNegocio();
-        re.buscarFecha(jTable1, fecha);
-        re.buscarTramite(jTable1, tramite);
-        re.buscarNombre(jTable1, nombre);
+        re.buscarReporte(tablon, nombre, tramite, fecha);
     }
 
     /**
@@ -38,7 +36,7 @@ public class JReporteTabla extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablon = new javax.swing.JTable();
         generarReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,7 +75,7 @@ public class JReporteTabla extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -103,7 +101,7 @@ public class JReporteTabla extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablon);
 
         generarReporte.setBackground(new java.awt.Color(175, 244, 198));
         generarReporte.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
@@ -165,7 +163,7 @@ public class JReporteTabla extends javax.swing.JFrame {
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
         JReporteTramite te = new JReporteTramite();
         te.setVisible(true);
-
+        
         dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
@@ -181,6 +179,6 @@ public class JReporteTabla extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablon;
     // End of variables declaration//GEN-END:variables
 }

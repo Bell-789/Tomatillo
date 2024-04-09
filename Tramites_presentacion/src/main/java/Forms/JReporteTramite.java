@@ -105,7 +105,7 @@ public class JReporteTramite extends javax.swing.JFrame {
             }
         });
 
-        BtnBuscar.setText("Generar Reporte");
+        BtnBuscar.setText("Buscar");
         BtnBuscar.setActionCommand("Generar");
         BtnBuscar.setBackground(new java.awt.Color(175, 244, 198));
         BtnBuscar.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
@@ -140,13 +140,10 @@ public class JReporteTramite extends javax.swing.JFrame {
                                     .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(TxtNombres)
-                                        .addComponent(tramiteBox, 0, 154, Short.MAX_VALUE)))))
+                                        .addComponent(tramiteBox, 0, 154, Short.MAX_VALUE))
+                                    .addComponent(BtnBuscar))))
                         .addGap(0, 27, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(233, 233, 233)
-                .addComponent(BtnBuscar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,9 +166,9 @@ public class JReporteTramite extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(BtnBuscar)
-                .addGap(29, 29, 29))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -212,18 +209,27 @@ public class JReporteTramite extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        String y = selecciones().toString();
-        String x = fechaSelect().toString();
-        String b = TxtNombres.getText().toString();
-        try {
-            JReporteTabla j = new JReporteTabla(b, y, x);
+        if (TxtNombres.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "");
+        } else {
+            if (calendar.getSelectedDate() == null) {
+                JOptionPane.showMessageDialog(null, "Seleccionar una fecha adecuada!");
+            } else {
+                String y = selecciones().toString();
+                String x = fechaSelect().toString();
+                String b = TxtNombres.getText().toString();
+                try {
+                    JReporteTabla j = new JReporteTabla(b, y, x);
 
-            j.setVisible(true);
+                    j.setVisible(true);
 
-            dispose();
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(JReporteTramite.class.getName()).log(Level.SEVERE, null, ex);
+                    dispose();
+                } catch (PersistenciaException ex) {
+                    Logger.getLogger(JReporteTramite.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
+
 
     }//GEN-LAST:event_BtnBuscarActionPerformed
 

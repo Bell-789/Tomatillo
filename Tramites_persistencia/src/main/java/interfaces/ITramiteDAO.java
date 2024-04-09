@@ -13,8 +13,12 @@ import net.sf.jasperreports.engine.JasperPrint;
  */
 public interface ITramiteDAO {
 
-    public void actualizarTramite() throws PersistenciaException;
-
+    /**
+     * Imprime el reporte de los recursos 
+     * 
+     * @param cx Conexion por medio de jdbc
+     * @return Reporte para imprimir
+     */
     public JasperPrint ImprimirReporte(Connection cx);
 
     /**

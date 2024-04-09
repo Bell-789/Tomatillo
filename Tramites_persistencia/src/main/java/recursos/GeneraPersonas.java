@@ -55,6 +55,11 @@ public class GeneraPersonas {
      */
     private Calendar[] fechaNacimiento;
 
+    /**
+     * Arreglo que agrega las fechas de nacimiento de los 20 insertados 
+     * 
+     * @return todas las fechas
+     */
     public Calendar[] fechas() {
         Calendar[] c = new Calendar[20];
 
@@ -241,6 +246,12 @@ public class GeneraPersonas {
         return RFCa;
     }
 
+    /**
+     * Metodo para sacar el mes del calendario 
+     * 
+     * @param i
+     * @return mes en especifico con numeros
+     */
     private String mes(int i) {
         if (i < 10) {
             return "0" + i;

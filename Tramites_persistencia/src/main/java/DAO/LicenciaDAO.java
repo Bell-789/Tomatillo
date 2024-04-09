@@ -14,6 +14,12 @@ import javax.persistence.Persistence;
  */
 public class LicenciaDAO implements ILicenciaDAO {
 
+    /**
+     * Metodo que inserta la Licencia en la base de datos
+     *
+     * @param licencia Licencia nueva
+     * @return Licencia creada
+     */
     public Licencia insertarLicencia(Licencia licencia) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -27,10 +33,5 @@ public class LicenciaDAO implements ILicenciaDAO {
         em.close();
 
         return licencia;
-    }
-
-    public boolean buscarLicenciaVigente(Licencia licencia) throws PersistenciaException {
-        
-        return true;
     }
 }

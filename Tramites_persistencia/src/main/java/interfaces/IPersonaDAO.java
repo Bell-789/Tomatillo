@@ -60,6 +60,14 @@ public interface IPersonaDAO {
      */
     public List<Persona> consultarFechaNacimiento(String fechaNac) throws PersistenciaException;
 
+    /**
+     * Metodo que consulta por el rfc para hacer una tabla
+     * 
+     * @param rfc a buscar
+     * @return Lista de Personas
+     * @throws PersistenciaException Arroja una excepcion de tipo
+     * PersistenciaException
+     */
     public List<Persona> consultarRFCTabla(String rfc) throws PersistenciaException;
 
     /**
@@ -70,21 +78,5 @@ public interface IPersonaDAO {
      * PersistenciaException
      */
     public Persona consultarRFC(Persona persona) throws PersistenciaException;
-
-    /**
-     * Actualiza la lista de Automoviles
-     *
-     * @throws PersistenciaException Arroja una excepcion de tipo
-     * PersistenciaException
-     */
-    public void actualizarAutomoviles(Persona persona) throws PersistenciaException;
-
-    /**
-     * Actualiza la lista de Tramites
-     *
-     * @throws PersistenciaException Arroja una excepcion de tipo
-     * PersistenciaException
-     */
-    public void actualizarTramites(Persona persona) throws PersistenciaException;
 
 }

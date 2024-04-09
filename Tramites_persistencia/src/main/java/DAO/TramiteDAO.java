@@ -102,9 +102,6 @@ public class TramiteDAO implements ITramiteDAO {
         return tramites;
     }
 
-    public void actualizarTramite() throws PersistenciaException {
-    }
-
     public JasperPrint ImprimirReporte(Connection cx) {
         InputStream is = getClass().getResourceAsStream("/reportes/Tramite.jasper");
         if (is == null) {

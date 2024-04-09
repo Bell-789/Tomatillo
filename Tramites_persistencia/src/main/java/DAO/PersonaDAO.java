@@ -59,7 +59,13 @@ public class PersonaDAO implements IPersonaDAO {
         return persona;
     }
 
-    @Override
+    /**
+     * Inserta en la base de datos a 20 personas dadas en el parametro
+     *
+     * @param personas Lista de personas a insertar
+     * @throws PersistenciaException En caso de que exista algun error al
+     * insertar a las personas
+     */
     public void VeintePersonas(List<Persona> personas) throws PersistenciaException {
         for (Persona per : personas) {
             try {
@@ -72,12 +78,6 @@ public class PersonaDAO implements IPersonaDAO {
                 throw new PersistenciaException("Personas repetidas");
             }
         }
-    }
-
-    public void actualizarAutomoviles() throws PersistenciaException {
-    }
-
-    public void actualizarTramites() throws PersistenciaException {
     }
 
     /**
@@ -127,13 +127,13 @@ public class PersonaDAO implements IPersonaDAO {
         return count != 0;
     }
 
-    public void actualizarAutomoviles(Persona persona) throws PersistenciaException {
-    }
-
-    public void actualizarTramites(Persona persona) throws PersistenciaException {
-    }
-
-    @Override
+    /**
+     * Consulta por un RFC para devolver una persona
+     *
+     * @return Persona solicitada
+     * @throws PersistenciaException Arroja una excepcion de tipo
+     * PersistenciaException
+     */
     public Persona consultarRFC(Persona persona) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -155,6 +155,13 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Consulta por un RFC en especifico
+     *
+     * @return Lista de los RFC consultados
+     * @throws PersistenciaException Arroja una excepcion de tipo
+     * PersistenciaException
+     */
     public Persona consultarRFC(String rfc) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -177,6 +184,13 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Consulta por medio de un nombre dado en especifico
+     *
+     * @return Lista del nombre consultado
+     * @throws PersistenciaException Arroja una excepcion de tipo
+     * PersistenciaException
+     */
     public List<Persona> consultarNombres(String nombre) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -191,6 +205,13 @@ public class PersonaDAO implements IPersonaDAO {
         return lista;
     }
 
+    /**
+     * Consulta por medio de una Fecha de Nacimiento en especifíco
+     *
+     * @return Lista de las Fechas de nacimiento consultadas
+     * @throws PersistenciaException Arroja una excepcion de tipo
+     * PersistenciaException
+     */
     public List<Persona> consultarFechaNacimiento(String fechaNac) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -205,6 +226,14 @@ public class PersonaDAO implements IPersonaDAO {
         return lista;
     }
 
+    /**
+     * Metodo que consulta por el rfc para hacer una tabla
+     *
+     * @param rfc a buscar
+     * @return Lista de Personas
+     * @throws PersistenciaException Arroja una excepcion de tipo
+     * PersistenciaException
+     */
     public List<Persona> consultarRFCTabla(String rfc) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -219,6 +248,16 @@ public class PersonaDAO implements IPersonaDAO {
         return lista;
     }
 
+    /**
+     * Busca la lista de Personas por medio de 3 parametros
+     *
+     * @param nombre
+     * @param tipo
+     * @param fecha
+     * @return Lista de Personas
+     * @throws PersistenciaException Arroja una excepcion de tipo
+     * PersistenciaException
+     */
     public List<Persona> buscarTrioTramites(String nombre, String tipo, String fecha) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();

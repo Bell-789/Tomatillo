@@ -19,6 +19,14 @@ import javax.persistence.criteria.Root;
  */
 public class AutomovilDAO implements IAutomovilDAO {
 
+    /**
+     * Metodo que registra el automovil
+     *
+     * @param automovil Nuevo automovil generado
+     * @return Automovil en la base de datos
+     * @throws PersistenciaException tira una persistencia de tipo
+     * PersistenciaException
+     */
     public Automovil registrarAuto(Automovil automovil) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -32,6 +40,12 @@ public class AutomovilDAO implements IAutomovilDAO {
         return automovil;
     }
 
+    /**
+     * Metodo que regresa si el numero de serie ya existe para que no se repita
+     * 
+     * @param Automovil a consultar
+     * @return True or False
+     */
     public boolean existeNumeroSerie(Automovil Automovil) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -48,6 +62,14 @@ public class AutomovilDAO implements IAutomovilDAO {
         return count > 0;
     }
 
+    /**
+     * Metodo que busca el vehiculo solicitado
+     * 
+     * @param vehiculo a cosnultar
+     * @return Automovil del que se busco
+     * @throws PersistenceException tira una persistencia de tipo
+     * PersistenciaException
+     */
     public Automovil buscarVehiculo(Automovil vehiculo) throws PersistenceException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -67,6 +89,12 @@ public class AutomovilDAO implements IAutomovilDAO {
         return vehiculoBuscar;
     }
 
+    /**
+     * Consulta la tabla de Automovil por medio del numero de serie
+     * 
+     * @param numeroSerie a comparar
+     * @return Lista de Automovil
+     */
     public List<Automovil> consultarTablauto(String numeroSerie) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();

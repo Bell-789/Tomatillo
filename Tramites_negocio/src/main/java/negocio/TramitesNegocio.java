@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,6 +50,7 @@ public class TramitesNegocio {
             }
             return tramitesDTOEncontrados;
         } catch (PersistenciaException ex) {
+            JOptionPane.showMessageDialog(null, "No fue posible consultar la lista de tramites");
             Logger.getLogger(TramitesNegocio.class.getName()).log(Level.SEVERE, "No fue posible consultar la lista de tramites");
             return null;
         }

@@ -72,8 +72,11 @@ public class PersonasNegocio {
                     persona.getFechaNacimiento()
             );
 
+            JOptionPane.showMessageDialog(null, "Se encontro la persona!");
+            
             return personaEncontrada;
         } catch (PersistenciaException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontró una persona con el RFC especificado");
             throw new PersistenciaException("No se encontró una persona con el RFC especificado." + ex);
         }
     }

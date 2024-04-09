@@ -117,7 +117,5 @@ public class ReportesNegocio {
         }
         tabla.setModel(model);
     }
-    
-    
 
 }

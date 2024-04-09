@@ -6,7 +6,6 @@ import DAO.TramiteDAO;
 import Entidades.Automovil;
 import Entidades.Placa;
 import Entidades.Tramite;
-import dto.AutomovilDTO;
 import dto.PlacaDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
@@ -18,6 +17,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -109,7 +109,7 @@ public class ConsultasNegocio {
         }
         tabla.setModel(model);
     }
-    
+
     public List<Automovil> consultarTablaAutoPlaca(String numeroPlacaAnterior) throws PersistenciaException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -124,6 +124,7 @@ public class ConsultasNegocio {
 
             return query.getResultList();
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al consultar la tabla de automóviles por número de placa anterior");
             throw new PersistenciaException("Error al consultar la tabla de automóviles por número de placa anterior");
         } finally {
             if (em != null) {

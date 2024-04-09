@@ -113,10 +113,20 @@ public class JConsultas extends javax.swing.JFrame {
                 TxtNombresActionPerformed(evt);
             }
         });
+        TxtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNombresKeyTyped(evt);
+            }
+        });
 
         TxtRFC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtRFCActionPerformed(evt);
+            }
+        });
+        TxtRFC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtRFCKeyPressed(evt);
             }
         });
 
@@ -178,7 +188,7 @@ public class JConsultas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(TxtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TxtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
@@ -233,9 +243,10 @@ public class JConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresar3ActionPerformed
 
     private void TxtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRFCActionPerformed
-        if (TxtRFC.getText().equals(null)) {
+        if (TxtRFC.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Campo vacio!");
         } else {
+            validarCaracteresRFC();
             try {
                 pe.listarRfc(table, TxtRFC.getText());
             } catch (PersistenciaException ex) {
@@ -245,7 +256,7 @@ public class JConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtRFCActionPerformed
 
     private void TxtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtFechaNacimientoActionPerformed
-        if (TxtFechaNacimiento.getText().equals(null)) {
+        if (TxtFechaNacimiento.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Campo Vacio!");
         } else {
             if (!this.TxtFechaNacimiento.getText().matches("^\\d{4}-(0?[1-9]|1[0-2])-(3[01]|[12][0-9]|0?[1-9])$")) {
@@ -262,15 +273,7 @@ public class JConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtFechaNacimientoActionPerformed
 
     private void TxtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombresActionPerformed
-        if (TxtNombres.getText().equals(null)) {
-            JOptionPane.showMessageDialog(null, "Campo Vacio!");
-        } else {
-            try {
-                pe.listarNombres(table, TxtNombres.getText());
-            } catch (PersistenciaException ex) {
-                Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+
     }//GEN-LAST:event_TxtNombresActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
@@ -292,6 +295,33 @@ public class JConsultas extends javax.swing.JFrame {
             Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tableMouseClicked
+
+    private void TxtRFCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtRFCKeyPressed
+
+    }//GEN-LAST:event_TxtRFCKeyPressed
+
+    private void TxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNombresKeyTyped
+        validarCaracteresNombre();
+        try {
+            pe.listarNombres(table, TxtNombres.getText());
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(JConsultas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_TxtNombresKeyTyped
+
+    private void validarCaracteresRFC() {
+        if (TxtRFC.getText().length() > 13) {
+            JOptionPane.showMessageDialog(null, "Demasiados Caracteres, Solo se permiten 13");
+        } else if (TxtRFC.getText().length() < 13) {
+            JOptionPane.showMessageDialog(null, "ERROR! FALTA DE CARACTERES EN EL RFC");
+        }
+    }
+
+    private void validarCaracteresNombre() {
+        if (TxtNombres.getText().length() > 100) {
+            JOptionPane.showMessageDialog(null, "Supero el numero de Caracteres, Solo se permiten menos de 100");
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -17,7 +17,7 @@ import negocio.ConsultasNegocio;
  * @author Bell
  */
 public class JModuloPlacaForm extends javax.swing.JFrame {
-
+    
     private PlacaDTO dto;
     private ConsultasNegocio co;
     private AutomovilDAO autoDao;
@@ -173,42 +173,56 @@ public class JModuloPlacaForm extends javax.swing.JFrame {
         if (TxtNumPlaca.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Campo vacío!");
         } else {
-            try {
-                String numeroPlaca = TxtNumPlaca.getText();
-                List<Automovil> automoviles = co.consultarTablaAutoPlaca(numeroPlaca);
-
-                StringBuilder sb = new StringBuilder();
-                for (Automovil automovil : automoviles) {
-                    sb.append("Automóvil con número de serie: ").append(automovil.getNumeroSerie()).append("\n");
-                    List<Placa> placas = automovil.getPlacas();
-                    for (Placa placa : placas) {
-                        sb.append("  Número de Placa: ").append(placa.getNumPlaca()).append("\n");
+            validarCaracteresPlaca();
+            if (!TxtNumPlaca.getText().matches("^[a-zA-Z]{3}-\\d{3}$")) {
+                JOptionPane.showMessageDialog(null, "Formato de placa invalido, 'XXX-000'");
+            } else {
+                try {
+                    String numeroPlaca = TxtNumPlaca.getText();
+                    List<Automovil> automoviles = co.consultarTablaAutoPlaca(numeroPlaca);
+                    
+                    StringBuilder sb = new StringBuilder();
+                    for (Automovil automovil : automoviles) {
+                        sb.append("Automóvil con número de serie: ").append(automovil.getNumeroSerie()).append("\n");
+                        List<Placa> placas = automovil.getPlacas();
+                        for (Placa placa : placas) {
+                            sb.append("  Número de Placa: ").append(placa.getNumPlaca()).append("\n");
+                        }
                     }
+                    regresarPlaca();
+                    
+                } catch (PersistenciaException ex) {
+                    Logger.getLogger(JModuloPlacaForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                regresarPlaca();
-
-            } catch (PersistenciaException ex) {
-                Logger.getLogger(JModuloPlacaForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }//GEN-LAST:event_BtnBuscarPlacaActionPerformed
 
     private void TxtNumPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNumPlacaActionPerformed
         //
     }//GEN-LAST:event_TxtNumPlacaActionPerformed
-
+    
     private void regresarPlaca() throws PersistenciaException {
         String numeroPlaca = TxtNumPlaca.getText();
         List<Automovil> automoviles = co.consultarTablaAutoPlaca(numeroPlaca);
-
+        
         List<Placa> placas = new ArrayList<>();
         for (Automovil automovil : automoviles) {
             placas.addAll(automovil.getPlacas());
         }
-
+        
         JHistorialPlacasAntiguas historialPlacasAntiguas = new JHistorialPlacasAntiguas(placas);
         historialPlacasAntiguas.setVisible(true);
         dispose();
+    }
+    
+    private void validarCaracteresPlaca() {
+        if (TxtNumPlaca.getText().length() < 7) {
+            JOptionPane.showMessageDialog(null, "Las placas contienen 6 caracteres 'XXX-000'");
+        } else if (TxtNumPlaca.getText().length() > 7) {
+            JOptionPane.showMessageDialog(null, "Demasiados Caracteres! Solo se permiten 6");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

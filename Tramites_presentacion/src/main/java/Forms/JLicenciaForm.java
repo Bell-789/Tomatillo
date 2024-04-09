@@ -79,24 +79,24 @@ public class JLicenciaForm extends javax.swing.JFrame {
 
         azul.setBackground(new java.awt.Color(18, 234, 207));
 
-        jLabel2.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel2.setText("Módulo de Licencias");
 
         javax.swing.GroupLayout azulLayout = new javax.swing.GroupLayout(azul);
         azul.setLayout(azulLayout);
         azulLayout.setHorizontalGroup(
             azulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(azulLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, azulLayout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
         azulLayout.setVerticalGroup(
             azulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(azulLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel2)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         botonRegresar.setBackground(new java.awt.Color(117, 117, 117));
@@ -121,6 +121,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
             }
         });
 
+        RFCBusqueda.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         RFCBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RFCBusquedaActionPerformed(evt);
@@ -128,6 +129,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
         });
 
         txtNombre.setEditable(false);
+        txtNombre.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
@@ -135,6 +137,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
         });
 
         txtNacimiento.setEditable(false);
+        txtNacimiento.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         txtNacimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNacimientoActionPerformed(evt);
@@ -142,6 +145,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
         });
 
         txtTelefono.setEditable(false);
+        txtTelefono.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonoActionPerformed(evt);
@@ -150,7 +154,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
 
         BtnBuscar.setBackground(new java.awt.Color(175, 244, 198));
         BtnBuscar.setFont(new java.awt.Font("Lucida Sans", 1, 14)); // NOI18N
-        BtnBuscar.setText("BUSCAR");
+        BtnBuscar.setText("Buscar");
         BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnBuscarActionPerformed(evt);
@@ -167,6 +171,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
             }
         });
 
+        cbVigencia.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         cbVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 año", "2 años", "3 años" }));
         cbVigencia.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -179,8 +184,10 @@ public class JLicenciaForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel3.setText("Vigencia:");
 
+        chbDiscapacidad.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         chbDiscapacidad.setText("Discapacidad");
         chbDiscapacidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,15 +196,23 @@ public class JLicenciaForm extends javax.swing.JFrame {
         });
 
         txtMonto.setEditable(false);
+        txtMonto.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         txtMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMontoActionPerformed(evt);
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel5.setText("Monto:");
 
         txtRFC.setEditable(false);
+        txtRFC.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
+        txtRFC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRFCActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
@@ -206,46 +221,47 @@ public class JLicenciaForm extends javax.swing.JFrame {
             .addGroup(fondoLayout.createSequentialGroup()
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(fondoLayout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(jLabel1)
-                        .addGap(26, 26, 26)
-                        .addComponent(RFCBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(BtnBuscar))
-                    .addGroup(fondoLayout.createSequentialGroup()
-                        .addGap(222, 222, 222)
-                        .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(fondoLayout.createSequentialGroup()
-                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(fondoLayout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addComponent(azul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addGap(26, 26, 26)
                         .addComponent(botonRegresar5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(275, 275, 275)
+                        .addGap(281, 281, 281)
                         .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(fondoLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
+                        .addGap(181, 181, 181)
+                        .addComponent(jLabel5)
+                        .addGap(29, 29, 29)
+                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addGap(152, 152, 152)
                         .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(fondoLayout.createSequentialGroup()
-                                    .addComponent(cbVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(chbDiscapacidad))
                                 .addComponent(txtNacimiento, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
                             .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtRFC, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))))
+                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(fondoLayout.createSequentialGroup()
-                        .addGap(214, 214, 214)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(chbDiscapacidad)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(fondoLayout.createSequentialGroup()
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(jLabel1)
+                        .addGap(26, 26, 26)
+                        .addComponent(RFCBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnBuscar))
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addGap(230, 230, 230)
+                        .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,7 +277,7 @@ public class JLicenciaForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RFCBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RFCBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnBuscar))
                 .addGap(18, 18, 18)
                 .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,19 +286,19 @@ public class JLicenciaForm extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(txtNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(chbDiscapacidad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(20, 20, 20)
+                    .addComponent(jLabel5)
+                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -307,6 +323,16 @@ public class JLicenciaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        if (RFCBusqueda.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Campos vacios, favor de rellenar!");
+        } else {
+            validarCaracteresRFC();
+            try {
+                buscar();
+            } catch (PersistenciaException ex) {
+                Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         Calendar fechaEmision = Calendar.getInstance();
         lic = new LicenciaDTO(
                 tipo,
@@ -326,10 +352,15 @@ public class JLicenciaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        try {
-            buscar();
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
+        if (RFCBusqueda.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Campos vacios. favor de rellenar!");
+        } else {
+            validarCaracteresRFC();
+            try {
+                buscar();
+            } catch (PersistenciaException ex) {
+                Logger.getLogger(JLicenciaForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
@@ -350,10 +381,11 @@ public class JLicenciaForm extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE
             );
             return;
-        }
-        if (!validadores.validaRfc(RFCb)) {
-            mostrarMensajeErrorFormatoRFC();
-            return;
+        } else {
+            if (!validadores.validaRfc(RFCb)) {
+                mostrarMensajeErrorFormatoRFC();
+                return;
+            }
         }
         personaDTO = perNeg.consultarPersonaPorRfc(personaDTO);
         validarPersona();
@@ -482,6 +514,18 @@ public class JLicenciaForm extends javax.swing.JFrame {
             cambiarEstadoCosto();
         }
     }//GEN-LAST:event_cbVigenciaItemStateChanged
+
+    private void txtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRFCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRFCActionPerformed
+
+    private void validarCaracteresRFC() {
+        if (RFCBusqueda.getText().length() > 13) {
+            JOptionPane.showMessageDialog(null, "Demasiados Caracteres, Solo se permiten 13");
+        } else if (RFCBusqueda.getText().length() < 13) {
+            JOptionPane.showMessageDialog(null, "ERROR! FALTA DE CARACTERES EN EL RFC");
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

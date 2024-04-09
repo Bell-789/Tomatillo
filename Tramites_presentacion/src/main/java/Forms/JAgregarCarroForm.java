@@ -18,7 +18,7 @@ import validaciones.Validadores;
  * @author Bell
  */
 public class JAgregarCarroForm extends javax.swing.JFrame {
-    
+
     private PersonaDTO personaDTO;
     private AutomovilDTO automovilDTO;
     private Validadores validadores;
@@ -155,6 +155,12 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Lucida Sans", 0, 20)); // NOI18N
         jLabel7.setText("RFC de la persona");
 
+        TxtRfc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtRfcActionPerformed(evt);
+            }
+        });
+
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
         cbxTipo.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
@@ -219,8 +225,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(TxtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(bBuscar))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -288,7 +293,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
         JPlacaMenu m = new JPlacaMenu();
         m.setVisible(true);
-        
+
         dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
@@ -308,6 +313,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE
                 );
             } else {
+                validarCaracteresRFC();
                 try {
                     buscar();
                 } catch (PersistenciaException ex) {
@@ -315,7 +321,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                 }
             }
             if (!validadores.validaRfc(TxtRfc.getText())) {
-                JOptionPane.showMessageDialog(null, "Ingrese datos validos plis");
+                JOptionPane.showMessageDialog(null, "Ingrese datos validos");
             } else {
                 cargarDatosVehiculo();
                 try {
@@ -328,7 +334,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
                     Logger.getLogger(JAgregarCarroForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
         }
     }//GEN-LAST:event_BtnRegistrarCarroActionPerformed
 
@@ -345,13 +351,22 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumSerieActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-        try {
-            buscar();
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(JAgregarCarroForm.class.getName()).log(Level.SEVERE, null, ex);
+        if (TxtRfc.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Ingrese datos para el RFC");
+        } else {
+            validarCaracteresRFC();
+            try {
+                buscar();
+            } catch (PersistenciaException ex) {
+                Logger.getLogger(JAgregarCarroForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_bBuscarActionPerformed
-    
+
+    private void TxtRfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRfcActionPerformed
+
+    }//GEN-LAST:event_TxtRfcActionPerformed
+
     private void buscar() throws PersistenciaException {
         personaDTO = new PersonaDTO(TxtRfc.getText());
         String RFCb = TxtRfc.getText();
@@ -374,7 +389,7 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         }
         personaDTO = perNeg.consultarPersonaPorRfc(personaDTO);
     }
-    
+
     private void cargarDatosVehiculo() {
         automovilDTO.setLinea(txtLineaVehiculo.getText());
         automovilDTO.setColor(txtColorVehiculo.getText());
@@ -393,6 +408,14 @@ public class JAgregarCarroForm extends javax.swing.JFrame {
         placaDTO.setTipoVehiculo(cbxTipo.getSelectedItem().toString());
         placaDTO.setVehiculo(automovilDTO);
         placaDTO.setFechaRecepcion(Calendar.getInstance());
+    }
+
+    private void validarCaracteresRFC() {
+        if (TxtRfc.getText().length() > 13) {
+            JOptionPane.showMessageDialog(null, "Demasiados Caracteres, Solo se permiten 13");
+        } else if (TxtRfc.getText().length() < 13) {
+            JOptionPane.showMessageDialog(null, "ERROR! FALTA DE CARACTERES EN EL RFC");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
